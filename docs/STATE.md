@@ -15,24 +15,14 @@ Last updated: 2026-09-27
 | Secrets | One: `RESEND_API_KEY`, set in Vercel for Production and Preview. Never in the repository |
 | The 402 app | A separate repository. The website's privacy policy must match the app's `apps/mobile/src/features/legal/policy.ts` (`pnpm policy:check`) |
 
-## In flight
+## Latest
 
-**Pages v2** — the inner pages, the 402's page and its four help pages — is built, reviewed and **approved by Jaycee on 2026-09-27**, in five stacked pull requests. Merge them **in this order, each with "Create a merge commit" (not squash)**, letting GitHub delete each branch so the next one retargets to `main`:
-
-| # | Branch | What |
-| --- | --- | --- |
-| 1 | `design/pages-v2` | Docs, references, the 402's tokens |
-| 3 | `feature/content-layer` | Stage 3: typed content, the legal text, build-time checks |
-| 4 | `page/the-402` | Stage 4, part 1: the 402 page, its help pages, the beta signup |
-| 5 | `page/inner-pages` | Stage 4, part 2: My work, About, Side projects, Contact; the nav; page transitions |
-| 6 | `page/pages-v2-polish` | Jaycee's copy, the About pins, rounded screens, launch legal text, both favicons, Side projects rename, this final docs pass |
-
-#2 (favicon and title) was folded into #6 and closed.
+**Pages v2 is live on bytw12ve.com** — merged to `main` on 2026-09-27 (#1, #4 and #6 merged; #3 and #5 were built into #4 and #6 and closed). Every route answers, `/playground` redirects to `/projects`, the 14-day text and the pending markers are absent from production, and CI is green on `main`. Stages 3 and 4 are closed.
 
 ## Next action
 
-1. **Jaycee merges #1 → #3 → #4 → #5 → #6.** That closes Stages 3 and 4 and puts `/402/privacy`, `/402/support` and `/402/delete-account` live for the store submissions (target: live by **October 24**; beta opens **October 31, 2026**).
-2. **The 402 app takes privacy policy v1.1** (the update request is with Jaycee). Until then `pnpm policy:check` fails, and that is expected.
+1. **The 402 app takes privacy policy v1.1** (the update request is with Jaycee). Until then `pnpm policy:check` fails, and that is expected.
+2. **One real beta signup on production**, to confirm the email arrives.
 3. **Stage 6** — SEO, metadata and the designed 404 (`docs/BUILD.md` §Stage 6).
 
 ## Open items
@@ -62,8 +52,8 @@ Exit criteria in `docs/BUILD.md` §Build Stages. A stage closes only when its cr
 | 0 | Foundation and guardrails | CI + token parity | ✅ closed 2026-09-20 |
 | 1 | Layout shell and primitives | keyboard, axe | ✅ closed 2026-09-20 |
 | 2 | Hero | Jaycee review | ✅ closed 2026-09-26 (real-phone smoothness still open) |
-| 3 | Content layer | build-time validation | ✅ built, exit criteria proved; closes when #3 merges |
-| 4 | Inner pages and the 402 | four breakpoints, Jaycee review | ✅ built, approved 2026-09-27; closes when #6 merges |
+| 3 | Content layer | build-time validation | ✅ closed 2026-09-27, merged |
+| 4 | Inner pages and the 402 | four breakpoints, Jaycee review | ✅ closed 2026-09-27, approved and merged |
 | 5 | Case study route | Jaycee review | deferred |
 | 6 | SEO, metadata, 404 | discovery checklist | **next** |
 | 7 | Launch QA | performance gates | not started |
