@@ -17,19 +17,22 @@ Last updated: 2026-09-27
 
 ## Latest
 
-**Pages v2 is live on bytw12ve.com. Policy v1.2 is prepared but not deployed.** The `codex/402-policy-v1-2` branch removes the unbuilt “Make lists” claim, adds the beta-form notice and v1.2 copy, and makes cross-repository parity a mandatory CI gate against an exact The 402 commit. Production remains on v1.1 until this branch is reviewed, merged and deployed.
+**Pages v2 and The 402 policy v1.2 are live on bytw12ve.com.** PR #9 merged as
+`5a77c18685892d716a35883b3898ac1be2820d33`. Production removes the unbuilt “Make lists”
+claim, adds the beta-form notice and v1.2 copy, and enforces cross-repository parity against The
+402's exact reviewed Stage 10 head. The five public 402 routes were verified returning HTTP 200;
+privacy showed Version 1.2 effective September 27, 2026 with its Resend and 30-day language.
 
 ## Next action
 
-1. Pin CI to the final accepted The 402 Stage 10 commit, run the complete affected-file/CI gate, and open the policy v1.2 pull request. Do not merge or deploy it as part of Stage 10 closeout.
-2. After separately authorized merge/deployment, verify the live v1.2 policy and absence of “Make lists.”
-3. **One real beta signup on production**, to confirm the email arrives, remains a later authorized production check.
+1. **One real beta signup on production**, to confirm the email arrives, remains a later
+   authorized production check.
+2. Continue with Stage 6 SEO/metadata/404 work when Jaycee authorizes that stage.
 
 ## Open items
 
 | Item | Owner | Notes |
 | --- | --- | --- |
-| Policy v1.2 release | Stage 10 closeout / Jaycee | Source parity is prepared. CI must pin the final accepted The 402 commit; production remains v1.1 until separately merged and deployed |
 | Repository-wide formatting debt | existing site backlog | The full-tree formatter reports 24 unrelated files from `main`. This policy PR formats and checks only its affected files; it does not broaden into that debt |
 | 14-day deletion grace period | Jaycee (app side) | Build and test it in the app, add it to `policy.ts`, then drop `pending` from the site's delete-account section and add it to `content/the-402/privacy.ts` |
 | Legal review before launch | Jaycee | From her legal draft: confirm the legal operator behind twelve. and whether to publish a mailing address; whether stored location coordinates are precise/sensitive data, the consent flow, and reducing precision; real retention for logs, email and backups; Apple App Privacy and Google Play Data Safety answers; organizer posting, moderation and content rights; Nebraska counsel on the Nebraska Data Privacy Act (appeals process if it applies), processor contracts, the liability clause and any cap, and dispute resolution |
@@ -67,6 +70,18 @@ The full rules are in `docs/TWELVE.md` §Working Rules: read the docs before mea
 ---
 
 # History
+
+### The 402 policy v1.2 — PR 9, 2026-09-27
+
+Jaycee authorized the release after The 402's Stage 10 exact-head checks passed. PR #9 merged
+as `5a77c18685892d716a35883b3898ac1be2820d33`; its two CI runs, Vercel preview and post-merge
+`main` CI passed. The mandatory parity check uses a dedicated read-only deploy key and pins The
+402 at `3f2fc05ffbace318d389b79310e43fdbe985e7be`.
+
+Production returned HTTP 200 for `/work/the-402`, `/402/privacy`, `/402/terms`, `/402/support`
+and `/402/delete-account`. The live privacy page showed Version 1.2 effective September 27,
+2026 with Resend and 30-day language, and “Make lists” was absent from the live project page.
+The real beta-form email delivery check remains separately authorized future work.
 
 ### Pages v2 — the plan
 
