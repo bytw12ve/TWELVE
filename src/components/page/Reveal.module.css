@@ -1,0 +1,17 @@
+.reveal {
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal[data-pre] {
+  transform: translateY(var(--space-8));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+  }
+
+  .reveal[data-pre] {
+    transform: none;
+  }
+}

@@ -1,0 +1,354 @@
+/* The 402's help pages — docs/DESIGN.md §5.8. Cream, one readable column. */
+.page {
+  --gut: clamp(var(--space-4), 4vw, var(--space-12));
+  background: var(--cream-50);
+  color: var(--night-900);
+  font-family: var(--font-the402-sans);
+}
+
+.wrap {
+  max-width: 1600px;
+  margin-inline: auto;
+  padding-inline: var(--gut);
+}
+
+.crumb {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+  font-family: var(--font-the402-mono);
+  font-size: var(--text-the402-label-size);
+  font-weight: var(--text-the402-label-weight);
+  letter-spacing: var(--text-the402-label-tracking);
+  text-transform: uppercase;
+  color: var(--night-500);
+}
+
+.crumb a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-min);
+  color: var(--night-900);
+  text-decoration: none;
+}
+
+.crumb a:hover {
+  color: var(--marquee-700);
+}
+
+.head {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  gap: var(--space-4);
+  padding: clamp(var(--space-8), 5vw, 56px);
+  border-radius: var(--radius-lg);
+  background: var(--marquee-500);
+  color: var(--cream-50);
+}
+
+.headTower {
+  position: absolute;
+  z-index: -1;
+  right: 4%;
+  bottom: -30%;
+  width: 180px;
+  color: var(--marquee-600);
+}
+
+.head .mark {
+  --logo-letters: var(--cream-50);
+  --logo-tower: var(--night-950);
+  width: 110px;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-the402-display);
+  font-size: var(--text-the402-title-size);
+  line-height: var(--text-the402-title-leading);
+  font-weight: var(--text-the402-title-weight);
+  letter-spacing: var(--text-the402-title-tracking);
+  font-stretch: var(--text-the402-title-stretch);
+}
+
+.lead {
+  margin: 0;
+  max-width: 34em;
+  font-size: var(--text-the402-body-lg-size);
+  line-height: 1.5;
+  color: var(--night-950);
+}
+
+.version {
+  margin: 0;
+  font-family: var(--font-the402-mono);
+  font-size: var(--text-the402-label-size);
+  font-weight: var(--text-the402-label-weight);
+  letter-spacing: var(--text-the402-label-tracking);
+  text-transform: uppercase;
+  color: var(--night-950);
+}
+
+.body {
+  max-width: 680px;
+  margin: 0 auto;
+  padding-block: var(--space-12) var(--space-24);
+}
+
+.body p,
+.body li {
+  font-size: var(--text-the402-body-size);
+  line-height: var(--text-the402-body-leading);
+  color: var(--night-700);
+}
+
+.body p {
+  margin: 0 0 var(--space-4);
+}
+
+.body a {
+  color: var(--river-600);
+}
+
+.body a:hover {
+  color: var(--marquee-700);
+}
+
+.body a:focus-visible,
+.links a:focus-visible,
+.crumb a:focus-visible {
+  outline: 2px solid var(--night-900);
+  outline-offset: 3px;
+  border-radius: var(--radius-xs);
+}
+
+.section {
+  padding-top: var(--space-8);
+  scroll-margin-top: var(--space-24);
+}
+
+.numeral {
+  font-family: var(--font-the402-mono);
+  font-size: var(--text-the402-label-size);
+  font-weight: var(--text-the402-label-weight);
+  letter-spacing: var(--text-the402-label-tracking);
+  color: var(--marquee-700);
+}
+
+.heading {
+  margin: var(--space-2) 0 var(--space-3);
+  font-family: var(--font-the402-display);
+  font-size: var(--text-the402-heading-size);
+  line-height: var(--text-the402-heading-leading);
+  font-weight: var(--text-the402-heading-weight);
+  letter-spacing: var(--text-the402-heading-tracking);
+  font-stretch: var(--text-the402-heading-stretch);
+  color: var(--night-900);
+  text-wrap: balance;
+}
+
+.short {
+  display: grid;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+  padding: var(--space-6);
+  border-radius: var(--radius-md);
+  background: var(--night-900);
+  color: var(--cream-50);
+}
+
+.shortLabel {
+  font-family: var(--font-the402-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--marquee-500);
+}
+
+.short ul {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.body .short li {
+  display: flex;
+  gap: var(--space-3);
+  font-size: var(--text-the402-body-size);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--cream-50);
+}
+
+.short li::before {
+  content: '';
+  flex: none;
+  width: var(--space-2);
+  height: var(--space-2);
+  margin-top: 7px;
+  border-radius: 2px;
+  background: var(--marquee-500);
+}
+
+.jump {
+  display: grid;
+  margin: 0 0 var(--space-12);
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--hairline-cream);
+}
+
+.jump a {
+  display: flex;
+  gap: var(--space-4);
+  align-items: baseline;
+  min-height: var(--target-min);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--hairline-cream);
+  color: var(--night-900);
+  font-size: var(--text-the402-body-size);
+  font-weight: 500;
+  text-decoration: none;
+  transition: padding 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.body .jump a {
+  color: var(--night-900);
+}
+
+.jump a:hover {
+  padding-left: var(--space-2);
+}
+
+.jump small {
+  width: 22px;
+  font-family: var(--font-the402-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--marquee-700);
+}
+
+.steps {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.steps li {
+  counter-increment: step;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--cream-100);
+}
+
+/* §5.7: the numeral sits on orange at 13px, so it is ink, not cream. */
+.steps li::before {
+  content: counter(step);
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--marquee-500);
+  color: var(--night-950);
+  font-family: var(--font-the402-mono);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.mailbox {
+  margin-bottom: var(--space-6);
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-md);
+  background: var(--cream-100);
+}
+
+.body .mailAddress {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--night-900);
+  text-decoration: none;
+}
+
+.copy {
+  min-height: var(--target-min);
+  padding-inline: var(--space-4);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--night-900);
+  color: var(--cream-50);
+  font-family: var(--font-the402-sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.copy:focus-visible {
+  outline: 2px solid var(--night-900);
+  outline-offset: 3px;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-12);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--hairline-cream);
+}
+
+.body .links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-min);
+  padding-inline: var(--space-4);
+  border: 1px solid var(--night-500);
+  border-radius: var(--radius-pill);
+  color: var(--night-900);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.body .links a:hover {
+  background: var(--night-900);
+  color: var(--cream-50);
+}
+
+/* Preview-only: text still waiting on Jaycee (docs/DESIGN.md §5.8). */
+.pending {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-xs);
+  background: var(--marquee-100);
+  box-shadow: inset 3px 0 0 var(--corn-400);
+}
+
+.pendingTag {
+  font-weight: 600;
+  color: var(--marquee-700);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jump a,
+  .body .links a {
+    transition: none;
+  }
+}

@@ -16,7 +16,19 @@ import { setTimeout as sleep } from 'node:timers/promises'
 
 const PORT = process.env.A11Y_PORT ?? '3210'
 const ORIGIN = `http://127.0.0.1:${PORT}`
-const ROUTES = ['/', '/work', '/about', '/playground', '/contact', '/this-route-does-not-exist']
+const ROUTES = [
+  '/',
+  '/work',
+  '/about',
+  '/playground',
+  '/contact',
+  '/work/the-402',
+  '/402/privacy',
+  '/402/terms',
+  '/402/support',
+  '/402/delete-account',
+  '/this-route-does-not-exist',
+]
 const BOOT_TIMEOUT_MS = 60_000
 
 const fail = (message) => {

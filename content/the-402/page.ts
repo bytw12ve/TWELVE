@@ -9,7 +9,7 @@ const screen = (name: string, alt: string): AppScreen => ({
   src: `/work/the-402/${name}.png`,
   alt,
   width: 900,
-  height: 1957,
+  height: 1956,
 })
 
 export const screens = {
@@ -48,7 +48,7 @@ export const the402Page = {
     logoLabel: 'The 402',
     sub: "An app for finding things to do around Omaha, from live music and markets to food and whatever's happening tonight.",
     countdown: 'Beta opens Oct 31',
-    days: (n: number) => (n === 0 ? 'today' : `${n} ${n === 1 ? 'day' : 'days'}`),
+    days: { today: 'today', one: 'day', many: 'days' },
     cta: 'Join the beta →',
     soon: 'Coming soon to the App Store and Google Play',
   },
@@ -155,10 +155,9 @@ export const the402Page = {
       fine: 'One email when your invite is ready. Nothing else.',
       invalid: "That email doesn't look right. Check it and try again.",
       /** New copy — not in the prototype. Needs Jaycee's OK. */
-      failed: (email: string) => `That didn't go through. Try again in a minute, or email me at ${email}.`,
+      failed: "That didn't go through. Try again in a minute, or email me at {email}.",
       done: "You're on the list.",
-      doneBody: (platform: string, email: string) =>
-        `I'll send an ${platform} invite to ${email} when the beta opens on October 31.`,
+      doneBody: "I'll send an {platform} invite to {email} when the beta opens on October 31.",
       /** Used when the no-JavaScript form lands back here without the address. */
       doneBodyPlain: "I'll send you an invite when the beta opens on October 31.",
     },
