@@ -14,8 +14,6 @@ export type Route = {
   label: string
   /** Right-aligned menu hint, verbatim from docs/DESIGN.md §6.2. */
   hint: string
-  /** In the inline nav shortcut (docs/DESIGN.md §3). Home and Contact are menu-only. */
-  inNav: boolean
 }
 
 export const routes: readonly Route[] = [
@@ -24,37 +22,29 @@ export const routes: readonly Route[] = [
     numeral: '01',
     label: 'Home',
     hint: 'START HERE',
-    inNav: false,
   },
   {
     href: '/work',
     numeral: '02',
-    label: 'Work',
+    label: 'My work',
     hint: 'FINISHED THINGS',
-    inNav: true,
   },
   {
     href: '/about',
     numeral: '03',
     label: 'About',
-    hint: 'WHO AND WHY',
-    inNav: true,
+    hint: "WHO'S MAKING THIS",
   },
   {
     href: '/playground',
     numeral: '04',
     label: 'Playground',
-    hint: 'UNFINISHED THINGS',
-    inNav: true,
+    hint: 'EVERYTHING ELSE',
   },
   {
     href: '/contact',
     numeral: '05',
     label: 'Contact',
-    hint: 'SAY HELLO',
-    inNav: false,
+    hint: 'SAY HI',
   },
 ] as const
-
-/** The inline nav is a shortcut, not the whole navigation — docs/DESIGN.md §3. */
-export const navRoutes = routes.filter((route) => route.inNav)

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import type { ReactNode } from 'react'
+import { ViewTransition, type ReactNode } from 'react'
 
 import { FooterBar } from '@/components/layout/FooterBar'
 import { NavBar } from '@/components/layout/NavBar'
@@ -35,7 +35,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </a>
         <NavBar />
         <main id="main" tabIndex={-1}>
-          {children}
+          {/*
+            docs/DESIGN.md §7.3: only the page's content transitions. The nav
+            and footer sit outside this boundary, and the document itself has
+            no view-transition name (globals.css), so they never move.
+          */}
+          <ViewTransition default="page">{children}</ViewTransition>
         </main>
         <FooterBar />
       </body>

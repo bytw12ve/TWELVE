@@ -1,19 +1,16 @@
 import Link from 'next/link'
 
-import { navRoutes } from '@/lib/routes'
 import { site } from '@/lib/site'
 
-import { ActiveNavLink } from './ActiveNavLink'
 import { MenuOverlay } from './MenuOverlay'
 import styles from './NavBar.module.css'
 
 /**
- * The persistent nav — references/previews/NavBar.html is the exact source:
- * 96px bar, space-16 gutters, hairline-dark bottom rule, the wordmark left,
- * the inline shortcut links and the MENU pill right.
+ * The persistent nav: the wordmark left and the MENU pill right, at every
+ * width and on every route (docs/DESIGN.md §3). Pages v2 removed the inline
+ * shortcut links; MENU is the whole navigation.
  *
- * Server component. Route awareness lives in ActiveNavLink, menu state in
- * MenuOverlay.
+ * Server component. Menu state lives in MenuOverlay.
  */
 export function NavBar() {
   return (
@@ -24,15 +21,8 @@ export function NavBar() {
         <span className={styles.srOnly}> — {site.name} home</span>
       </Link>
 
-      <div className={styles.right}>
-        {/* Inline links are a shortcut (§3), hidden below 1024px (§2.2). */}
-        <nav className={styles.links} aria-label="Shortcuts" data-shortcuts>
-          {navRoutes.map((route) => (
-            <ActiveNavLink key={route.href} href={route.href} label={route.label} />
-          ))}
-        </nav>
-        <MenuOverlay />
-      </div>
+      {/* §3: the wordmark and MENU at every width — MENU is the whole navigation. */}
+      <MenuOverlay />
     </header>
   )
 }
