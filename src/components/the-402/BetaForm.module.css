@@ -1,0 +1,224 @@
+.card {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border-radius: var(--radius-md);
+  background: var(--cream-0);
+  color: var(--night-900);
+  box-shadow: 0 0 0 1px var(--hairline-cream);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.label {
+  padding: 0;
+  font-family: var(--font-the402-mono);
+  font-size: var(--text-the402-label-size);
+  line-height: var(--text-the402-label-leading);
+  font-weight: var(--text-the402-label-weight);
+  letter-spacing: var(--text-the402-label-tracking);
+  text-transform: uppercase;
+  color: var(--night-500);
+}
+
+.input {
+  width: 100%;
+  min-height: calc(var(--space-12) + var(--space-1) + 2px);
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-sm);
+  /* §6.4: night-500 clears 3:1 against the white card; a 22% ink border did not. */
+  border: 1.5px solid var(--night-500);
+  background: var(--cream-0);
+  color: var(--night-900);
+  font-family: var(--font-the402-sans);
+  font-size: var(--text-the402-body-size);
+}
+
+.input:focus-visible {
+  outline: 3px solid var(--river-600);
+  outline-offset: 1px;
+}
+
+.input[aria-invalid] {
+  border-color: var(--marquee-700);
+}
+
+.seg {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+.radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: calc(var(--space-12) + var(--space-1));
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--night-500);
+  color: var(--night-900);
+  font-family: var(--font-the402-sans);
+  font-size: var(--text-the402-button-size);
+  font-weight: var(--text-the402-button-weight);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.radio:checked + .choice {
+  background: var(--night-900);
+  border-color: var(--night-900);
+  color: var(--cream-50);
+  transform: scale(1.02);
+}
+
+.radio:focus-visible + .choice {
+  outline: 2px solid var(--river-600);
+  outline-offset: 2px;
+}
+
+.glyph {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.error {
+  margin: 0;
+  font-family: var(--font-the402-sans);
+  font-size: var(--text-the402-body-sm-size);
+  font-weight: 500;
+  color: var(--marquee-700);
+}
+
+/* Hidden until the no-JavaScript post lands on it (the handler's #beta-* redirect). */
+.target {
+  display: none;
+}
+
+.target:target {
+  display: block;
+}
+
+/*
+ * §5.7: cream on orange at 16px/600 fails (3.47:1). At 19px and weight 700 it
+ * counts as large text and passes.
+ */
+.submit {
+  min-height: calc(var(--space-12) + var(--space-1));
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--marquee-500);
+  color: var(--cream-50);
+  font-family: var(--font-the402-sans);
+  font-size: 19px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s;
+}
+
+.submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 var(--space-2) 0 -2px var(--marquee-700);
+}
+
+.submit:focus-visible {
+  outline: 2px solid var(--night-900);
+  outline-offset: 3px;
+}
+
+.submit:disabled {
+  cursor: progress;
+  transform: none;
+}
+
+.fine {
+  margin: 0;
+  font-family: var(--font-the402-sans);
+  font-size: var(--text-the402-body-sm-size);
+  line-height: var(--text-the402-body-sm-leading);
+  color: var(--night-500);
+}
+
+.done {
+  justify-items: start;
+  animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.ok {
+  display: grid;
+  place-items: center;
+  width: calc(var(--space-12) + var(--space-2));
+  height: calc(var(--space-12) + var(--space-2));
+  border-radius: 50%;
+  background: var(--prairie-600);
+  color: var(--cream-50);
+}
+
+.doneHeading {
+  margin: 0;
+  font-family: var(--font-the402-display);
+  font-stretch: 85%;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.doneBody {
+  margin: 0;
+  font-family: var(--font-the402-sans);
+  font-size: var(--text-the402-body-size);
+  color: var(--night-500);
+}
+
+@keyframes pop {
+  from {
+    scale: 0.94;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .choice,
+  .submit {
+    transition: none;
+  }
+
+  .radio:checked + .choice {
+    transform: none;
+  }
+
+  .done {
+    animation: none;
+  }
+}

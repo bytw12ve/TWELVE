@@ -4,6 +4,9 @@ import type { ReactNode } from 'react'
 import { FooterBar } from '@/components/layout/FooterBar'
 import { NavBar } from '@/components/layout/NavBar'
 import { site } from '@/lib/site'
+// Imported for its side effect: every build validates the content layer and
+// fails on a malformed entry (docs/BUILD.md §Stage 3).
+import '@/lib/content'
 import { fontVariables } from '@/styles/fonts'
 import '@/styles/globals.css'
 

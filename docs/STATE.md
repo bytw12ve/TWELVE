@@ -29,8 +29,8 @@ The 402's beta opens **October 31, 2026**. `/402/privacy`, `/402/support` and `/
 | # | Branch | Stage | Status |
 | --- | --- | --- | --- |
 | 1 | `design/pages-v2` | — | 🟡 open for review |
-| 2 | `feature/content-layer` | 3 | not started |
-| 3 | `page/the-402` | 4, part 1 | not started — **target merged by October 20** |
+| 2 | `feature/content-layer` | 3 | 🟡 open for review — stacked on PR 1 |
+| 3 | `page/the-402` | 4, part 1 | 🟡 open for review — stacked on PR 2. **Target merged by October 20** |
 | 4 | `page/inner-pages` | 4, part 2 | not started |
 
 After PR 3 merges: connect `bytw12ve.com` and `www` in Vercel, **with Jaycee's go-ahead at that moment**, and check the three store URLs.

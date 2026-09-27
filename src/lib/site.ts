@@ -12,6 +12,10 @@ export const site = {
   description:
     'Twelve is a creative studio for digital things worth making — apps, websites, games, products and experiments.',
   email: 'contact@bytw12ve.com',
+  /** The studio's handle on GitHub. */
+  handle: 'bytw12ve',
+  /** Sender for the 402 beta signups — a verified Resend domain (docs/BUILD.md §Contact). */
+  betaSender: 'The 402 <beta@bytw12ve.com>',
   location: 'Omaha, NE',
   socials: {
     // A social without a URL renders as plain text, never as a link to
@@ -19,5 +23,8 @@ export const site = {
     github: 'https://github.com/bytw12ve/TWELVE',
   },
 } as const
+
+/** The canonical host with no scheme, as printed on the 402's help pages. */
+export const host = new URL(site.url).host
 
 export const absoluteUrl = (path = '/') => new URL(path, site.url).toString()

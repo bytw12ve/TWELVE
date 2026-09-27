@@ -36,3 +36,25 @@ https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap
 
 Request with a modern browser User-Agent — Google returns TTF to unknown agents — and take the
 `latin` block's URL from each.
+
+## The 402's faces
+
+Loaded **only** on the 402's routes, by `src/app/(the-402)/layout.tsx` through `src/styles/fonts402.ts`
+(`docs/BUILD.md` §Fonts → The 402's faces). Nothing else imports them, so no other route preloads them.
+
+| File | Family | Weight | Size | Source |
+| --- | --- | --- | --- | --- |
+| `BricolageGrotesque-Variable.woff2` | Bricolage Grotesque | 500–800, width 75–100% (variable `wght`, `wdth`; no `opsz`) | 76 KB | Google Fonts `bricolagegrotesque/v9`, latin subset |
+| `InstrumentSans-Variable.woff2` | Instrument Sans | 400–600 (variable `wght`) | 29 KB | Google Fonts `instrumentsans/v4`, latin subset |
+| `DMMono-Regular.woff2` | DM Mono | 400 | 8.5 KB | Google Fonts `dmmono/v16`, latin subset |
+| `DMMono-Medium.woff2` | DM Mono | 500 | 8.5 KB | Google Fonts `dmmono/v16`, latin subset |
+
+**136 KB together**, inside the 150 KB budget. All SIL Open Font License 1.1. Re-download with:
+
+```
+https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wdth,wght@75..100,500..800&display=swap
+https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..600&display=swap
+https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap
+```
+
+Leaving `opsz` out of the Bricolage request is what drops the optical-size axis from the file.

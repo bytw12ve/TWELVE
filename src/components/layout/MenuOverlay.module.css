@@ -294,6 +294,31 @@
 }
 
 /*
+ * The 402's pages (docs/DESIGN.md §5.7, §5.8): the resting pill takes the
+ * page's ink. Scoped to the dark surface — the pill's state before the menu
+ * mounts — so the paper menu's CLOSE is never touched. The prototype let the
+ * page's cream leak into CLOSE and it vanished on the paper panel.
+ */
+:global(html:has([data-skin='orange'])) .pill[data-surface='dark'],
+:global(html:has([data-skin='cream'])) .pill[data-surface='dark'] {
+  border-color: var(--night-950);
+  color: var(--night-950);
+}
+
+:global(html:has([data-skin='orange'])) .pill[data-surface='dark']:hover {
+  background: var(--cream-50);
+}
+
+:global(html:has([data-skin='cream'])) .pill[data-surface='dark']:hover {
+  background: var(--cream-100);
+}
+
+:global(html:has([data-skin='orange'])) .pill[data-surface='dark']:focus-visible,
+:global(html:has([data-skin='cream'])) .pill[data-surface='dark']:focus-visible {
+  outline-color: var(--night-950);
+}
+
+/*
  * Both labels occupy the same grid cell, so the pill's width is the wider of
  * the two and never changes between MENU and CLOSE.
  */

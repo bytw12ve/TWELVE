@@ -1,0 +1,43 @@
+.count {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: max-content;
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--night-900);
+  color: var(--cream-50);
+  font-family: var(--font-the402-mono);
+  font-size: var(--text-the402-label-size);
+  line-height: var(--text-the402-label-leading);
+  font-weight: var(--text-the402-label-weight);
+  letter-spacing: var(--text-the402-label-tracking);
+  text-transform: uppercase;
+}
+
+.dot {
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: 50%;
+  background: var(--corn-400);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.days {
+  font-weight: inherit;
+  color: var(--corn-400);
+}
+
+/* A pulse on a decorative dot; the text never fades. */
+@keyframes pulse {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot {
+    animation: none;
+  }
+}

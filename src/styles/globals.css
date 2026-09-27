@@ -131,6 +131,11 @@ html:has([data-hero]) main {
   padding: 0;
 }
 
+/* The 402's pages are full-bleed too: their skin runs edge to edge (docs/DESIGN.md §5.7, §5.8). */
+html:has([data-skin]) main {
+  padding: 0;
+}
+
 main:focus {
   outline: none;
 }
@@ -138,6 +143,11 @@ main:focus {
 @media (max-width: 1023px) {
   main {
     padding: var(--space-8) var(--space-4);
+  }
+
+  html:has([data-hero]) main,
+  html:has([data-skin]) main {
+    padding: 0;
   }
 }
 
@@ -180,7 +190,13 @@ a {
   transform: translateY(0);
 }
 
-h1 {
+/*
+ * Placeholder typography: the bare h1 and p that the Stage 1 placeholder
+ * pages and not-found.tsx put straight into main. Scoped to main's direct
+ * children so it never reaches a designed page, where every component styles
+ * its own type — as a global `p` it was greying the 402's paragraphs.
+ */
+main > h1 {
   font-family: var(--font-display);
   font-size: var(--text-display-xl-size);
   line-height: var(--text-display-xl-leading);
@@ -190,14 +206,14 @@ h1 {
 }
 
 @media (max-width: 1023px) {
-  h1 {
+  main > h1 {
     font-size: var(--text-heading-xl-size);
     line-height: var(--text-heading-xl-leading);
     letter-spacing: var(--text-heading-xl-tracking);
   }
 }
 
-p {
+main > p {
   margin: 0;
   max-width: 62ch;
   color: var(--star-400);

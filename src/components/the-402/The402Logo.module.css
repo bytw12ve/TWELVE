@@ -1,0 +1,54 @@
+.logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.letters {
+  fill: var(--logo-letters, var(--cream-50));
+  transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s;
+}
+
+.tower {
+  fill: var(--logo-tower, var(--night-900));
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+/* §7.5: the tower grows up out of the "0" on load. */
+.rise {
+  animation: rise 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+
+/* §7.5: in the logo section, the letters dim and the tower pops once it is seen. */
+:global([data-seen]) .pop {
+  animation: rise 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+}
+
+:global([data-seen]) .logo:has(.pop) .letters {
+  opacity: 0.22;
+}
+
+@keyframes rise {
+  0% {
+    transform: scaleY(0.1);
+  }
+  60% {
+    transform: scaleY(1.12);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  :global([data-seen]) .pop {
+    animation: none;
+  }
+
+  .letters {
+    transition: none;
+  }
+}

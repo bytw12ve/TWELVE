@@ -96,6 +96,47 @@
   color: var(--purple-ink);
 }
 
+/*
+ * The 402's pages wear the app's skin (docs/DESIGN.md §5.7, §5.8). The page
+ * marks itself with a server-rendered data-skin, so this is right in the first
+ * paint. Resting state only — once the menu opens, the rules above take over.
+ */
+/* The shortcut links would sit cream-on-orange at 16px and fail (§1.5); MENU is enough here. */
+:global(html:has([data-skin])) .links {
+  display: none;
+}
+
+:global(html:has([data-skin='orange']):not([data-menu-open])) .bar {
+  background: var(--marquee-500);
+  border-bottom-color: var(--hairline-orange);
+}
+
+/* Cream on orange passes only as large text; the 20px/800 mark is (§1.5). */
+:global(html:has([data-skin='orange']):not([data-menu-open])) .mark {
+  color: var(--cream-50);
+}
+
+:global(html:has([data-skin='orange']):not([data-menu-open])) .period {
+  color: var(--night-950);
+}
+
+:global(html:has([data-skin='cream']):not([data-menu-open])) .bar {
+  background: var(--cream-50);
+  border-bottom-color: var(--hairline-cream);
+}
+
+:global(html:has([data-skin='cream']):not([data-menu-open])) .mark {
+  color: var(--night-900);
+}
+
+:global(html:has([data-skin='cream']):not([data-menu-open])) .period {
+  color: var(--marquee-500);
+}
+
+:global(html:has([data-skin]):not([data-menu-open])) .mark:focus-visible {
+  outline-color: var(--night-950);
+}
+
 /* Focus on the mark sits on paper while the menu is open (§7.1). */
 :global(html[data-menu-open]) .mark:focus-visible {
   outline-color: var(--focus-light);

@@ -1,0 +1,9 @@
+/*
+ * Map the loaded faces onto the documented stacks (tokens.css), the same way
+ * globals.css does for Twelve's own families.
+ */
+.fonts {
+  --font-the402-display: var(--font-the402-display-loaded), 'Helvetica Neue', Helvetica, sans-serif;
+  --font-the402-sans: var(--font-the402-sans-loaded), 'Helvetica Neue', Helvetica, sans-serif;
+  --font-the402-mono: var(--font-the402-mono-loaded), ui-monospace, monospace;
+}
