@@ -14,6 +14,7 @@ const ALLOWED = new Set([
   'src/lib/site.ts', // the one declaration
   'eslint.config.mjs', // the editor-side rule that names the string
   'scripts/check-domain.mjs', // this file
+  'content/the-402/privacy.ts', // the 402 app's policy, copied word for word; it names its address
 ])
 const SCANNED = /\.(ts|tsx|js|jsx|mjs|cjs|css|json|html|yml|yaml)$/
 const SKIPPED = /^(references|assets)\//

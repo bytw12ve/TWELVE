@@ -1,3 +1,4 @@
+import { homePage } from '@content/pages/home'
 import type { CSSProperties } from 'react'
 
 import { generateWorld, toLayers, type WorldSize } from '@/lib/pixelWorld'
@@ -30,7 +31,7 @@ export function PixelWorld({ size }: { size: WorldSize }) {
       preserveAspectRatio="none"
       shapeRendering="crispEdges"
       role="img"
-      aria-label="Pixel-art landscape: sky, clouds, a field of flowers and a small figure standing on the horizon"
+      aria-label={homePage.worldDescription}
     >
       {base.map((layer) => (
         <path key={layer.fill} d={layer.d} fill={layer.fill} />

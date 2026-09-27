@@ -1,3 +1,4 @@
+import { homePage } from '@content/pages/home'
 import Link from 'next/link'
 
 import { MetaLabel } from '@/components/ui/MetaLabel'
@@ -35,18 +36,18 @@ export function HeroEnvironment() {
       */}
       <div className={styles.metaTopLeft}>
         <MetaLabel size="sm">
-          Creative studio<span className={styles.metaLocation}> — {site.location}</span>
+          {homePage.studioLabel}<span className={styles.metaLocation}> — {site.location}</span>
         </MetaLabel>
       </div>
       <div className={styles.metaTopRight}>
-        <MetaLabel size="sm">Est. 2026</MetaLabel>
+        <MetaLabel size="sm">{homePage.established}</MetaLabel>
       </div>
       <div className={styles.metaBottomLeft}>
         <MetaLabel size="sm">{site.location}</MetaLabel>
       </div>
       <div className={styles.window}>
         <MetaLabel size="sm" className={styles.windowTag}>
-          World 01
+          {homePage.worldTag}
         </MetaLabel>
         <div className={styles.worldDesktop}>
           <PixelWorld size="desktop" />
@@ -66,15 +67,15 @@ export function HeroEnvironment() {
         relationship holds as the panel resizes (docs/DESIGN.md §4.1).
       */}
       <div className={styles.copy}>
-        <p className={styles.line}>Creative studio for digital things worth making.</p>
-        <MetaLabel className={styles.descriptor}>Apps · Websites · Games · Experiments</MetaLabel>
+        <p className={styles.line}>{homePage.line}</p>
+        <MetaLabel className={styles.descriptor}>{homePage.descriptor}</MetaLabel>
 
         {/*
           §4.0: VIEW WORK navigates directly to /work. It is a link, not the
           reveal's trigger and not a scroll target.
         */}
-        <Link href="/work" className={styles.cta}>
-          View work <span aria-hidden="true">↓</span>
+        <Link href={homePage.cta.href} className={styles.cta}>
+          {homePage.cta.label} <span aria-hidden="true">↓</span>
         </Link>
       </div>
     </section>

@@ -73,15 +73,18 @@ not-found.tsx          404
 
 ```
 content/
-  pages/                 copy for My work, About, Playground and Contact
+  pages/                 copy for Home (the hero), My work, About, Playground and Contact
   work.ts                the finished projects My work lists (today: the 402)
   playground.ts          typed array — entries need metadata, not bodies
   the-402/
-    page.ts              every string on /work/the-402, and BETA_OPENS
+    page.ts              every string on /work/the-402, the screens, and BETA_OPENS
     privacy.ts           the app's policy, word for word (below)
-    terms.ts · support.ts · delete-account.ts
-types/content.ts         the content types and their shared unions
+    help.ts              terms, support and delete-account, and the help pages' shared parts
+src/types/content.ts     the content types, Pending<T>, and the typed() helper
+src/lib/content.ts       loaders, pending resolution, build-time validation
 ```
+
+Imported as `@content/…` (a `tsconfig` path). The root layout imports `@/lib/content` for its side effect, so **every build validates every entry** and fails on a malformed one — a bad link, a duplicate id, an unparseable date, a screen outside `/work/<slug>/`.
 
 **Revised for Pages v2 (2026-09-26).** The original plan was one MDX file per project, rendered by the case-study template. The template is deferred, and every page being built now is structured — sections, lists, cards, questions — rather than long-form prose, so the content is **typed TypeScript modules**. MDX (`gray-matter`, `next-mdx-remote/rsc`) comes in with the case-study template, when a project first has a body to render. Neither dependency is added before then.
 
@@ -92,9 +95,9 @@ types/content.ts         the content types and their shared unions
 - **`pending`** marks a clause, or a whole page, that is waiting on Jaycee's answer (`docs/DESIGN.md` §5.8). Development and preview builds render it highlighted; a production build (`VERCEL_ENV=production`) leaves a pending clause out, and leaves out a page marked pending entirely. Nothing highlighted ever reaches production.
 - Images live in `public/work/<slug>/`. The 402's app screens are **real Simulator captures** from `twelve-design/pages-v2/app-screens/`.
 - **This repository is public: never commit an image or file that carries an embedded provenance tag** (C2PA, or tool metadata naming how it was generated), and never strip one either. Check before adding any binary: `strings <file> | grep -iE "c2pa|provenance"` must be empty. Files that fail stay in the private design repository.
-- **Literal domains stay out of content.** The help pages print their own address and the contact email; both are built from `src/lib/site.ts`, so `pnpm domain:check` still holds.
+- **Literal domains stay out of content.** The help pages print their own address and the contact email, and Contact prints the GitHub handle; all are built from `src/lib/site.ts` (`host`, `email`, `handle`). The one exemption from `pnpm domain:check` is `content/the-402/privacy.ts`, the app's policy copied word for word, which names its address.
 
-**The privacy policy has one source, and it is not this repository.** The web policy must match the in-app policy word for word, and Jaycee chose the app's text: `apps/mobile/src/features/legal/policy.ts` in the 402's repository. `content/the-402/privacy.ts` copies its exports (`POLICY_VERSION`, `POLICY_UPDATED`, `POLICY_INTRO`, `POLICY_SHORT`, `POLICY_SECTIONS`) with the same names and shape. `scripts/check-402-policy.mjs` compares the two whenever the app repository is checked out beside this one and fails on any difference; CI, which has no copy of the app, skips it and says so. **The words change in the app first**, then here. The 402 page's fine print is `POLICY_SHORT` from the same module, not its own copy.
+**The privacy policy has one source, and it is not this repository.** The web policy must match the in-app policy word for word, and Jaycee chose the app's text: `apps/mobile/src/features/legal/policy.ts` in the 402's repository. `content/the-402/privacy.ts` copies its exports (`POLICY_VERSION`, `POLICY_UPDATED`, `POLICY_INTRO`, `POLICY_SHORT`, `POLICY_SECTIONS`) with the same names and shape. `pnpm policy:check` (`scripts/check-402-policy.mjs`) imports both files and fails on any difference; it looks for the app at `THE402_REPO`, defaulting to `~/Documents/GitHub/The 402`. CI has no copy of the app, so it is not part of the gate; run it whenever either side changes. **The words change in the app first**, then here. The 402 page's fine print is `POLICY_SHORT` from the same module, not its own copy.
 
 A future product page would add `content/products/` following the same shape. Do not introduce a CMS to solve a problem we do not have yet.
 
