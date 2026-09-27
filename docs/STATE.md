@@ -69,7 +69,8 @@ After PR 3 merges: connect `bytw12ve.com` and `www` in Vercel, **with Jaycee's g
 - Add **`RESEND_API_KEY`** in Vercel → Settings → Environment Variables, for Production and Preview. That exact name.
 - Update the 402 app and its policy (14-day grace period, verified organizers). The site's privacy and delete-account pages sync once `policy.ts` changes.
 - After PR 3, the go-ahead to connect the domain.
-- For PR 3: re-exported app screens (Home, Discover, Event details, Nearby, Saved) from her own App Store screenshots, with the missing icons fixed.
+- ~~Re-exported app screens~~ — **done differently, 2026-09-27**: six real screens captured from the app in the Simulator on the local preview data (Today evening, Discover, an event, Nearby, Today overnight, create account). No Saved or onboarding screen — both need a signed-in account. In `twelve-design/pages-v2/app-screens/`.
+- Two things in those screens for her to decide before they go public: **the event photos** come from the app's listings (the Stinson Park crowd shot, for one) — does she have the right to show them in marketing? And the overnight screen shows **IHOP and Denny's logos**; fine inside the app, but on a marketing page they can read as an endorsement. Either crop or blur them, or pick different shots.
 - Her final read of the Terms at the PR 3 review.
 - Her photo for About.
 
