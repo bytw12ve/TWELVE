@@ -104,7 +104,7 @@ A future product page would add `content/products/` following the same shape. Do
 ## SEO
 
 - Per-route `metadata` exports: title, description, canonical, Open Graph, Twitter card.
-- Title template: `%s — Twelve`; home is `Twelve — Creative studio for digital things worth making`.
+- Title template: `%s — Twelve`; home is `Twelve — Creative studio` (shortened by Jaycee, 2026-09-27; the hero line keeps the full sentence).
 - `app/sitemap.ts` and `app/robots.ts` generated from the route list plus the content directory.
 - OG images generated at build with `next/og` from the brand composition (dark ground, brand dot, wordmark). One per route, one per project.
 - JSON-LD: `Organization` on the homepage, `CreativeWork` on each project page.
@@ -117,7 +117,7 @@ A future product page would add `content/products/` following the same shape. Do
 export const site = {
   url: 'https://bytw12ve.com',          // canonical origin, no trailing slash
   name: 'Twelve',
-  title: 'Twelve — Creative studio for digital things worth making',
+  title: 'Twelve — Creative studio',
   description: '…',
   email: 'contact@bytw12ve.com',
   location: 'Omaha, NE',
@@ -264,7 +264,7 @@ The 402's page and help pages use the app's own type (`docs/DESIGN.md` §1.5): *
 - Project covers: 3:2, minimum 1600px wide.
 - Every meaningful image needs real alt text written by a human; decorative images get `alt=""` and `aria-hidden`.
 - **The wordmark renders as live text**, not as an image file — set in the `display` family with the period in `purple-500`, exactly as the hero does it (`docs/DESIGN.md` §4.1). This applies to the nav mark, the footer and the menu. There is no logo-image dependency in the layout.
-- The favicon and app icons use the `12.` stamp construction; the full wordmark is illegible at 32px. OG images are composed at build time by `next/og` from type and the brand dot, not from a logo file.
+- The favicon and app icons use the `12.` stamp construction; the full wordmark is illegible at 32px. **Built:** `src/app/icon.svg` (the favicon) and `src/app/apple-icon.png` (180px, home screen). The `12.` is the real Figtree ExtraBold outlines, traced from `public/fonts/Figtree-ExtraBold.woff2`, in `star-100` with the period in `purple-500` on a rounded `void-900` square — not live text, which an icon cannot rely on. Regenerate both if the display face changes. OG images are composed at build time by `next/og` from type and the brand dot, not from a logo file.
 - No vector wordmark exists yet. The two SVGs in `assets/brand/` are non-vector stubs (a `<text>` element with no embedded font) and **must not be shipped** — see `assets/brand/README.md`. The PNG in the design system remains the colour authority.
 
 ## Tooling
