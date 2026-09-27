@@ -1,0 +1,224 @@
+/* Contact — docs/DESIGN.md §5.4 */
+
+.slab {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(var(--space-16), 8vw, 112px);
+  border-bottom: 1px solid var(--hairline-dark);
+}
+
+.bigWrap {
+  --dot: clamp(260px, 34vw, 520px);
+  position: relative;
+  /* Lets the knockout copy place itself in this box's width (cqw), from inside the dot. */
+  container-type: inline-size;
+}
+
+.big {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(64px, 10.5vw, 168px);
+  line-height: 0.86;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  color: var(--star-100);
+}
+
+.orbit {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  animation: orbit 12s ease-in-out infinite;
+}
+
+.orbitTop {
+  z-index: 3;
+}
+
+.dot {
+  position: absolute;
+  left: 44%;
+  top: 50%;
+  width: var(--dot);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--purple-500);
+  translate: 0 -50%;
+}
+
+/*
+ * The knockout box *is* the dot — same place, same size, round, clipping its
+ * contents — like the hero's (§4.1). The ink copy inside is laid back over the
+ * base text: 100cqw wide, 44cqw to the left, centred on the dot's centre,
+ * which is the text's centre. Because the box is the dot, what sits behind
+ * the ink letters is the purple, which is also what axe measures.
+ */
+.clip {
+  position: absolute;
+  left: 44%;
+  top: 50%;
+  width: var(--dot);
+  aspect-ratio: 1;
+  translate: 0 -50%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+/* ink-900 on the dot: 8.5:1 (§4.1). Counter-orbits, so it stays on the base text. */
+.knockout {
+  position: absolute;
+  left: -44cqw;
+  top: 50%;
+  width: 100cqw;
+  translate: 0 -50%;
+  color: var(--ink-900);
+  animation: counter-orbit 12s ease-in-out infinite;
+}
+
+.mailRow {
+  position: relative;
+  z-index: 4;
+  margin-top: 44px;
+}
+
+.address {
+  font-size: clamp(20px, 2vw, 26px);
+  color: var(--star-100);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--purple-500);
+  text-underline-offset: 6px;
+}
+
+.address:focus-visible,
+.copy:focus-visible,
+.external:focus-visible {
+  outline: 2px solid var(--focus-dark);
+  outline-offset: 3px;
+}
+
+.copy {
+  display: inline-flex;
+  align-items: center;
+  min-height: 52px;
+  padding-inline: var(--space-6);
+  border: 1px solid var(--hairline-dark);
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--star-100);
+  font-family: var(--font-meta);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.copy:hover {
+  border-color: var(--star-400);
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-12);
+  padding-top: var(--space-12);
+  color: var(--star-400);
+}
+
+.colHeading {
+  margin: 10px 0 var(--space-4);
+  font-size: 22px;
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--star-100);
+}
+
+.cols p {
+  margin: 0;
+  max-width: 26em;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--star-400);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list li {
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--hairline-dark);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--star-400);
+}
+
+.list li:first-child {
+  padding-top: 0;
+}
+
+.external {
+  display: flex;
+  justify-content: space-between;
+  min-height: var(--target-min);
+  align-items: center;
+  color: var(--star-100);
+  text-decoration: none;
+}
+
+.external:hover {
+  color: var(--purple-400);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/*
+ * §7.5: the dot orbits. The knockout copy runs the exact inverse, the same
+ * way the hero cancels its dot's float, so the ink lettering never moves
+ * against the white. Only transforms animate; the clip itself is fixed —
+ * animating a clip-path directly was not repainted reliably.
+ */
+@keyframes orbit {
+  50% {
+    transform: translate(3vw, -2vw);
+  }
+}
+
+@keyframes counter-orbit {
+  50% {
+    transform: translate(-3vw, 2vw);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit,
+  .knockout {
+    animation: none;
+  }
+
+  .copy {
+    transition: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .cols {
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+}

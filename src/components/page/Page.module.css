@@ -1,0 +1,10 @@
+.page {
+  --gut: clamp(var(--space-4), 4vw, var(--space-12));
+  padding-bottom: clamp(80px, 10vw, 140px);
+}
+
+.wrap {
+  max-width: 1600px;
+  margin-inline: auto;
+  padding-inline: var(--gut);
+}
