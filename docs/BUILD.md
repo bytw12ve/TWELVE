@@ -151,7 +151,7 @@ Settled (see `docs/DESIGN.md` §4.0 and §7):
 - Under reduced motion: no pin, no animated reveal, plain stacked layout.
 - `VIEW WORK` navigates to `/work`. It is not the reveal trigger.
 - Menu: 420ms open / 320ms close, pill cross-fades into CLOSE in place.
-- Page transitions: 160ms out, 320ms in; nav and footer do not participate. **Owned by Stage 4** — they are built and validated when the routes carry real content, because a transition between two placeholder pages proves nothing. Stage 1 builds the shell they run inside and deliberately does not implement them.
+- Page transitions: 160ms out, 320ms in; nav and footer do not participate. **As built (Stage 4):** React's `<ViewTransition>` around the page content in the root layout, with the document's own view-transition name removed so the nav, footer and menu never snapshot. The incoming page starts at 0.85 opacity, not 0 — the contrast floor — so the two overlap rather than running strictly in sequence. A menu link waits for the 380ms close before it navigates. **Owned by Stage 4** — they are built and validated when the routes carry real content, because a transition between two placeholder pages proves nothing. Stage 1 builds the shell they run inside and deliberately does not implement them.
 
 Implementation notes:
 
@@ -254,7 +254,7 @@ SpaceMono-Bold.woff2        meta      700
 
 The 402's page and help pages use the app's own type (`docs/DESIGN.md` §1.5): **Bricolage Grotesque** (display, variable, width and weight axes), **Instrument Sans** 400–600 (body, variable) and **DM Mono** 400/500 (labels). All three are OFL, self-hosted the same way as Twelve's faces, Latin subset, `woff2`, with their source and licence in `public/fonts/README.md`.
 
-- **They load only on the 402's routes.** `src/app/(the-402)/layout.tsx` declares them with `next/font/local`; nothing outside that route group imports them, so no other route preloads or downloads them. Verified per route in the built HTML: a `<link rel="preload" as="font">` for a 402 face on any other route is a failure.
+- **They load only on the 402's routes — and on `/work`, for the 402's card.** `src/app/(the-402)/layout.tsx` declares them for the route group; `FeatureCard` applies them to My work's one card, which wears the 402's skin (`docs/DESIGN.md` §1.5, §5.1). Nothing else imports them. Verified per route in the built HTML: a preload for a 402 face on any other route is a failure.
 - **Their weight is measured before commit, not estimated**, and recorded here with the files. Bricolage Grotesque's optical-size axis is not used, so it is dropped from the subset; the width axis is kept, because the design sets it narrow. The budget for the three together is **150 KB of `woff2`**; if they come in above it, subset further before shipping.
 - They do not touch Twelve's four preloaded files or the homepage's LCP.
 

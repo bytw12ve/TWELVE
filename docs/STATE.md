@@ -20,7 +20,7 @@ Last updated: 2026-09-26 (Pages v2 planned)
 
 ## Next Action
 
-**Jaycee reviews and merges PR 1 (`design/pages-v2`).** Then `feature/content-layer` (Stage 3) starts off the new `main`.
+**Jaycee reviews and merges the four Pages v2 PRs, in order** — #1 docs, #3 content layer, #4 the 402, #5 inner pages — each on its Vercel preview. Stage 4 closes when she has reviewed every page.
 
 ### Pages v2 — the plan
 
@@ -31,7 +31,7 @@ The 402's beta opens **October 31, 2026**. `/402/privacy`, `/402/support` and `/
 | 1 | `design/pages-v2` | — | 🟡 open for review |
 | 2 | `feature/content-layer` | 3 | 🟡 open for review — stacked on PR 1 |
 | 3 | `page/the-402` | 4, part 1 | 🟡 open for review — stacked on PR 2. **Target merged by October 20** |
-| 4 | `page/inner-pages` | 4, part 2 | not started |
+| 4 | `page/inner-pages` | 4, part 2 | 🟡 open for review — stacked on PR 3. Closes Stage 4 once Jaycee has reviewed every page |
 
 After PR 3 merges: connect `bytw12ve.com` and `www` in Vercel, **with Jaycee's go-ahead at that moment**, and check the three store URLs.
 
