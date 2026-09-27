@@ -17,19 +17,20 @@ Last updated: 2026-09-27
 
 ## Latest
 
-**Pages v2 is live on bytw12ve.com** — merged to `main` on 2026-09-27 (#1, #4 and #6 merged; #3 and #5 were built into #4 and #6 and closed). Every route answers, `/playground` redirects to `/projects`, the 14-day text and the pending markers are absent from production, and CI is green on `main`. Stages 3 and 4 are closed.
+**Pages v2 is live on bytw12ve.com. Policy v1.2 is prepared but not deployed.** The `codex/402-policy-v1-2` branch removes the unbuilt “Make lists” claim, adds the beta-form notice and v1.2 copy, and makes cross-repository parity a mandatory CI gate against an exact The 402 commit. Production remains on v1.1 until this branch is reviewed, merged and deployed.
 
 ## Next action
 
-1. **The 402 app takes privacy policy v1.1** (the update request is with Jaycee). Until then `pnpm policy:check` fails, and that is expected.
-2. **One real beta signup on production**, to confirm the email arrives.
-3. **Stage 6** — SEO, metadata and the designed 404 (`docs/BUILD.md` §Stage 6).
+1. Pin CI to the final accepted The 402 Stage 10 commit, run the complete affected-file/CI gate, and open the policy v1.2 pull request. Do not merge or deploy it as part of Stage 10 closeout.
+2. After separately authorized merge/deployment, verify the live v1.2 policy and absence of “Make lists.”
+3. **One real beta signup on production**, to confirm the email arrives, remains a later authorized production check.
 
 ## Open items
 
 | Item | Owner | Notes |
 | --- | --- | --- |
-| App `policy.ts` → v1.1 wording | Jaycee (app side) | Then `pnpm policy:check` passes |
+| Policy v1.2 release | Stage 10 closeout / Jaycee | Source parity is prepared. CI must pin the final accepted The 402 commit; production remains v1.1 until separately merged and deployed |
+| Repository-wide formatting debt | existing site backlog | The full-tree formatter reports 24 unrelated files from `main`. This policy PR formats and checks only its affected files; it does not broaden into that debt |
 | 14-day deletion grace period | Jaycee (app side) | Build and test it in the app, add it to `policy.ts`, then drop `pending` from the site's delete-account section and add it to `content/the-402/privacy.ts` |
 | Legal review before launch | Jaycee | From her legal draft: confirm the legal operator behind twelve. and whether to publish a mailing address; whether stored location coordinates are precise/sensitive data, the consent flow, and reducing precision; real retention for logs, email and backups; Apple App Privacy and Google Play Data Safety answers; organizer posting, moderation and content rights; Nebraska counsel on the Nebraska Data Privacy Act (appeals process if it applies), processor contracts, the liability clause and any cap, and dispute resolution |
 | One real beta signup on production | Jaycee | Submit the form on bytw12ve.com/work/the-402 and confirm the email reaches `contact@bytw12ve.com` |
@@ -463,4 +464,3 @@ The lesson, now written into `docs/BUILD.md` §Deployment: **GitHub Actions was 
 - Fonts — self-hosting is a Stage 1 exit criterion; no font files are committed yet.
 - Security headers, `sitemap.ts`, `robots.ts`, OG images — Stage 6.
 - Real social handles in `src/lib/site.ts`, currently empty strings with a TODO.
-

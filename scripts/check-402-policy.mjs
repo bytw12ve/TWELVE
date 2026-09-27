@@ -29,16 +29,22 @@ const appFile = join(repo, 'apps/mobile/src/features/legal/policy.ts')
 const webFile = join(root, 'content/the-402/privacy.ts')
 
 if (!existsSync(appFile)) {
-  console.log(`check-402-policy: skipped — the 402 repository is not at ${repo}.`)
-  console.log('  Set THE402_REPO to its path to run the comparison.')
-  process.exit(0)
+  console.error(`check-402-policy: the 402 repository is not at ${repo}.`)
+  console.error('  Set THE402_REPO to its path; policy parity is a release requirement.')
+  process.exit(1)
 }
 
 const app = await import(pathToFileURL(appFile).href)
 const web = await import(pathToFileURL(webFile).href)
 
 const failures = []
-for (const name of ['POLICY_VERSION', 'POLICY_UPDATED', 'POLICY_INTRO', 'POLICY_SHORT', 'POLICY_SECTIONS']) {
+for (const name of [
+  'POLICY_VERSION',
+  'POLICY_UPDATED',
+  'POLICY_INTRO',
+  'POLICY_SHORT',
+  'POLICY_SECTIONS',
+]) {
   if (!(name in app)) failures.push(`${name}: missing from the app's policy`)
   else if (!(name in web)) failures.push(`${name}: missing from content/the-402/privacy.ts`)
   else if (JSON.stringify(app[name]) !== JSON.stringify(web[name]))
@@ -51,7 +57,11 @@ for (const name of Object.keys(app)) {
 if (failures.length > 0) {
   console.error('check-402-policy: the web privacy policy does not match the app.\n')
   for (const f of failures) console.error(`  ✗ ${f}`)
-  console.error('\n  The app is the source. Copy its policy.ts exports into content/the-402/privacy.ts.')
+  console.error(
+    '\n  The app is the source. Copy its policy.ts exports into content/the-402/privacy.ts.',
+  )
   process.exit(1)
 }
-console.log(`check-402-policy: the web policy matches the app's, ${app.POLICY_VERSION} of ${app.POLICY_UPDATED}`)
+console.log(
+  `check-402-policy: the web policy matches the app's, ${app.POLICY_VERSION} of ${app.POLICY_UPDATED}`,
+)
