@@ -355,7 +355,8 @@ With the decisions above, the site loads no third-party resources in the browser
 ## Deployment
 
 - **Host:** Vercel.
-- **Project:** `twelve`, production alias `twelve-eta.vercel.app`.
+- **Project:** `twelve`, production alias `twelve-roan.vercel.app`, connected to the public `bytw12ve/TWELVE` (2026-09-27). The earlier project, connected to the private archive, is `twelve-archive`. An older project, `12-old-do-not-use`, still holds `www.bytw12ve.com`; that domain has to be released from it before it can be connected here (§Deployment, the domain is connected early).
+- **The framework preset must be Next.js.** A new project created from the CLI defaults to "Other", which brings back the output-directory failure below. It was set to Next.js through the API when the project was created.
 - **Project settings — verified 2026-09-20 against a green deploy.** Every override is off; the Next.js preset is doing all the work:
 
   | Setting | Value |
@@ -380,7 +381,6 @@ With the decisions above, the site loads no third-party resources in the browser
 - **The domain is connected early** (Jaycee, 2026-09-26). The 402's help pages must be live at `bytw12ve.com/402/*` around **October 24** so the app can be submitted, which is before Stage 8. `bytw12ve.com` (apex) and the `www` redirect are attached to production once the 402 pages merge, with Jaycee's go-ahead at that moment. From then on, whatever is on `main` is public at the real domain — so an unfinished page reaching `main` is a public page, and the stage gates matter more, not less. Stage 8 still owns the launch checks.
 - **Rollback:** promote the previous deployment in Vercel. Because the site is static with no data layer, rollback is instant and lossless — the beta handler holds no state either.
 - **Previews are behind Vercel Deployment Protection.** Verifying one requires an authenticated browser. An unauthenticated request returns Vercel's SSO login page with HTTP 200 — that is not the site, and it is not verification. Without a signed-in session a preview cannot be checked; say so rather than infer.
-- **`twelve-eta.vercel.app` returns 404 until `main` carries the app.** Production currently points at the docs-only commit `c05e275`, which has no `package.json`. Expected, not a fault; it resolves when Stage 0 merges.
 
 Both the output and install overrides were set when the project was created, and cost **four** failed preview builds before the cause was visible — while GitHub Actions was building the same commits green the whole time. The build settings are part of the deployment contract: **if a deploy fails while the same commit passes locally and in CI, suspect configuration before code.**
 

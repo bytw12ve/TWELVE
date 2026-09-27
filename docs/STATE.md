@@ -15,7 +15,7 @@ Last updated: 2026-09-26 (Pages v2 planned)
 | Stage 2 | ✅ closed and merged — PR #3 |
 | Stage 1 | ✅ closed and merged — PR #2 |
 | Stage 0 | ✅ closed and merged — PR #1 |
-| Production | ✅ live at `twelve-eta.vercel.app`. `bytw12ve.com` is **not connected yet** — see the plan |
+| Production | ✅ live at `twelve-roan.vercel.app`, the new `twelve` Vercel project on the public repo. `bytw12ve.com` is **not connected yet** — see the plan |
 | CI | ✅ green on `main` |
 
 ## Next Action
