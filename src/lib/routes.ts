@@ -36,10 +36,10 @@ export const routes: readonly Route[] = [
     hint: 'WHO I AM',
   },
   {
-    href: '/playground',
+    href: '/projects',
     numeral: '04',
-    label: 'Playground',
-    hint: 'SIDE PROJECTS',
+    label: 'Side projects',
+    hint: 'IN PROGRESS',
   },
   {
     href: '/contact',

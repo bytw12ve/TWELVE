@@ -182,6 +182,6 @@ export const the402Page = {
   },
   next: {
     back: { small: '← Back', name: 'My work', href: '/work' },
-    next: { small: 'Next →', name: 'Playground', href: '/playground' },
+    next: { small: 'Next →', name: 'Side projects', href: '/projects' },
   },
 } as const

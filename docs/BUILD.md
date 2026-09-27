@@ -49,7 +49,7 @@ This is reversible if it turns out to hurt; nothing else depends on it.
 /work/the-402          The 402 — a one-off page in the 402's own skin
 /work/[project]        Case study template — deferred (see below)
 /about                 About
-/playground            Playground
+/projects              Side projects (was /playground, which redirects here)
 /contact               Contact
 /402/privacy           The 402 — privacy policy
 /402/terms             The 402 — terms of service
@@ -59,6 +59,7 @@ This is reversible if it turns out to hurt; nothing else depends on it.
 not-found.tsx          404
 ```
 
+- **The Playground was renamed Side projects** (Jaycee, 2026-09-27) and moved to `/projects`; `/playground` 301-redirects there (`next.config.ts`). The code keeps its original names (`PlaygroundCard`, `content/playground.ts`) — they are not user-facing.
 - Playground entries have **no detail route**. A card links to the live thing, its repo, or nothing.
 - **`/work/the-402` is a static route, not an instance of `/work/[project]`** (Jaycee's decision, 2026-09-26). The 402 has its own design, and its layout does not fit the case-study template. A static segment wins over the dynamic one, so both can coexist when the template is built.
 - **The 402's routes live in a route group, `src/app/(the-402)/`**, whose layout loads the 402's three font families and nothing else does (§Fonts). The group does not appear in URLs.

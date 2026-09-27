@@ -11,7 +11,7 @@ export const workPage = {
   moreLabel: 'More coming soon',
   projectCount: (n: number) => `${n} ${n === 1 ? 'project' : 'projects'}`,
   playgroundNote: {
-    text: "Looking for keebwiki or Ledger Coffee? They're in the Playground for now, until they're ready for a page of their own.",
-    link: { label: 'Go to the Playground →', href: '/playground' },
+    text: "Looking for keebwiki or Ledger Coffee? They're in Side projects for now, until they're ready for a page of their own.",
+    link: { label: 'Go to Side projects →', href: '/projects' },
   },
 } as const

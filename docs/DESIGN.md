@@ -201,7 +201,7 @@ Shared chrome on every route:
 | `/` | The hero and the footer. Nothing else — MENU is the navigation (§4) |
 | `/work` | **My work** — finished, public projects only (§5.1) |
 | `/about` | Who's making this: Jaycee's story (§5.2) |
-| `/playground` | Everything else: live side projects, concepts, things being built (§5.3) |
+| `/projects` | **Side projects** — live side projects, concepts, things being built (§5.3). Renamed from Playground on 2026-09-27; `/playground` redirects here |
 | `/contact` | How to reach me (§5.4) |
 | `/work/the-402` | The 402's own page, in the 402's own skin (§5.7) |
 | `/402/privacy` · `/402/terms` · `/402/support` · `/402/delete-account` | The 402's help and legal pages, which the App Store and Google Play require as public URLs (§5.8) |
@@ -209,7 +209,7 @@ Shared chrome on every route:
 
 Playground entries have no detail route. A card links to the live thing, its repo, or nothing at all.
 
-**The full-screen menu is the only navigation**, identical on every page: `01 Home · 02 My work · 03 About · 04 Playground · 05 Contact`. **The nav is the wordmark and MENU at every width, on every route** — Pages v2 removed the inline Work / About / Playground shortcuts, so every page works the way the homepage does. Contact lives in the menu and in every footer. The 402's pages are reached from My work and from each other, not from the menu.
+**The full-screen menu is the only navigation**, identical on every page: `01 Home · 02 My work · 03 About · 04 Side projects · 05 Contact`. **The nav is the wordmark and MENU at every width, on every route** — Pages v2 removed the inline Work / About / Playground shortcuts, so every page works the way the homepage does. Contact lives in the menu and in every footer. The 402's pages are reached from My work and from each other, not from the menu.
 
 ### 3.1 Page skeleton
 
@@ -378,7 +378,7 @@ Reference: `twelve-design/screens/AboutDesktop.png`, `AboutMobile.png`.
 5. **Before twelve.** — a `radius` 24 band holding a pixel world drawn by the site's own generator (seed 402), the caption `Before twelve.` in `ink-900` over the sky, and nine paper chips **pinned across the scene** (a purple pin on each, a slight tilt, a gentle bob), naming what Jaycee made growing up. Her favorite, the GTA 5 roleplay server, is a size up with a purple-ink edge and a `My favorite` label. Below 1024 the pins fall into a wrapped flow. (Pages v2 review, 2026-09-27: this replaced a scrolling ticker.)
 6. **Want to make something together?** — a `display` slab at fluid 44→88, a paragraph, and a `purple-500` pill `Get in touch →` to `/contact`.
 
-### 5.3 Playground
+### 5.3 Side projects (formerly Playground)
 
 Reference: `twelve-design/screens/PlaygroundDesktop.png`, `PlaygroundMobile.png`.
 

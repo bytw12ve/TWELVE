@@ -34,7 +34,7 @@ export const aboutPage = {
       { text: 'actually use', mark: true },
       ', and a few things nobody has tried yet.',
     ] satisfies RichText,
-    sub: 'If an idea keeps coming back, I build it. Some become real products. The rest live in the Playground until they’re ready.',
+    sub: 'If an idea keeps coming back, I build it. Some become real products. The rest live in Side projects until they’re ready.',
   },
   make: {
     label: 'What I make',

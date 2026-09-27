@@ -12,8 +12,8 @@ export const metadata: Metadata = {
   description: page.opener.lede,
 }
 
-/** Playground — docs/DESIGN.md §5.3. Real projects only; counts are derived. */
-export default function PlaygroundPage() {
+/** Side projects — docs/DESIGN.md §5.3. Real projects only; counts are derived. */
+export default function SideProjectsPage() {
   const entries = playgroundEntries()
   const count = (key: string) => (key === 'all' ? entries.length : entries.filter((e) => e.status === key).length)
   return (
