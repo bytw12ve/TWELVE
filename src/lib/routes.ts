@@ -27,24 +27,24 @@ export const routes: readonly Route[] = [
     href: '/work',
     numeral: '02',
     label: 'My work',
-    hint: 'FINISHED THINGS',
+    hint: 'FINISHED PROJECTS',
   },
   {
     href: '/about',
     numeral: '03',
     label: 'About',
-    hint: "WHO'S MAKING THIS",
+    hint: 'WHO I AM',
   },
   {
     href: '/playground',
     numeral: '04',
     label: 'Playground',
-    hint: 'EVERYTHING ELSE',
+    hint: 'SIDE PROJECTS',
   },
   {
     href: '/contact',
     numeral: '05',
     label: 'Contact',
-    hint: 'SAY HI',
+    hint: 'GET IN TOUCH',
   },
 ] as const

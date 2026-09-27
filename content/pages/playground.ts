@@ -5,7 +5,7 @@ export const playgroundPage = {
   opener: {
     eyebrow: 'Playground',
     title: 'Playground',
-    lede: "Everything I'm building, trying out, or still figuring out. Some of it becomes real work. Some of it just lives here.",
+    lede: 'This is where my side projects live: things I’m building, testing or still figuring out. When one is finished and ready for people to use, it moves over to My work.',
   } satisfies PageOpener,
   countLabel: (n: number) => `${n} ${n === 1 ? 'thing' : 'things'}`,
   liveLabel: (n: number) => `${n} live`,

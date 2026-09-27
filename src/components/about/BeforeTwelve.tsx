@@ -9,21 +9,22 @@ type Chip = readonly [string, string]
 /**
  * About's "Before twelve." band — docs/DESIGN.md §5.2. The site's own pixel
  * world (server-rendered, seed 402) with what Jaycee made growing up pinned
- * across it. A real list; each pin is placed from the table below, tilted a
- * little, and bobs gently (§7.5). Below 860px the pins fall into a wrapped
+ * across it; her favorite is drawn a little larger and labelled. A real list; each pin is placed from the table below, tilted a
+ * little, and bobs gently (§7.5). Below 1024px the pins fall into a wrapped
  * flow instead, so nothing overlaps on a phone.
  */
 
 /** Pin centres as a share of the band, and a tilt. Tuned by eye, deterministic. */
 const PINS = [
-  { x: 62, y: 16, r: -3 },
-  { x: 84, y: 32, r: 3 },
-  { x: 16, y: 48, r: 2 },
-  { x: 41, y: 40, r: -2 },
-  { x: 66, y: 52, r: 4 },
-  { x: 21, y: 76, r: -4 },
-  { x: 47, y: 70, r: 3 },
-  { x: 77, y: 80, r: -2 },
+  { x: 62, y: 14, r: -3 },
+  { x: 85, y: 30, r: 3 },
+  { x: 15, y: 48, r: 2 },
+  { x: 40, y: 38, r: -2 },
+  { x: 64, y: 50, r: -2 },
+  { x: 87, y: 66, r: 4 },
+  { x: 17, y: 78, r: -4 },
+  { x: 42, y: 70, r: 3 },
+  { x: 70, y: 85, r: -2 },
 ] as const
 
 export function BeforeTwelve({
@@ -31,10 +32,14 @@ export function BeforeTwelve({
   line,
   listLabel,
   chips,
+  favorite,
+  favoriteLabel,
 }: {
   title: string
   line: string
   listLabel: string
+  favorite: string
+  favoriteLabel: string
   chips: readonly Chip[]
 }) {
   const world = generateWorld('about')
@@ -72,10 +77,11 @@ export function BeforeTwelve({
       <ul className={styles.pins} aria-label={listLabel}>
         {chips.map((c, i) => {
           const pin = PINS[i % PINS.length] ?? PINS[0]
+          const isFavorite = c.join(' ') === favorite
           return (
             <li
               key={c.join(' ')}
-              className={styles.chip}
+              className={[styles.chip, isFavorite && styles.favorite].filter(Boolean).join(' ')}
               style={
                 {
                   '--x': `${pin.x}%`,
@@ -85,6 +91,7 @@ export function BeforeTwelve({
                 } as CSSProperties
               }
             >
+              {isFavorite && <span className={styles.favoriteLabel}>{favoriteLabel}</span>}
               {chip(c)}
             </li>
           )

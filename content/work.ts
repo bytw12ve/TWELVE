@@ -13,7 +13,7 @@ export const projects = [
     year: '2026',
     headline: 'Find something to do in Omaha tonight.',
     summary:
-      "An app for events, places, and things to do around the metro. Pick a mood, see what's on, and know the details before you leave the house.",
+      "The 402 is an app for finding things to do around Omaha. Open it to see what's happening tonight, from live music to food, with the time, the price and where it is all in one place.",
     tags: [{ label: 'Beta Oct 31', hot: true }, { label: 'iOS' }, { label: 'Android' }, { label: 'Free' }],
     cta: 'See the 402',
     screens: [

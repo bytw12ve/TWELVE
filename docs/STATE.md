@@ -63,6 +63,21 @@ After PR 3 merges: connect `bytw12ve.com` and `www` in Vercel, **with Jaycee's g
 
 `bytw12ve/TWELVE` is now a **public** repository, started from one clean commit of the site as it stood. The earlier history, including PRs #1–#5, is in the private `bytw12ve/TWELVE-archive`; **PR numbers before 2026-09-27 in this file refer to the archive.** Design images and the Pages v2 design package are in the private `bytw12ve/twelve-design`. The tree and every file's metadata were checked before publishing: no secrets, no personal details. The archive is deleted only when Jaycee says.
 
+### Pages v2 polish — PR 6, 2026-09-27
+
+Her review of the built pages: the copy sounded AI-written, so every page was rewritten in her voice from her answers. Also: pins scattered across About's pixel scene, rounded phone screens, YouTube beside GitHub, keebwiki, wake., and her launch legal text on the four /402 pages.
+
+**The legal draft's review notes are not published.** They are open items, before the store submissions and launch:
+
+- Confirm the legal operator behind twelve., and whether to publish a mailing address.
+- Location: whether stored coordinates count as precise or sensitive data, the consent flow, and whether precision can be reduced.
+- Real retention for logs, email and backups.
+- The 14-day grace period: build and test it, then publish its text (the site holds it in previews only).
+- Apple App Privacy and Google Play Data Safety answers matching production.
+- The organizer posting and moderation workflow, and content rights.
+- Nebraska counsel: Nebraska Data Privacy Act applicability (and an appeals process if it applies), processor contracts, the liability clause and any cap, dispute resolution.
+- The app's `policy.ts` updated to v1.1 (prompt sent to Jaycee); `pnpm policy:check` fails until then.
+
 ### Waiting on Jaycee
 
 - Review and merge PR 1.
