@@ -7,7 +7,8 @@ import { isProduction } from '@/lib/content'
 import { absoluteUrl, site } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: `${page.title} — The 402`,
+  // The app's pages carry the app's name, without the studio's "— Twelve" suffix.
+  title: { absolute: `${page.title} — The 402` },
   description: page.lead,
   alternates: { canonical: absoluteUrl('/402/delete-account') },
 }

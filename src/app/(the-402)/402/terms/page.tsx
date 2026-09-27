@@ -6,7 +6,8 @@ import { resolvePending } from '@/lib/content'
 import { absoluteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: `${termsPage.title} — The 402`,
+  // The app's pages carry the app's name, without the studio's "— Twelve" suffix.
+  title: { absolute: `${termsPage.title} — The 402` },
   description: termsPage.lead,
   alternates: { canonical: absoluteUrl('/402/terms') },
 }

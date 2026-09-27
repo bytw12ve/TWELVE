@@ -8,7 +8,8 @@ import { RichText } from '@/components/ui/RichText'
 import { absoluteUrl, site } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: `${supportPage.title} — The 402`,
+  // The app's pages carry the app's name, without the studio's "— Twelve" suffix.
+  title: { absolute: `${supportPage.title} — The 402` },
   description: supportPage.lead,
   alternates: { canonical: absoluteUrl('/402/support') },
 }
