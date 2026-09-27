@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 
 /**
  * Stage 1 placeholder. The designed page arrives in Stage 4 — see
- * docs/DESIGN.md §5 and twelve-design/screens/PageAbout.png.
+ * docs/DESIGN.md §5 and twelve-design/screens/AboutDesktop.png.
  */
 export default function AboutPage() {
   return (

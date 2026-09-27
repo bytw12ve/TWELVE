@@ -10,13 +10,9 @@ Visual reference lives in `references/` — rendered screens, the live HTML prev
 
 ## Build Status
 
-Current status: **Stage 0 built, awaiting its Vercel preview.** `docs/STATE.md` holds the live status; this file holds the rules.
+`docs/STATE.md` holds the live status; this file holds the rules.
 
-Approved: page designs (Home, Work, About, Playground, Contact), `docs/DESIGN.md`, and the decisions in this file.
-
-**Design is complete.** Every route has an approved desktop and mobile design — including the `/work/[project]` case-study template in long and short states, and the 404. Reference screens and live previews for all of them are in `references/`.
-
-Nothing outstanding is design work. What remains is real content and a custom display face to replace the Figtree stand-in.
+Approved: the homepage (built, Stage 2), the **Pages v2** designs of 2026-09-26 — My work, About, Playground, Contact, the 402 page and its four help pages — the 404 and case-study designs, `docs/DESIGN.md`, and the decisions in this file. Pages v2's design source is `twelve-design/pages-v2/`; `references/` carries its screens.
 
 ## Framework
 
@@ -29,7 +25,9 @@ Why, against the criteria in the original plan:
 - **Future products** — room for a product page, a changelog, or a subdomain app without re-platforming.
 - **Deployment** — first-class on Vercel.
 
-Every route is **statically rendered**. There is no server runtime, no database, no API route at launch. If something later needs a server, that is a deliberate decision, not a drift.
+Every page is **statically rendered**. There is no database and no server-rendered page.
+
+**One deliberate exception: `POST /api/beta`** (Pages v2, Jaycee's decision, 2026-09-26). The 402's beta signup needs somewhere to send an email address and a phone platform, so one route handler receives the form and emails it to the studio through Resend — see §Contact. It is the only server code in the project. Anything further that needs a server is another deliberate decision, recorded here first.
 
 ## Styling
 
@@ -46,17 +44,26 @@ This is reversible if it turns out to hurt; nothing else depends on it.
 ## Routing
 
 ```
-/                      Home — hero, index, footer
-/work                  Work — project rows
-/work/[project]        Case study (static params from the content directory)
+/                      Home — hero, footer
+/work                  My work — finished, public projects
+/work/the-402          The 402 — a one-off page in the 402's own skin
+/work/[project]        Case study template — deferred (see below)
 /about                 About
-/playground            Playground archive
+/playground            Playground
 /contact               Contact
-/not-found             404
+/402/privacy           The 402 — privacy policy
+/402/terms             The 402 — terms of service
+/402/support           The 402 — support
+/402/delete-account    The 402 — delete your account
+/api/beta              POST only — the beta signup (§Contact)
+not-found.tsx          404
 ```
 
 - Playground entries have **no detail route**. A card links to the live thing, its repo, or nothing.
-- **When each route is built:** the five primary routes get their shell and a placeholder in Stage 1 and their real content in Stage 4; `/work/[project]` is **Stage 5**, after the content layer exists; the designed 404 is **Stage 6**, replacing the bare `not-found.tsx` Stage 1 leaves.
+- **`/work/the-402` is a static route, not an instance of `/work/[project]`** (Jaycee's decision, 2026-09-26). The 402 has its own design, and its layout does not fit the case-study template. A static segment wins over the dynamic one, so both can coexist when the template is built.
+- **The 402's routes live in a route group, `src/app/(the-402)/`**, whose layout loads the 402's three font families and nothing else does (§Fonts). The group does not appear in URLs.
+- **The help pages sit under `/402/`**, on `bytw12ve.com`, not a separate domain — Jaycee's choice. The paths are printed on the pages and submitted to both app stores, so **they are permanent**: never rename them.
+- **When each route is built:** see §Build Stages. `/work/[project]` is **deferred** until a second finished project exists; the designed 404 is Stage 6.
 - Project slugs come from the content directory; `generateStaticParams` enumerates them at build.
 - Trailing slashes off. Unknown `/work/*` slugs render the 404.
 
@@ -66,20 +73,27 @@ This is reversible if it turns out to hurt; nothing else depends on it.
 
 ```
 content/
-  work/
-    the-402.mdx          frontmatter + case-study body
-    keeb-wiki.mdx
-    …
+  pages/                 copy for My work, About, Playground and Contact
+  work.ts                the finished projects My work lists (today: the 402)
   playground.ts          typed array — entries need metadata, not bodies
-  site.ts                studio constants: name, email, socials, location
-types/content.ts         Project, PlaygroundEntry, and the shared unions
+  the-402/
+    page.ts              every string on /work/the-402, and BETA_OPENS
+    privacy.ts           the app's policy, word for word (below)
+    terms.ts · support.ts · delete-account.ts
+types/content.ts         the content types and their shared unions
 ```
 
-- Work entries are MDX: YAML frontmatter (`title`, `slug`, `kind`, `descriptor`, `year`, `summary`, `cover`, `links`, `order`, `draft`) parsed with `gray-matter`, body rendered with `next-mdx-remote/rsc`. Prose belongs in a prose format, not in TypeScript string literals.
-- `kind` is a union type (`ios-app` | `web-product` | `creative-tool` | `game` | `client-website`), not a free string, so the kind labels in `docs/DESIGN.md` §5.1 stay consistent.
-- Playground entries are a typed array — status chip, title, date, optional `href`. An entry with no `href` is the non-interactive card `docs/DESIGN.md` §5.3 describes.
-- `draft: true` excludes an entry from the build and from the sitemap.
-- Images live beside content in `public/work/<slug>/`.
+**Revised for Pages v2 (2026-09-26).** The original plan was one MDX file per project, rendered by the case-study template. The template is deferred, and every page being built now is structured — sections, lists, cards, questions — rather than long-form prose, so the content is **typed TypeScript modules**. MDX (`gray-matter`, `next-mdx-remote/rsc`) comes in with the case-study template, when a project first has a body to render. Neither dependency is added before then.
+
+- **Copy is verbatim from `twelve-design/pages-v2/prototype/index.html`**, which Jaycee approved line by line. It lives here and never inside a component. New copy — a loading state, an error message — is proposed to Jaycee before it ships.
+- `kind` is a union type, not a free string, so kind labels stay consistent.
+- Playground entries are a typed array — status (`live` · `building` · `concept`), title, line, kind label, date, and an optional link. An entry with no link is the non-interactive card `docs/DESIGN.md` §5.3 describes. Filter counts and page labels are derived, never typed.
+- `draft: true` excludes an entry from the build, navigation and the sitemap.
+- **`pending`** marks a clause, or a whole page, that is waiting on Jaycee's answer (`docs/DESIGN.md` §5.8). Development and preview builds render it highlighted; a production build (`VERCEL_ENV=production`) leaves a pending clause out, and leaves out a page marked pending entirely. Nothing highlighted ever reaches production.
+- Images live in `public/work/<slug>/`. The 402's app screens are the patched crops in `twelve-design/pages-v2/prototype/img/`, not the raw App Store exports.
+- **Literal domains stay out of content.** The help pages print their own address and the contact email; both are built from `src/lib/site.ts`, so `pnpm domain:check` still holds.
+
+**The privacy policy has one source, and it is not this repository.** The web policy must match the in-app policy word for word, and Jaycee chose the app's text: `apps/mobile/src/features/legal/policy.ts` in the 402's repository. `content/the-402/privacy.ts` copies its exports (`POLICY_VERSION`, `POLICY_UPDATED`, `POLICY_INTRO`, `POLICY_SHORT`, `POLICY_SECTIONS`) with the same names and shape. `scripts/check-402-policy.mjs` compares the two whenever the app repository is checked out beside this one and fails on any difference; CI, which has no copy of the app, skips it and says so. **The words change in the app first**, then here. The 402 page's fine print is `POLICY_SHORT` from the same module, not its own copy.
 
 A future product page would add `content/products/` following the same shape. Do not introduce a CMS to solve a problem we do not have yet.
 
@@ -232,6 +246,14 @@ SpaceMono-Bold.woff2        meta      700
 - `font-display: swap` with `size-adjust`-tuned fallbacks so the swap does not shift layout.
 - These faces are **stand-ins** (`docs/DESIGN.md` §1.3). Because every size lives in a token, swapping in a custom face later means changing the font files and re-checking the scale — not touching components.
 
+### The 402's faces (Pages v2)
+
+The 402's page and help pages use the app's own type (`docs/DESIGN.md` §1.5): **Bricolage Grotesque** (display, variable, width and weight axes), **Instrument Sans** 400–600 (body, variable) and **DM Mono** 400/500 (labels). All three are OFL, self-hosted the same way as Twelve's faces, Latin subset, `woff2`, with their source and licence in `public/fonts/README.md`.
+
+- **They load only on the 402's routes.** `src/app/(the-402)/layout.tsx` declares them with `next/font/local`; nothing outside that route group imports them, so no other route preloads or downloads them. Verified per route in the built HTML: a `<link rel="preload" as="font">` for a 402 face on any other route is a failure.
+- **Their weight is measured before commit, not estimated**, and recorded here with the files. Bricolage Grotesque's optical-size axis is not used, so it is dropped from the subset; the width axis is kept, because the design sets it narrow. The budget for the three together is **150 KB of `woff2`**; if they come in above it, subset further before shipping.
+- They do not touch Twelve's four preloaded files or the homepage's LCP.
+
 ## Images and Media
 
 - Formats: AVIF with WebP fallback, via `next/image`.
@@ -277,28 +299,46 @@ Names follow `docs/DESIGN.md` §6 exactly. Do not invent parallel vocabulary.
 ```
 src/
   app/                      routes, layouts, metadata, sitemap, robots
+    (the-402)/              the 402's routes and the layout that loads its fonts
+    api/beta/               the one route handler
   components/
     layout/                 NavBar · MenuOverlay · FooterBar
     hero/                   HeroEnvironment · StarField · PixelWorld · BrandDot · HeroWordmark
-    page/                   PageOpener · IndexRow · StatementBand
-    work/                   WorkRow · ProjectCover
-    playground/             PlaygroundCard · StatusChip
-    ui/                     PillButton · MetaLabel · StudioStamp · Chip
+    page/                   PageOpener · StatementBand · Reveal
+    work/                   FeatureCard
+    about/                  PhotoFrame · MakeGrid · BeforeTwelve
+    playground/             PlaygroundFilter · PlaygroundCard (and its visuals)
+    contact/                ContactSlab
+    the-402/                The402Logo · Countdown · AppScreen · BetaForm · HelpHeader · HelpLinks · Faq
+    ui/                     PillButton · MetaLabel · StudioStamp · Chip · CopyEmail
   lib/                      site constants, content loaders, seeded PRNG, reduced-motion hook
   styles/                   tokens.css, globals.css
 ```
 
 `NavBar`, `MenuOverlay` and `FooterBar` live in the root layout so they survive page transitions. Everything else is a route-level concern.
 
-Components stay server components unless they need state. Only the star field, the menu, and the scroll reveal are client components — mark them `'use client'` and keep them small, so interactivity does not leak into the rest of the tree.
+Components stay server components unless they need state. The client components are the star field, the menu, and — from Pages v2 — the section reveal, the copy buttons, the Playground filter and its three canvas/interval visuals, the Contact knockout, the countdown, the beta form and the FAQ. Each is marked `'use client'` and kept small, so interactivity does not leak into the rest of the tree, and each page stays inside the 40 KB own-code budget.
 
 Do not turn every element into its own file. A component earns a file when it is reused, when it holds state, or when it is named in `docs/DESIGN.md`.
 
 ## Contact
 
-**Decision: `mailto:` only. No form.**
+**Decision: `mailto:` only on Twelve's pages. No contact form.**
 
-`docs/DESIGN.md` §5.4 specifies no contact form, no newsletter, no calendar embed. This means no form service, no spam handling, no backend, and no personal data in transit. Revisit only if mail volume becomes a real problem.
+`docs/DESIGN.md` §5.4 specifies no contact form, no newsletter, no calendar embed. Revisit only if mail volume becomes a real problem.
+
+### The 402 beta signup — the one form
+
+**Decision (Jaycee, 2026-09-26): a route handler emails each signup to the studio through Resend.** The 402's beta form (`docs/DESIGN.md` §6.4) collects an email address and iPhone or Android. TestFlight invites testers by email, and Google Play closed testing takes a list of testers' Google account emails, which is why it asks for both. Options considered: this; a hosted form service (Tally, Formspree), which adds a third party that sees visitors' addresses; a prefilled `mailto:`, which changes the design; and a stored list (Upstash, Vercel KV), which adds a database. Resend was chosen because the 402 app already uses it, and nothing is stored.
+
+How it works:
+
+- `src/app/api/beta/route.ts` accepts `POST` only, form-encoded or JSON. It validates the email (length-capped, one `@`, a dot in the domain) and the platform (`ios` or `android`, nothing else), and rejects anything with the honeypot field filled.
+- It sends **one plain-text email to `site.email`**, with the address and platform in the body and `Reply-To` set to the signup's address. **Nothing is stored** — not in a database, not in logs beyond Vercel's standard request logs. The inbox is the list.
+- It calls Resend's HTTP API with `fetch` — **no SDK dependency**. The key is `RESEND_API_KEY`, a server-only environment variable in Vercel, never `NEXT_PUBLIC_`, never committed. **Jaycee sets it herself** in Vercel for Production and Preview; nobody else handles the key. `bytw12ve.com` is already a verified sending domain in Resend (Jaycee, 2026-09-26). The sender is `The 402 <beta@bytw12ve.com>`, declared in `src/lib/site.ts` alongside `email`, and every signup goes to `contact@bytw12ve.com`.
+- Responses: `303` back to `/work/the-402?beta=ok#beta` (or `=invalid`, `=error`) for a plain form post, so it works without JavaScript; JSON for the enhanced form. The success, invalid and error states are designed (`docs/DESIGN.md` §6.4).
+- Abuse: the honeypot, a size cap on the body, and one submission per request. No rate limiter at launch; add one if the inbox shows abuse, and record it here.
+- **In preview deployments without the key**, the handler returns the error state rather than pretending to succeed.
 
 The address shown in the designs is `contact@bytw12ve.com`, following the launch domain. **Confirm this mailbox actually receives mail before launch** — it is in the Launch QA checklist, and a studio site with a dead contact address is the one bug that costs real work.
 
@@ -310,7 +350,7 @@ Nothing to disclose, no cookie banner, no third-party script. If analytics are a
 
 ## Privacy
 
-With the decisions above, at launch the site loads no third-party resources at all: fonts are self-hosted, there is no analytics, no embeds, no form. Keep it that way unless there is a stated reason not to — and record that reason here.
+With the decisions above, the site loads no third-party resources in the browser: fonts are self-hosted, there is no analytics and no embeds. **The one piece of personal data in transit** is the 402 beta signup (§Contact): an email address and a phone platform, posted to our own origin and emailed onward to the studio by Resend, server to server. Nothing is stored, and the form says what the address is for. Keep it that way unless there is a stated reason not to — and record that reason here.
 
 ## Deployment
 
@@ -336,8 +376,9 @@ With the decisions above, at launch the site loads no third-party resources at a
 - **Every other branch gets its own preview deployment**, built exactly as production is.
 - **The preview URL is part of review.** A branch is not ready to merge until its preview has been opened and checked against the stage's exit criteria — not just until CI is green. CI proves it compiles; the preview proves it looks and behaves right.
 - **Domain:** `bytw12ve.com` (apex) for launch, `www` redirecting to it. The canonical host lives only in `src/lib/site.ts` — see SEO above — so moving domains later touches one line, not page code or metadata.
-- **Environment variables:** none required at launch.
-- **Rollback:** promote the previous deployment in Vercel. Because the site is static with no data layer, rollback is instant and lossless.
+- **Environment variables:** one — `RESEND_API_KEY`, server-only, set in Vercel for Production and Preview (§Contact). Nothing else.
+- **The domain is connected early** (Jaycee, 2026-09-26). The 402's help pages must be live at `bytw12ve.com/402/*` around **October 24** so the app can be submitted, which is before Stage 8. `bytw12ve.com` (apex) and the `www` redirect are attached to production once the 402 pages merge, with Jaycee's go-ahead at that moment. From then on, whatever is on `main` is public at the real domain — so an unfinished page reaching `main` is a public page, and the stage gates matter more, not less. Stage 8 still owns the launch checks.
+- **Rollback:** promote the previous deployment in Vercel. Because the site is static with no data layer, rollback is instant and lossless — the beta handler holds no state either.
 - **Previews are behind Vercel Deployment Protection.** Verifying one requires an authenticated browser. An unauthenticated request returns Vercel's SSO login page with HTTP 200 — that is not the site, and it is not verification. Without a signed-in session a preview cannot be checked; say so rather than infer.
 - **`twelve-eta.vercel.app` returns 404 until `main` carries the app.** Production currently points at the docs-only commit `c05e275`, which has no `package.json`. Expected, not a fault; it resolves when Stage 0 merges.
 
@@ -359,7 +400,7 @@ Before launch, verify:
 
 ## Security and Failure States
 
-The launch version is intentionally simple: static pages, no database, no API routes, no form, no analytics. Keep the security plan proportional to that architecture.
+The launch version is intentionally simple: static pages, no database, no analytics, and **one route handler**, `POST /api/beta` (§Contact). Keep the security plan proportional to that architecture. The handler has the protections its data needs: input validation, a body-size cap, a honeypot, no duplicate submission while one is pending, a server-only key, and a designed error state.
 
 Required before launch:
 
@@ -402,11 +443,13 @@ In addition to the SEO decisions above, verify before launch:
 
 ## Privacy and Legal Review
 
-Current launch architecture requires no cookie banner: there is no analytics, no form, no embeds and no third-party font request.
+Current launch architecture requires no cookie banner: there is no analytics, no embeds, no cookies and no third-party font request. The one form, the 402 beta signup, sets no cookie.
 
 Before launch, still verify the actual implementation matches that assumption.
 
-Add a Privacy Policy if Twelve later collects personal data through analytics, forms, mailing lists, accounts, payments or other tracking.
+Add a Privacy Policy for the site itself if Twelve later collects personal data through analytics, forms, mailing lists, accounts, payments or other tracking. **Open question for Jaycee:** the beta signup collects an email address. The form states its one use, and the 402's privacy policy covers the app, not this form — whether the site needs its own short notice is her call before the form goes live.
+
+The 402's privacy policy and terms at `/402/*` are **the app's** legal pages, published here because the app stores require public URLs for them. They are not the site's.
 
 Add Terms & Conditions when the site begins selling products/services, accepting accounts, payments, uploads or user-generated content.
 
@@ -566,12 +609,24 @@ Rules for every stage:
 - If an exit criterion cannot be met, stop and flag it. Do not lower the bar quietly.
 - Stages marked **REVIEW** need Jaycee's approval before the next stage starts.
 
-**All design is complete** — every route has an approved desktop and mobile design, including the case-study template in its long and short states and the 404. No stage is waiting on design work. Two review gates remain, and both are approvals of *built* work, not of designs:
+**Design is complete for everything being built.** Pages v2 (`twelve-design/pages-v2/`, 2026-09-26) supplies My work, About, Playground, Contact, the 402 and its help pages; the 404 and case-study designs stand. Review gates are approvals of *built* work, not of designs:
 
-- **Stage 2** — the hero, because it is where the design meets a real browser.
-- **Stage 5** — the case-study route, because it is the first template driven by real content.
+- **Stage 2** — the hero. Closed.
+- **Stage 4** — every page Pages v2 adds is reviewed by Jaycee in a browser, on its preview, before it merges.
+- **Stage 5** — the case-study route, when it is built.
 
-Jaycee's sign-off on the nine designs delivered on 2026-09-19 is tracked in `docs/STATE.md` §Review Queue. It is not a stage gate: Stages 0–3 do not touch them.
+### Pages v2 — order and branches
+
+The 402's beta opens **October 31, 2026**, and its privacy, support and delete-account pages need to be live around **October 24** so the builds can be submitted to the stores. The stage order stands — **Stage 3 closes before Stage 4 starts** — and inside Stage 4 the 402's routes go first. Four short-lived branches, each its own pull request:
+
+| # | Branch | Stage | What |
+| --- | --- | --- | --- |
+| 1 | `design/pages-v2` | — | `docs/` and `references/` brought in line with the Pages v2 design package; the 402 tokens through the pipeline. No page code |
+| 2 | `feature/content-layer` | **3** | Types, content modules with all Pages v2 copy, loaders, draft and pending handling, `check-402-policy.mjs` |
+| 3 | `page/the-402` | **4, part 1** | The 402's fonts and route group; `/work/the-402`; the four `/402/*` pages; the beta form and `/api/beta`; their metadata. **Target: merged by October 20**, then the domain is connected |
+| 4 | `page/inner-pages` | **4, part 2** | The nav change; My work, About, Playground, Contact; page transitions. **Closes Stage 4** |
+
+Stage 4's exit criteria apply to every page in both parts; part 1 is not exempt for being first. Stage 5 is deferred (below); Stages 6–8 follow as written.
 
 ### Stage 0 — Foundation and guardrails
 
@@ -649,30 +704,39 @@ This is the stage where the design either survives contact with a browser or doe
 
 ### Stage 3 — Content layer
 
-`types/content.ts`, the MDX loader, `content/playground.ts`, `content/site.ts`, draft handling.
+`types/content.ts`, the content modules in §Content Structure — including all Pages v2 copy and the 402's legal text — their loaders, draft and pending handling, and `scripts/check-402-policy.mjs`. No MDX until Stage 5 (§Content Structure).
 
 Done when:
 - content types compile and a malformed entry fails the build rather than rendering broken;
 - `draft: true` removes an entry from navigation, metadata and the sitemap — verified, not assumed;
+- a `pending` clause is absent from a production build and a `pending` page returns 404 there — verified by building with `VERCEL_ENV=production`, not assumed;
+- the web privacy text matches the app's `policy.ts` exactly, checked by script;
 - no content strings remain inside components.
 
 ### Stage 4 — Inner pages
 
-Work, About, Playground, Contact against the approved desktop and mobile designs.
+The Pages v2 routes against their approved desktop and mobile designs (`twelve-design/screens/`, `twelve-design/pages-v2/prototype/`): `/work/the-402` and the four `/402/*` pages first, then My work, About, Playground and Contact, and the nav change.
 
 **Stage 4 also owns page transitions** (`docs/DESIGN.md` §7.3). They were specified but unassigned until Stage 1 flagged it; they land here because validating them needs real content on both sides of the navigation, and because the shell they run inside exists from Stage 1 onward.
 
 Done when:
-- each page matches its approved design at all four breakpoints;
+- each page matches its approved design at all four breakpoints, and **Jaycee has reviewed it in a browser** on its preview;
 - page transitions match §7.3 — 160ms out, 320ms in, nav and footer not participating, a menu link closing the menu first, and an instant swap under reduced motion;
 - no horizontal overflow at any width; orientation change does not break layout;
-- work rows and playground cards are single links with visible focus;
+- no nested interactive elements: the My work card is one link; a Playground card's only interactive element is its one link;
 - non-interactive Playground cards are genuinely non-interactive — not focusable, no arrow;
-- axe clean on every route.
+- **every animation in `docs/DESIGN.md` §7.5 is off under reduced motion, and nothing rests invisible waiting for a script** — checked with the per-frame contrast probe (§Performance), not by axe alone;
+- the bugs the prototype found stay fixed: CLOSE is visible when the menu opens on a 402 page; Back from a help page returns to the same scroll position on the 402 page; the FAQ animates on every open and every close; no small cream-on-orange text;
+- the 402's fonts are preloaded only on the 402's routes;
+- the beta form works with and without JavaScript, shows every designed state, and a real submission reaches the inbox from the preview;
+- the privacy, support and delete-account pages are live on production with no pending markers, before the store submission;
+- axe clean on every route, including the five new ones.
 
 ### Stage 5 — Case study — REVIEW
 
 The template is designed — `docs/DESIGN.md` §5.5, with long, short and mobile reference screens. Build it with `generateStaticParams`.
+
+**Deferred (Jaycee, 2026-09-26)** until a second finished project exists. The 402 is a one-off page (§Routing), so there is no project to render through the template yet, and building it against placeholder content would prove nothing. Stages 6–8 do not wait for it.
 
 Done when:
 - a real project renders end to end from its MDX file;

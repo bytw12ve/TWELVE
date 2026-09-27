@@ -33,7 +33,8 @@ const section = (heading, next) => {
 
 const s11 = section('### 1.1 Color', '### 1.2')
 const s13 = section('### 1.3 Type', '### 1.4')
-const s14 = section('### 1.4 Spacing', '## 2.')
+const s14 = section('### 1.4 Spacing', '### 1.5')
+const s15 = section('### 1.5 The 402 skin', '## 2.')
 
 const failures = []
 const checked = []
@@ -72,6 +73,23 @@ if (colours.length < 20) {
   failures.push(`§1.1 parsed only ${colours.length} colours — the table format changed`)
 }
 for (const [, name, hex] of colours) expect(name, hex)
+
+// §1.5 — the 402 skin's colours, same row format as §1.1.
+const skin = [...s15.matchAll(/`([a-z]+-[a-z0-9]+)`[^`\n]*`(#[0-9a-fA-F]{6})`/g)]
+if (skin.length < 15) {
+  failures.push(`§1.5 parsed only ${skin.length} colours — the table format changed`)
+}
+for (const [, name, hex] of skin) expect(name, hex)
+
+// §1.5 — the 402 type styles. Most are fluid, so their sizes live as clamp()
+// in tokens.json and are not compared here; every documented name must exist.
+for (const [, name] of s15.matchAll(/^\|\s*`(the402-[a-z-]+)`\s*\|\s*[\d]/gm)) {
+  checked.push(name)
+  const style = tokens.type.groups.flatMap((g) => g.styles).find((s) => s.name === name)
+  if (!style) failures.push(`${name}: documented in docs/DESIGN.md §1.5, missing from tokens.json`)
+  else if (cssValue(`text-${name}-size`) === null)
+    failures.push(`text-${name}-size: missing from tokens.css`)
+}
 
 // §1.1 — the two focus aliases, which point at a token rather than a value.
 for (const [, name, target] of s11.matchAll(/`(focus-[a-z]+)`\s*\|\s*→\s*`([a-z]+-[a-z0-9]+)`/g)) {
