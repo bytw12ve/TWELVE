@@ -20,7 +20,9 @@ Last updated: 2026-09-26 (Pages v2 planned)
 
 ## Next Action
 
-**Jaycee reviews and merges the four Pages v2 PRs, in order** — #1 docs, #3 content layer, #4 the 402, #5 inner pages — each on its Vercel preview. Stage 4 closes when she has reviewed every page.
+**Jaycee merges the five Pages v2 PRs, in order** — #1 docs, #3 content layer, #4 the 402, #5 inner pages, #6 polish (her copy, the pins, the launch legal text, both favicons). She reviewed the pages on the #6 preview and approved them on 2026-09-27; merging #6 closes Stage 4. #2 (favicon and title) was folded into #6 and closed.
+
+After the merge: the app's `policy.ts` takes the v1.1 words (prompt with Jaycee), then `pnpm policy:check` passes again; the privacy, support and delete-account pages are live on bytw12ve.com for the store submissions.
 
 ### Pages v2 — the plan
 
