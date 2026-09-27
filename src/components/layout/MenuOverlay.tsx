@@ -196,6 +196,7 @@ export function MenuOverlay() {
          * dark control on a paper ground for the length of the wipe.
          */
         surface={mounted ? 'paper' : 'dark'}
+        data-surface={mounted ? 'paper' : 'dark'}
         className={styles.pill}
         aria-expanded={open}
         aria-controls={panelId}
