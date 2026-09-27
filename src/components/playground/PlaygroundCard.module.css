@@ -1,0 +1,404 @@
+/* docs/DESIGN.md §5.3 */
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--hairline-dark);
+  border-radius: var(--radius-md);
+  background: var(--void-700);
+  transition:
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.3s;
+}
+
+.card[hidden] {
+  display: none;
+}
+
+/* §7.1: only a card with somewhere to go responds to hover. */
+.linked:hover {
+  transform: translateY(-6px);
+  border-color: var(--star-700);
+}
+
+.visual {
+  position: relative;
+  height: 280px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--hairline-dark);
+}
+
+.badge {
+  position: absolute;
+  z-index: 3;
+  top: var(--space-4);
+  left: var(--space-4);
+  padding: 7px var(--space-3);
+  border: 1px solid var(--star-700);
+  border-radius: var(--radius-pill);
+  background: var(--void-900);
+  color: var(--star-100);
+  font-family: var(--font-meta);
+  font-size: var(--text-meta-sm-size);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.live::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 7px;
+  vertical-align: 1px;
+  border-radius: 50%;
+  background: var(--grass-400);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.text {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-6) 0;
+}
+
+.title {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--star-100);
+}
+
+.line {
+  margin: 0;
+  max-width: 34em;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--star-400);
+}
+
+.meta {
+  margin-top: var(--space-2);
+  font-family: var(--font-meta);
+  font-size: var(--text-meta-sm-size);
+  letter-spacing: var(--text-meta-sm-tracking);
+  text-transform: uppercase;
+  color: var(--star-400);
+}
+
+.action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: var(--target-min);
+  margin: var(--space-6) var(--space-6) 0;
+  padding-block: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--hairline-dark);
+  font-family: var(--font-meta);
+  font-size: var(--text-meta-size);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--star-100);
+}
+
+a.action:focus-visible {
+  outline: 2px solid var(--focus-dark);
+  outline-offset: 3px;
+}
+
+.quiet {
+  font-weight: 400;
+  color: var(--star-400);
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+a.action:hover .arrow {
+  transform: translate(3px, -3px);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- keebwiki ---- */
+.keys {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--void-800);
+}
+
+.kb {
+  display: grid;
+  grid-template-columns: repeat(12, 30px);
+  gap: 6px;
+  padding: 18px;
+  border-radius: 14px;
+  background: var(--void-600);
+}
+
+.kb i {
+  height: 30px;
+  border-radius: 5px;
+  background: var(--void-700);
+  box-shadow: inset 0 -3px 0 var(--void-900);
+  transition:
+    transform 0.08s,
+    background 0.2s;
+}
+
+.kb .space {
+  grid-column: span 5;
+}
+
+.kb .down {
+  transform: translateY(2px);
+  background: var(--purple-500);
+  box-shadow: none;
+}
+
+/* ---- Ledger Coffee ----
+   This card is a picture of another brand (a concept coffee shop), so its
+   colours are that brand's, not Twelve's tokens — the same way a photograph
+   carries its own colours. */
+.brick {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background-color: #1b1512;
+  background-image:
+    linear-gradient(#0f0b09 2px, transparent 2px), linear-gradient(90deg, #0f0b09 2px, transparent 2px),
+    linear-gradient(90deg, #0f0b09 2px, transparent 2px);
+  background-size:
+    100% 26px,
+    56px 52px,
+    56px 52px;
+  background-position:
+    0 0,
+    0 0,
+    28px 26px;
+}
+
+.sign {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  min-width: 260px;
+  padding: 26px 34px;
+  border: 1px solid #3a2e27;
+  border-radius: 10px;
+  background: #120e0c;
+}
+
+.sign b {
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #f2e6d6;
+}
+
+.sign small {
+  font-family: var(--font-meta);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  color: #a89886;
+}
+
+.brass {
+  position: absolute;
+  right: -22px;
+  bottom: -22px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f3cf6a, #c5902a 60%, #8a5f14);
+  animation: spin 9s linear infinite;
+}
+
+.brass::after {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  border: 2px dashed rgb(60 35 5 / 0.5);
+}
+
+/* ---- the game ---- */
+.game {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--void-900);
+}
+
+.game canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+.loading {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+}
+
+.loading b {
+  font-family: var(--font-meta);
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  color: var(--star-100);
+}
+
+.bar {
+  width: 220px;
+  height: 16px;
+  padding: 2px;
+  border: 2px solid var(--star-100);
+}
+
+.bar i {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--purple-500);
+  animation: load 4s steps(14) infinite;
+}
+
+.blink {
+  animation: blink 1s steps(1) infinite;
+}
+
+/* ---- this website ---- */
+.site {
+  position: absolute;
+  inset: 0;
+  background: var(--void-900);
+  cursor: crosshair;
+}
+
+.site canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.siteDot {
+  position: absolute;
+  right: -40px;
+  bottom: -60px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: var(--purple-500);
+}
+
+.siteMark {
+  position: absolute;
+  left: var(--space-6);
+  bottom: 22px;
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--star-100);
+  pointer-events: none;
+}
+
+.siteMark i {
+  font-style: normal;
+  color: var(--purple-500);
+}
+
+.siteHint {
+  position: absolute;
+  right: var(--space-4);
+  top: var(--space-4);
+  font-family: var(--font-meta);
+  font-size: var(--text-meta-sm-size);
+  letter-spacing: var(--text-meta-sm-tracking);
+  text-transform: uppercase;
+  color: var(--star-400);
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes load {
+  80%,
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .kb i,
+  .arrow {
+    transition: none;
+  }
+
+  .live::before,
+  .brass,
+  .bar i,
+  .blink {
+    animation: none;
+  }
+
+  .bar i {
+    width: 60%;
+  }
+}
+
+@media (max-width: 520px) {
+  .kb {
+    grid-template-columns: repeat(12, 18px);
+    gap: 4px;
+    padding: 12px;
+  }
+
+  .kb i {
+    height: 18px;
+  }
+}

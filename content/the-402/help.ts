@@ -1,12 +1,14 @@
 import { host, site } from '@/lib/site'
 import { typed } from '@/types/content'
-import type { HelpPageKey, HelpSection, MaybePending, RichText } from '@/types/content'
+import type { HelpPageKey, HelpSection, RichText } from '@/types/content'
 
 import { POLICY_UPDATED, POLICY_VERSION } from './privacy'
 
 /**
  * The 402's help and legal pages — docs/DESIGN.md §5.8. The privacy policy's
- * words are in ./privacy.ts, copied from the app; everything else is here.
+ * words are in ./privacy.ts, shared with the app; everything else is here.
+ * Launch text from Jaycee's legal draft of 2026-09-26, with its internal
+ * review notes left out (they are tracked in docs/STATE.md, not published).
  *
  * These paths are submitted to the App Store and Google Play. Never rename them.
  */
@@ -35,102 +37,125 @@ export const helpCommon = {
 export const privacyPage = {
   title: 'Privacy policy',
   lead: "What the 402 collects, how it's used, and how to delete it.",
-  version: `Version ${POLICY_VERSION.replace(/^v/, '')} · Updated ${POLICY_UPDATED}`,
+  version: `Version ${POLICY_VERSION.replace(/^v/, '')} · Effective ${POLICY_UPDATED}`,
   shortLabel: 'The short version',
   jumpLabel: 'On this page',
 }
 
+const email = { text: site.email, href: `mailto:${site.email}` }
+
 export const termsPage = {
   title: 'Terms of service',
   lead: 'The rules for using the 402, in plain language.',
-  version: 'Version 1.0 · Effective Oct 31, 2026',
+  version: 'Effective October 31, 2026',
+  intro: 'These Terms govern the 402. By using it, you agree to them.',
   jumpLabel: 'On this page',
   sections: typed<readonly HelpSection[]>([
     {
-      id: 'using',
-      heading: 'Using the 402',
+      id: 'what',
+      heading: 'What is the 402?',
       paragraphs: [
         [
-          "The 402 is free to use. By using it, you agree to these terms. If you don't agree, please don't use the app.",
-        ],
-        ['You need to be at least 13 years old to create an account.'],
-      ],
-    },
-    {
-      id: 'account',
-      heading: 'Your account',
-      paragraphs: [
-        [
-          "Use accurate information when you sign up, and keep your login to yourself. You're responsible for what happens on your account.",
-        ],
-        [
-          'You can delete your account at any time. See ',
-          { text: 'Delete your account', href: helpPaths['delete-account'] },
-          '.',
+          'The 402 is a free discovery service for events, places, organizers, live music, food, and things to do around Omaha. Unless explicitly stated otherwise, we do not organize, operate, sponsor, sell tickets to, or control listed events.',
         ],
       ],
     },
     {
-      id: 'events',
-      heading: 'Events and listings',
+      id: 'who',
+      heading: 'Who can use it?',
       paragraphs: [
         [
-          'Event details come from organizers and public listings. Times, prices, and other details can change, so check with the organizer before you go.',
+          'Anyone may browse without an account. You must be at least 13 to create one. Protect your login credentials and provide accurate account information.',
         ],
-        ["The 402 helps you find events, but we don't run them and aren't responsible for what happens at them."],
+      ],
+    },
+    {
+      id: 'accuracy',
+      heading: 'How accurate are listings?',
+      paragraphs: [
+        [
+          'Information may come from verified organizers and public sources. Dates, times, prices, availability, age restrictions, venues, and other details can change. Check important details with the organizer, venue, or seller before making plans, buying tickets, or traveling.',
+        ],
       ],
     },
     {
       id: 'tickets',
-      heading: 'Tickets',
+      heading: 'What about tickets and outside services?',
       paragraphs: [
         [
-          'Tickets are sold on other websites. Payments, refunds, and ticket problems are handled by the seller, not by the 402.',
+          'The 402 does not currently sell tickets or process ticket payments. Third-party sellers handle purchases, fees, refunds, and support under their own terms. Directions and other external links may also open services we do not control.',
         ],
       ],
     },
     {
-      id: 'fair',
-      heading: 'Using the app fairly',
+      id: 'organizers',
+      heading: 'What rules apply to organizers?',
       paragraphs: [
         [
-          "Don't misuse the app. That includes trying to break it, copying its listings in bulk, or using it to spam or harass anyone.",
+          'Only approved organizers may use organizer publishing features. Organizers are responsible for submitted content and for having rights to it. They may not submit misleading, fraudulent, unlawful, infringing, threatening, harassing, or harmful content.',
         ],
-        {
-          pending: true,
-          waitingOn: "Jaycee's OK on this new sentence (only verified organizers post events, 2026-09-27)",
-          value: [
-            'Only verified organizers can post events. Organizers must not post anything false, illegal, or offensive.',
-          ],
-        },
-        ['We may suspend or close accounts that break these terms.'],
-      ],
-    },
-    {
-      id: 'guarantees',
-      heading: 'No guarantees',
-      paragraphs: [
         [
-          "We work hard to keep the app running and the listings correct, but the app is provided as it is, without guarantees. As far as the law allows, we aren't liable for losses that come from using it.",
+          'By submitting listing content, an organizer grants the 402 a non-exclusive, worldwide, royalty-free license to host, reproduce, format, display, and distribute it as reasonably necessary to operate and promote the listing and the 402. The organizer keeps ownership.',
+        ],
+        [
+          'We may remove content or restrict organizer features when reasonably necessary to enforce these Terms, protect users, comply with law, or protect the service.',
         ],
       ],
     },
     {
-      id: 'changes',
-      heading: 'Changes',
+      id: 'not-allowed',
+      heading: 'What uses are not allowed?',
       paragraphs: [
         [
-          "If these terms change in a way that matters, we'll let you know in the app before the change takes effect.",
+          "Do not attempt unauthorized access; interfere with the service; scrape or copy it in bulk without permission; spam, harass, threaten, impersonate, or defraud people; submit false information; violate others' rights; or use the service unlawfully.",
+        ],
+      ],
+    },
+    {
+      id: 'ownership',
+      heading: 'Who owns the 402?',
+      paragraphs: [
+        [
+          "The 402's original software, branding, design, and original content are owned by twelve. or its licensors. Third-party materials remain their owners' property.",
+        ],
+      ],
+    },
+    {
+      id: 'suspension',
+      heading: 'Can access be suspended?',
+      paragraphs: [
+        [
+          'We may restrict or suspend access when we reasonably believe an account violates these Terms, harms users, compromises security, or violates law.',
+        ],
+      ],
+    },
+    {
+      id: 'guarantee',
+      heading: 'Is the service guaranteed?',
+      paragraphs: [
+        [
+          'To the extent permitted by law, the 402 is provided "as is" and "as available." We do not guarantee uninterrupted availability or that every listing will remain accurate. Nothing excludes rights that cannot legally be excluded.',
+        ],
+      ],
+    },
+    {
+      id: 'liability',
+      heading: 'What is the limit on liability?',
+      paragraphs: [
+        [
+          'To the maximum extent permitted by law, twelve. and people operating the 402 are not liable for indirect, incidental, special, consequential, or punitive damages arising from the service, third-party services, event changes or cancellations, ticket transactions, or conduct at an event. Nothing limits liability where law forbids it.',
         ],
       ],
     },
     {
       id: 'law',
-      heading: 'Law and contact',
-      paragraphs: [
-        ['These terms are governed by the laws of Nebraska.'],
-        ['Questions? Email ', { text: site.email, href: `mailto:${site.email}` }, '.'],
-      ],
+      heading: 'What law applies?',
+      paragraphs: [['Nebraska law governs these Terms except where applicable law provides non-waivable rights.']],
+    },
+    {
+      id: 'contact',
+      heading: 'Contact',
+      paragraphs: [['Questions about these Terms? Email ', email, '.']],
     },
   ]),
 }
@@ -139,82 +164,88 @@ export const supportPage = {
   title: 'Support',
   lead: "Questions about the 402, or something not working? Here's how to get help.",
   intro:
-    "If something isn't working, or you have a question about the 402, email me. I read every message and answer them myself.",
-  includeHeading: 'What to include',
-  include: [
-    'What happened, and what you expected to happen',
-    'Your phone model and its iOS or Android version',
-    'A screenshot, if you can take one',
-  ],
+    'Email me. Include what happened, what you expected, your phone model and iOS or Android version, and a screenshot if it helps. Never email your password.',
   faqHeading: 'Common questions',
   faq: typed<readonly { q: string; a: RichText }[]>([
     {
-      q: 'How do I join the beta?',
-      a: [
-        'Leave your email on ',
-        { text: 'the 402 page', href: '/work/the-402#beta' },
-        " and choose iPhone or Android. The beta opens October 31, and I'll email you an invite.",
-      ],
-    },
-    {
       q: 'Do I need an account?',
-      a: [
-        "No. You can browse without one. You only need an account to save events and mark what you're going to.",
-      ],
+      a: ['No. Accounts enable saves, Interested and Going marks, followed organizers, and preferences.'],
     },
     {
       q: 'Do I have to share my location?',
-      a: [
-        "No. If you'd rather not, pick the neighborhoods you usually go to, and the app will show you what's happening there.",
-      ],
+      a: ['No. You can choose neighborhoods instead.'],
     },
     {
-      q: 'An event is wrong or missing',
-      a: ["Email me the name of the event and what's wrong, and I'll fix it."],
+      q: 'An event is wrong or missing.',
+      a: ['Email the event name and what appears wrong.'],
     },
     {
       q: 'How do I delete my account?',
       a: [
-        "In the app, go to You → Settings → Delete account. If you've already deleted the app, ",
-        { text: 'you can do it by email', href: helpPaths['delete-account'] },
+        'You → Settings → Delete account. If you uninstalled the app, use the email process on ',
+        { text: 'Delete your account', href: helpPaths['delete-account'] },
         '.',
       ],
     },
   ]),
 }
 
+/** A section of the delete-account page. `pending` holds it back until the app can do it. */
+export type DeleteSection = {
+  id: string
+  heading: string
+  steps?: readonly RichText[]
+  paragraphs?: readonly RichText[]
+  showEmail?: boolean
+  pending?: string
+}
+
 export const deleteAccountPage = {
   title: 'Delete your account',
   lead: 'How to delete your 402 account, with or without the app.',
-  inApp: {
-    heading: 'In the app',
-    steps: typed<readonly RichText[]>([
-      ['Open the 402 and go to ', { text: 'You → Settings', strong: true }, '.'],
-      ['Tap ', { text: 'Delete account', strong: true }, '.'],
-      ['Confirm. Your account is deleted right away.'],
-    ]),
-  },
-  byEmail: {
-    heading: 'Already deleted the app?',
-    body: typed<RichText>([
-      'Email me from the address on your account with the subject line ',
-      { text: 'Delete my account', strong: true },
-      ". I'll delete it and email you when it's done, within 7 days.",
-    ]),
-  },
-  what: {
-    heading: 'What gets deleted',
-    paragraphs: typed<readonly MaybePending<RichText>[]>([
-      [
-        "Everything: your email address, your name, your username, your saved events and places, your Interested and Going marks, the organizers you follow, and your preferences. We don't keep a copy.",
-      ],
-      {
-        pending: true,
-        waitingOn: 'the 14-day grace period landing in the app and its policy.ts',
-        value: [
-          "You'll have 14 days to change your mind: sign back in and your account comes back as it was. After that it's gone for good.",
+  sections: typed<readonly DeleteSection[]>([
+    {
+      id: 'in-app',
+      heading: 'In the app',
+      paragraphs: [['Go to ', { text: 'You → Settings → Delete account', strong: true }, ' and confirm.']],
+    },
+    {
+      id: 'change-your-mind',
+      heading: 'Can I change my mind?',
+      pending: 'the 14-day grace period working in the app',
+      paragraphs: [
+        [
+          'Your account becomes unavailable immediately. You have 14 days to restore it by signing back in. Otherwise permanent deletion occurs after 14 days.',
         ],
-      },
-    ]),
-  },
+      ],
+    },
+    {
+      id: 'by-email',
+      heading: 'Already uninstalled?',
+      paragraphs: [
+        [
+          'Email ',
+          email,
+          ' from the account email with the subject ',
+          { text: 'Delete my account', strong: true },
+          ". We will process the request and respond within 7 days. We may verify the request to avoid deleting someone else's account.",
+        ],
+      ],
+      showEmail: true,
+    },
+    {
+      id: 'what',
+      heading: 'What gets deleted?',
+      paragraphs: [
+        [
+          'Account data under our control: email, name, username, saved events and places, Interested and Going marks, followed organizers, preferences, and stored starting location. Limited security, legal, and backup records may persist temporarily where legitimately required. Provider-held account data is handled through available deletion processes.',
+        ],
+      ],
+    },
+    {
+      id: 'export',
+      heading: 'Export first',
+      paragraphs: [['Use ', { text: 'Settings → Export my data', strong: true }, ' before requesting deletion.']],
+    },
+  ]),
 }

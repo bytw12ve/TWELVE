@@ -1,0 +1,245 @@
+/* docs/DESIGN.md §5.1. Contrast per §1.5: cream only for the large headline. */
+.card {
+  --font-the402-display: var(--font-the402-display-loaded), 'Helvetica Neue', Helvetica, sans-serif;
+  --font-the402-sans: var(--font-the402-sans-loaded), 'Helvetica Neue', Helvetica, sans-serif;
+  --font-the402-mono: var(--font-the402-mono-loaded), ui-monospace, monospace;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: block;
+  min-height: 620px;
+  margin-top: clamp(var(--space-12), 5vw, var(--space-16));
+  border-radius: var(--radius-lg);
+  background: var(--marquee-500);
+  color: var(--night-950);
+  text-decoration: none;
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--focus-dark);
+  outline-offset: 3px;
+}
+
+.tower {
+  position: absolute;
+  z-index: -1;
+  right: 30%;
+  bottom: -40px;
+  width: 340px;
+  color: var(--marquee-600);
+  transition: transform 1s var(--ease);
+}
+
+.card:hover .tower {
+  transform: translateY(-24px);
+}
+
+.body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 560px;
+  min-height: 620px;
+  padding: clamp(var(--space-8), 4vw, 56px);
+}
+
+.num {
+  display: flex;
+  gap: var(--space-4);
+  margin: 0;
+  font-family: var(--font-the402-mono);
+  font-size: var(--text-the402-label-size);
+  font-weight: var(--text-the402-label-weight);
+  letter-spacing: var(--text-the402-label-tracking);
+  text-transform: uppercase;
+}
+
+.logo {
+  --logo-letters: var(--cream-50);
+  --logo-tower: var(--cream-50);
+}
+
+.body .logo {
+  width: min(360px, 70%);
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--font-the402-display);
+  font-size: clamp(32px, 3.4vw, 48px);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-stretch: 85%;
+  color: var(--cream-50);
+  text-wrap: balance;
+}
+
+.summary {
+  margin: 0;
+  max-width: 28em;
+  font-family: var(--font-the402-sans);
+  font-size: var(--text-the402-body-lg-size);
+  line-height: 1.55;
+  color: var(--night-950);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 7px var(--space-3);
+  border: 1px solid var(--night-950);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-the402-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tags .hot {
+  background: var(--night-900);
+  border-color: var(--night-900);
+  color: var(--cream-50);
+}
+
+.go {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--hairline-orange);
+  font-family: var(--font-the402-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.circle {
+  display: grid;
+  place-items: center;
+  width: var(--space-12);
+  height: var(--space-12);
+  border-radius: 50%;
+  background: var(--cream-50);
+  color: var(--marquee-700);
+  font-size: 20px;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card:hover .circle {
+  transform: scale(1.15) rotate(-45deg);
+}
+
+.phones {
+  position: absolute;
+  right: clamp(var(--space-4), 5vw, 80px);
+  top: var(--space-12);
+  bottom: -120px;
+  width: min(46%, 560px);
+}
+
+/*
+ * §7.5: the phones float on `transform` and drift apart on hover with the
+ * separate `translate` property, so the two never fight — animating the same
+ * property twice is what made the prototype's hover snap.
+ */
+.phone {
+  position: absolute;
+  height: auto;
+  filter: drop-shadow(0 30px 40px rgb(60 12 0 / 0.35));
+  transition:
+    translate 0.9s var(--ease),
+    scale 0.9s var(--ease);
+}
+
+.front {
+  width: 58%;
+  right: 0;
+  top: 0;
+  animation: float 6s ease-in-out infinite;
+}
+
+.back {
+  width: 50%;
+  left: 0;
+  top: 90px;
+  rotate: -7deg;
+  animation: float2 7s ease-in-out infinite;
+}
+
+.card:hover .front {
+  translate: 14px -10px;
+}
+
+.card:hover .back {
+  translate: -20px 6px;
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes float2 {
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .front,
+  .back {
+    animation: none;
+  }
+
+  .phone,
+  .tower,
+  .circle {
+    transition: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .card,
+  .body {
+    min-height: 0;
+  }
+
+  .body {
+    max-width: none;
+  }
+
+  .phones {
+    position: relative;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    width: 100%;
+    height: 440px;
+    margin-top: var(--space-2);
+  }
+
+  .front {
+    width: 52%;
+    right: 6%;
+  }
+
+  .back {
+    width: 46%;
+    left: 6%;
+  }
+}

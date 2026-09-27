@@ -59,6 +59,8 @@ export function toLayers(runs: Run[], cell: number, bleed = 0.6): Layer[] {
 export const WORLDS = {
   desktop: { cols: 42, rows: 24, cell: 16, seed: 1212 },
   mobile: { cols: 30, rows: 18, cell: 12, seed: 1212 },
+  /** About's "Before twelve." band (docs/DESIGN.md §5.2): a wide strip, its own seed. */
+  about: { cols: 96, rows: 28, cell: 12, seed: 402 },
 } as const
 
 export type WorldSize = keyof typeof WORLDS

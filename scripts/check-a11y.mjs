@@ -20,7 +20,7 @@ const ROUTES = [
   '/',
   '/work',
   '/about',
-  '/playground',
+  '/projects',
   '/contact',
   '/work/the-402',
   '/402/privacy',

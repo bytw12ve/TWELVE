@@ -8,7 +8,7 @@
 export const site = {
   url: 'https://bytw12ve.com', // canonical origin, apex, no trailing slash
   name: 'Twelve',
-  title: 'Twelve — Creative studio for digital things worth making',
+  title: 'Twelve — Creative studio',
   description:
     'Twelve is a creative studio for digital things worth making — apps, websites, games, products and experiments.',
   email: 'contact@bytw12ve.com',
@@ -21,6 +21,7 @@ export const site = {
     // A social without a URL renders as plain text, never as a link to
     // nowhere — the "non-interactive by design" state in docs/DESIGN.md §7.1.
     github: 'https://github.com/bytw12ve/TWELVE',
+    youtube: 'https://www.youtube.com/@bytw12ve',
   },
 } as const
 

@@ -1,8 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import type { CSSProperties } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import type { CSSProperties, MouseEvent } from 'react'
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 
 import { MetaLabel } from '@/components/ui/MetaLabel'
@@ -24,7 +24,7 @@ import styles from './MenuOverlay.module.css'
  * into CLOSE in place, so the control never appears to move.
  */
 /** Display names for src/lib/site.ts's social keys. */
-const SOCIAL_LABELS = { github: 'GitHub' } as const
+const SOCIAL_LABELS = { github: 'GitHub', youtube: 'YouTube' } as const
 
 /** Reverse-wipe duration, docs/DESIGN.md §7.2. Mirrors CSS; see CLOSE_MS use. */
 const CLOSE_MS = 380
@@ -52,6 +52,7 @@ export function MenuOverlay() {
   const open = phase === 'open'
   const mounted = phase !== 'closed'
   const pathname = usePathname()
+  const router = useRouter()
   const panelRef = useRef<HTMLDivElement>(null)
   const pillRef = useRef<HTMLButtonElement>(null)
   const firstRowRef = useRef<HTMLAnchorElement>(null)
@@ -66,6 +67,25 @@ export function MenuOverlay() {
       return reduced ? 'closed' : 'closing'
     })
   }, [])
+
+  /*
+   * §7.3: a link followed from the menu closes the menu first, so the paper
+   * never cross-fades straight into the next page. The navigation starts once
+   * the reverse wipe has finished; under reduced motion there is no wipe to
+   * wait for. Modified clicks (new tab, new window) keep the browser's own
+   * behaviour, and the current route just closes.
+   */
+  const follow = useCallback(
+    (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return
+      event.preventDefault()
+      close()
+      if (href === pathname) return
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      window.setTimeout(() => router.push(href), reduced ? 0 : CLOSE_MS)
+    },
+    [close, pathname, router],
+  )
 
   /*
    * Unmount when the reverse wipe ends. The timeout is not belt-and-braces:
@@ -113,7 +133,7 @@ export function MenuOverlay() {
      * from assistive technology while the menu is over it.
      */
     const behind = Array.from(
-      document.querySelectorAll<HTMLElement>('main, footer, [data-shortcuts]'),
+      document.querySelectorAll<HTMLElement>('main, footer'),
     )
     for (const element of behind) element.inert = true
 
@@ -266,7 +286,7 @@ export function MenuOverlay() {
                     ref={index === 0 ? firstRowRef : undefined}
                     className={[styles.row, current && styles.currentRow].filter(Boolean).join(' ')}
                     aria-current={current ? 'page' : undefined}
-                    onClick={close}
+                    onClick={(event) => follow(event, route.href)}
                     style={{ '--row-index': index } as CSSProperties}
                   >
                     <MetaLabel size="md" className={styles.numeral}>

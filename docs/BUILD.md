@@ -12,7 +12,34 @@ Visual reference lives in `references/` — rendered screens, the live HTML prev
 
 `docs/STATE.md` holds the live status; this file holds the rules.
 
-Approved: the homepage (built, Stage 2), the **Pages v2** designs of 2026-09-26 — My work, About, Playground, Contact, the 402 page and its four help pages — the 404 and case-study designs, `docs/DESIGN.md`, and the decisions in this file. Pages v2's design source is `twelve-design/pages-v2/`; `references/` carries its screens.
+Approved and built: the homepage (Stage 2) and **Pages v2** (Stages 3–4, approved 2026-09-27) — My work, About, Side projects, Contact, the 402 page and its four help pages. Designed but not yet built: the 404 (Stage 6) and the case-study template (Stage 5, deferred). Pages v2's design source is `twelve-design/pages-v2/`.
+
+## Working on this repo
+
+pnpm is required and pinned via `packageManager`; Node comes from `.nvmrc` (24).
+
+```bash
+pnpm install --frozen-lockfile
+pnpm dev                 # local development
+pnpm build && pnpm start # the production build, as Vercel serves it
+```
+
+**The gate** — CI runs the same on every push and pull request, and every step fails the job:
+
+```bash
+pnpm install --frozen-lockfile && pnpm lint && pnpm typecheck && pnpm tokens:check && pnpm domain:check && pnpm build && pnpm budget
+pnpm a11y            # axe over every route, against the production build
+pnpm policy:check    # local only: the web privacy policy against the 402 app's (§Content Structure)
+```
+
+| Script | What it protects |
+| --- | --- |
+| `pnpm tokens:check` | `src/styles/tokens.css` still matches `references/tokens.json` **and** the tables in `docs/DESIGN.md` §1. Never edit `tokens.css`; run `pnpm tokens:build` |
+| `pnpm domain:check` | the canonical host appears only in `src/lib/site.ts` |
+| `pnpm budget` | first-load JS, against §Performance |
+| `pnpm a11y` | no axe violations on any route |
+
+**This repository is public.** Commits and pull requests carry no tool attribution, and no file with an embedded provenance tag is committed: check any new image or font with `strings <file> | grep -iE "c2pa|provenance"` first. Design files that fail that check live in the private design repository. Secrets live only in Vercel's environment settings and the git-ignored `.env.local`.
 
 ## Framework
 
@@ -49,7 +76,7 @@ This is reversible if it turns out to hurt; nothing else depends on it.
 /work/the-402          The 402 — a one-off page in the 402's own skin
 /work/[project]        Case study template — deferred (see below)
 /about                 About
-/playground            Playground
+/projects              Side projects (was /playground, which redirects here)
 /contact               Contact
 /402/privacy           The 402 — privacy policy
 /402/terms             The 402 — terms of service
@@ -59,6 +86,7 @@ This is reversible if it turns out to hurt; nothing else depends on it.
 not-found.tsx          404
 ```
 
+- **The Playground was renamed Side projects** (Jaycee, 2026-09-27) and moved to `/projects`; `/playground` 301-redirects there (`next.config.ts`). The code keeps its original names (`PlaygroundCard`, `content/playground.ts`) — they are not user-facing.
 - Playground entries have **no detail route**. A card links to the live thing, its repo, or nothing.
 - **`/work/the-402` is a static route, not an instance of `/work/[project]`** (Jaycee's decision, 2026-09-26). The 402 has its own design, and its layout does not fit the case-study template. A static segment wins over the dynamic one, so both can coexist when the template is built.
 - **The 402's routes live in a route group, `src/app/(the-402)/`**, whose layout loads the 402's three font families and nothing else does (§Fonts). The group does not appear in URLs.
@@ -97,14 +125,14 @@ Imported as `@content/…` (a `tsconfig` path). The root layout imports `@/lib/c
 - **This repository is public: never commit an image or file that carries an embedded provenance tag** (C2PA, or tool metadata naming how it was generated), and never strip one either. Check before adding any binary: `strings <file> | grep -iE "c2pa|provenance"` must be empty. Files that fail stay in the private design repository.
 - **Literal domains stay out of content.** The help pages print their own address and the contact email, and Contact prints the GitHub handle; all are built from `src/lib/site.ts` (`host`, `email`, `handle`). The one exemption from `pnpm domain:check` is `content/the-402/privacy.ts`, the app's policy copied word for word, which names its address.
 
-**The privacy policy has one source, and it is not this repository.** The web policy must match the in-app policy word for word, and Jaycee chose the app's text: `apps/mobile/src/features/legal/policy.ts` in the 402's repository. `content/the-402/privacy.ts` copies its exports (`POLICY_VERSION`, `POLICY_UPDATED`, `POLICY_INTRO`, `POLICY_SHORT`, `POLICY_SECTIONS`) with the same names and shape. `pnpm policy:check` (`scripts/check-402-policy.mjs`) imports both files and fails on any difference; it looks for the app at `THE402_REPO`, defaulting to `~/Documents/GitHub/The 402`. CI has no copy of the app, so it is not part of the gate; run it whenever either side changes. **The words change in the app first**, then here. The 402 page's fine print is `POLICY_SHORT` from the same module, not its own copy.
+**The privacy policy has one source, and it is not this repository.** The web policy must match the in-app policy word for word, and Jaycee chose the app's text: `apps/mobile/src/features/legal/policy.ts` in the 402's repository. `content/the-402/privacy.ts` copies its exports (`POLICY_VERSION`, `POLICY_UPDATED`, `POLICY_INTRO`, `POLICY_SHORT`, `POLICY_SECTIONS`) with the same names and shape. `pnpm policy:check` (`scripts/check-402-policy.mjs`) imports both files and fails on any difference; it looks for the app at `THE402_REPO` (the environment, or a line in the git-ignored `.env.local`), then at a sibling folder named `the-402`. CI has no copy of the app, so it is not part of the gate; run it whenever either side changes. **The words change in the app first**, then here. One exception, recorded: the launch text (v1.1, 2026-09-27) came from Jaycee's legal draft and went on the site first; `pnpm policy:check` fails until the app's `policy.ts` carries the same words. The 402 page's fine print is `POLICY_SHORT` from the same module, not its own copy.
 
 A future product page would add `content/products/` following the same shape. Do not introduce a CMS to solve a problem we do not have yet.
 
 ## SEO
 
 - Per-route `metadata` exports: title, description, canonical, Open Graph, Twitter card.
-- Title template: `%s — Twelve`; home is `Twelve — Creative studio for digital things worth making`.
+- Title template: `%s — Twelve`; home is `Twelve — Creative studio` (shortened by Jaycee, 2026-09-27; the hero line keeps the full sentence).
 - `app/sitemap.ts` and `app/robots.ts` generated from the route list plus the content directory.
 - OG images generated at build with `next/og` from the brand composition (dark ground, brand dot, wordmark). One per route, one per project.
 - JSON-LD: `Organization` on the homepage, `CreativeWork` on each project page.
@@ -117,7 +145,7 @@ A future product page would add `content/products/` following the same shape. Do
 export const site = {
   url: 'https://bytw12ve.com',          // canonical origin, no trailing slash
   name: 'Twelve',
-  title: 'Twelve — Creative studio for digital things worth making',
+  title: 'Twelve — Creative studio',
   description: '…',
   email: 'contact@bytw12ve.com',
   location: 'Omaha, NE',
@@ -151,7 +179,7 @@ Settled (see `docs/DESIGN.md` §4.0 and §7):
 - Under reduced motion: no pin, no animated reveal, plain stacked layout.
 - `VIEW WORK` navigates to `/work`. It is not the reveal trigger.
 - Menu: 420ms open / 320ms close, pill cross-fades into CLOSE in place.
-- Page transitions: 160ms out, 320ms in; nav and footer do not participate. **Owned by Stage 4** — they are built and validated when the routes carry real content, because a transition between two placeholder pages proves nothing. Stage 1 builds the shell they run inside and deliberately does not implement them.
+- Page transitions: 160ms out, 320ms in; nav and footer do not participate. **As built (Stage 4):** React's `<ViewTransition>` around the page content in the root layout, with the document's own view-transition name removed so the nav, footer and menu never snapshot. The incoming page starts at 0.85 opacity, not 0 — the contrast floor — so the two overlap rather than running strictly in sequence. A menu link waits for the 380ms close before it navigates. **Owned by Stage 4** — they are built and validated when the routes carry real content, because a transition between two placeholder pages proves nothing. Stage 1 builds the shell they run inside and deliberately does not implement them.
 
 Implementation notes:
 
@@ -254,7 +282,7 @@ SpaceMono-Bold.woff2        meta      700
 
 The 402's page and help pages use the app's own type (`docs/DESIGN.md` §1.5): **Bricolage Grotesque** (display, variable, width and weight axes), **Instrument Sans** 400–600 (body, variable) and **DM Mono** 400/500 (labels). All three are OFL, self-hosted the same way as Twelve's faces, Latin subset, `woff2`, with their source and licence in `public/fonts/README.md`.
 
-- **They load only on the 402's routes.** `src/app/(the-402)/layout.tsx` declares them with `next/font/local`; nothing outside that route group imports them, so no other route preloads or downloads them. Verified per route in the built HTML: a `<link rel="preload" as="font">` for a 402 face on any other route is a failure.
+- **They load only on the 402's routes — and on `/work`, for the 402's card.** `src/app/(the-402)/layout.tsx` declares them for the route group; `FeatureCard` applies them to My work's one card, which wears the 402's skin (`docs/DESIGN.md` §1.5, §5.1). Nothing else imports them. Verified per route in the built HTML: a preload for a 402 face on any other route is a failure.
 - **Their weight is measured before commit, not estimated**, and recorded here with the files. Bricolage Grotesque's optical-size axis is not used, so it is dropped from the subset; the width axis is kept, because the design sets it narrow. The budget for the three together is **150 KB of `woff2`**; if they come in above it, subset further before shipping.
 - They do not touch Twelve's four preloaded files or the homepage's LCP.
 
@@ -264,7 +292,7 @@ The 402's page and help pages use the app's own type (`docs/DESIGN.md` §1.5): *
 - Project covers: 3:2, minimum 1600px wide.
 - Every meaningful image needs real alt text written by a human; decorative images get `alt=""` and `aria-hidden`.
 - **The wordmark renders as live text**, not as an image file — set in the `display` family with the period in `purple-500`, exactly as the hero does it (`docs/DESIGN.md` §4.1). This applies to the nav mark, the footer and the menu. There is no logo-image dependency in the layout.
-- The favicon and app icons use the `12.` stamp construction; the full wordmark is illegible at 32px. OG images are composed at build time by `next/og` from type and the brand dot, not from a logo file.
+- The favicon and app icons use the `12.` stamp construction; the full wordmark is illegible at 32px. **Built:** `src/app/icon.svg` (the favicon) and `src/app/apple-icon.png` (180px, home screen). The `12.` is the real Figtree ExtraBold outlines, traced from `public/fonts/Figtree-ExtraBold.woff2`, in `star-100` with the period in `purple-500` on a rounded `void-900` square — not live text, which an icon cannot rely on. Regenerate both if the display face changes. **The 402's pages use the 402's own icon** (`src/app/(the-402)/icon.svg` and `apple-icon.png`): the app icon, the 4-tower-2 mark on orange, drawn from the logo's vector shapes. Next picks it for every route in the group; the rest of the site keeps the `12.`. OG images are composed at build time by `next/og` from type and the brand dot, not from a logo file.
 - No vector wordmark exists yet. The two SVGs in `assets/brand/` are non-vector stubs (a `<text>` element with no embedded font) and **must not be shipped** — see `assets/brand/README.md`. The PNG in the design system remains the colour authority.
 
 ## Tooling

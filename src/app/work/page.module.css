@@ -1,0 +1,35 @@
+.later {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  padding: var(--space-6) var(--space-8);
+  border: 1px dashed var(--star-700);
+  border-radius: var(--radius-md);
+}
+
+.later p {
+  margin: 0;
+  font-size: var(--text-body-size);
+  color: var(--star-400);
+}
+
+.later a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-min);
+  font-family: var(--font-meta);
+  font-size: var(--text-meta-size);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--purple-400);
+}
+
+.later a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}

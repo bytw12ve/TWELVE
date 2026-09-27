@@ -6,7 +6,7 @@ export const contactPage = {
   opener: {
     eyebrow: 'Contact',
     title: 'Contact',
-    lede: 'Have an idea, a question about something I made, or just want to say hi? Email me.',
+    lede: 'Have a project in mind, or a question about something I’ve made? Send me an email. I read everything and reply myself.',
   } satisfies PageOpener,
   /** The first label shows Omaha's local time: "Omaha · 9:41 PM". */
   clockPrefix: 'Omaha',
@@ -15,20 +15,27 @@ export const contactPage = {
   copy: { label: 'Copy address', done: 'Copied' },
   columns: {
     together: {
-      label: 'If you want to work together',
-      heading: "I'm open to it",
-      body: "I'm not out looking for clients, but if you want an app, a website, or something nobody's made yet, tell me about it. I take my time, and it shows in the work.",
+      label: 'Working together',
+      heading: 'Have a project?',
+      body: 'I’m open to making things for other people. Tell me what you have in mind, and we can talk it through together.',
     },
     send: {
       label: 'Helpful to include',
-      heading: 'What to send',
-      items: ['What you want to make', 'Links, sketches, or anything you already have', "When you'd like it done"],
+      heading: 'What helps',
+      items: [
+        'A few lines about your idea',
+        'Anything you already have, like links or sketches',
+        'When you’re hoping to have it done',
+      ],
     },
     online: {
       label: 'Elsewhere',
       heading: 'Find me online',
-      links: [{ label: 'GitHub', href: site.socials.github }],
-      handle: `@${site.handle} on GitHub`,
+      links: [
+        { label: 'GitHub', href: site.socials.github },
+        { label: 'YouTube', href: site.socials.youtube },
+      ],
+      handle: `I’m @${site.handle} on both. On YouTube I’m starting to document what I build.`,
     },
   },
 } as const

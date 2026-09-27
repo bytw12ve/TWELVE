@@ -5,7 +5,7 @@ export const aboutPage = {
   opener: {
     eyebrow: 'About',
     title: 'About',
-    lede: "I'm Jaycee. twelve. is my creative studio, my playground, and where I keep everything I make.",
+    lede: "Hi, I'm Jaycee. twelve. is my studio. It's where I make apps, websites and games, and where I keep everything I've built.",
   } satisfies PageOpener,
   labels: ['Omaha, NE', 'Est. 2026'],
   photo: {
@@ -13,13 +13,14 @@ export const aboutPage = {
     placeholder: ['Photo of Jaycee', 'goes here'],
   },
   story: {
-    heading: 'I come up with a lot of ideas, and I want to make every one of them real.',
+    heading: 'I have more ideas than I have time, so I build the ones that won’t leave me alone.',
     paragraphs: [
-      "I've been making things for as long as I can remember. Minecraft and Rust servers, Minecraft plugins, Discord bots, a few games, a LEGO channel where I built working candy machines, and a robotics team in middle school. Tech has always been part of my life.",
-      'This year I spent a lot of time figuring out who I am. What I learned is that I love making things, and I want to make them my own way.',
+      "I've been building things online since I was a kid. I ran Minecraft and Rust servers, wrote plugins, and made Discord bots for my friends. I had a YouTube channel where I built working LEGO candy machines, and I spent way too long trying to get LEGO Mindstorms to stir a milkshake. In middle school I joined the robotics team, and I never really stopped building after that.",
+      'The thing I’m proudest of from back then is a GTA 5 roleplay server I ran. Real people played on it, and I managed all of it. I sold it for $100, which I still think about.',
+      'These days I make things for everyday people, usually because I ran into a problem myself and wanted a better way. The 402 started because I could never find anything to do in Omaha until it was already over.',
     ],
     closing:
-      "So that's what twelve. is. Apps, websites, games, whatever the idea needs. Mostly things people can actually use, and sometimes things nobody's made before.",
+      'The name comes from my birthday, February 12th. Twelve has always been my number, and purple is my favorite color, so this whole studio is pretty much me. Some of what I make turns into real products, like the 402. Some of it stays an experiment. All of it is made by me, here in Omaha.',
     facts: [
       { label: 'Based in', value: 'Omaha, Nebraska' },
       { label: 'Started', value: '2026' },
@@ -29,26 +30,41 @@ export const aboutPage = {
   statement: {
     label: "What I'm here for",
     quote: [
-      'I like making things that are ',
-      { text: 'useful to people', mark: true },
-      ', and things nobody has made before.',
+      'I want to make things people ',
+      { text: 'actually use', mark: true },
+      ', and a few things nobody has tried yet.',
     ] satisfies RichText,
-    sub: 'If an idea keeps coming back, I build it. Some turn into real products. Some stay experiments in the Playground.',
+    sub: 'If an idea keeps coming back, I build it. Some become real products. The rest live in Side projects until they’re ready.',
   },
   make: {
     label: 'What I make',
     aside: 'Anything, really',
     items: [
-      { glyph: 'apps', title: 'Apps', line: 'Like the 402, an app for finding things to do in Omaha.' },
-      { glyph: 'websites', title: 'Websites', line: "Sites that feel like whoever they're for, never a template." },
-      { glyph: 'games', title: 'Games', line: 'One is starting soon. The concept is a secret for now.' },
-      { glyph: 'next', title: "Whatever's next", line: "If the idea is good, I'll probably try it." },
+      {
+        glyph: 'apps',
+        title: 'Apps',
+        line: 'Real apps you can download, like the 402, built for the App Store and Google Play.',
+      },
+      {
+        glyph: 'websites',
+        title: 'Websites',
+        line: 'Built from scratch around who they’re for, never from a template.',
+      },
+      {
+        glyph: 'games',
+        title: 'Games',
+        line: 'My first one, wake., is a psychological mystery game I’m starting in 2027.',
+      },
+      {
+        glyph: 'next',
+        title: "Whatever's next",
+        line: 'If an idea sticks with me, I’ll probably end up building it.',
+      },
     ],
   },
   before: {
     title: 'Before twelve.',
-    line: 'Some of what I was making growing up.',
-    hint: 'Hover to pause',
+    line: 'A few things I made before any of this had a name.',
     listLabel: "Things I've made",
     /** [plain, emphasised] — rendered "Minecraft **servers**". */
     chips: [
@@ -56,15 +72,19 @@ export const aboutPage = {
       ['Minecraft', 'plugins'],
       ['Rust', 'servers'],
       ['Discord', 'bots'],
+      ['GTA 5', 'roleplay server'],
       ['Discord', 'servers'],
       ['A few', 'games'],
       ['LEGO', 'candy machines'],
       ['Middle school', 'robotics'],
     ],
+    /** The one she's proudest of; its pin is drawn a little larger. */
+    favorite: 'GTA 5 roleplay server',
+    favoriteLabel: 'My favorite',
   },
   together: {
     heading: 'Want to make something together?',
-    body: "I'm not out looking for clients, but I'm open to it. If you've got an idea for an app, a site, or something stranger, tell me about it. Good work takes time, and I'll make it worth the wait.",
+    body: "I'm not actively looking for clients, but I'm always happy to talk. If you have an idea for an app, a website or something a little different, send me a message. We'll talk it through and see if it's a good fit.",
     cta: { label: 'Get in touch', href: '/contact' },
   },
 } as const

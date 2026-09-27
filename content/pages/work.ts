@@ -5,13 +5,13 @@ export const workPage = {
   opener: {
     eyebrow: 'My work',
     title: 'My work',
-    lede: 'Finished projects that are out in the world for anyone to use.',
+    lede: "These are the projects I've finished and put out into the world. You can download them, use them, and tell me what you think.",
   } satisfies PageOpener,
   /** "1 project" is derived from the list; this is the second label. */
-  moreLabel: 'More on the way',
+  moreLabel: 'More coming soon',
   projectCount: (n: number) => `${n} ${n === 1 ? 'project' : 'projects'}`,
   playgroundNote: {
-    text: 'keeb.wiki and Ledger Coffee are in the Playground until their pages are ready.',
-    link: { label: 'Go to the Playground →', href: '/playground' },
+    text: "Looking for keebwiki or Ledger Coffee? They're in Side projects for now, until they're ready for a page of their own.",
+    link: { label: 'Go to Side projects →', href: '/projects' },
   },
 } as const

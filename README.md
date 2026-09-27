@@ -1,42 +1,52 @@
-# Twelve
+<p align="center">
+  <a href="https://bytw12ve.com"><img src="src/app/icon.svg" width="96" height="96" alt="twelve."></a>
+</p>
 
-A creative studio for digital things worth making — apps, websites, games, products and experiments.
+<h1 align="center">twelve.</h1>
 
-This repository is the studio site: Next.js App Router, TypeScript, CSS Modules over a generated design-token layer, statically rendered, deployed on Vercel to **bytw12ve.com**.
+<p align="center">
+  Creative studio · Omaha, Nebraska<br>
+  <a href="https://bytw12ve.com"><b>bytw12ve.com</b></a>
+</p>
 
-## Getting started
+---
 
-```bash
-pnpm install --frozen-lockfile
-pnpm dev
-```
+Hi, I'm Jaycee. **twelve.** is my studio. It's where I make apps, websites and games, and where I keep everything I've built. It's just me, here in Omaha.
 
-pnpm is required and pinned via `packageManager`; Node comes from `.nvmrc`.
+The name comes from my birthday, February 12th. Twelve has always been my number, and purple is my favorite color, so the whole studio is pretty much me.
 
-## The gate
+This repository is the studio's website.
 
-Everything below runs in CI on every push and pull request, and every step fails the job:
+## What's on the site
 
-```bash
-pnpm lint && pnpm typecheck && pnpm tokens:check && pnpm domain:check && pnpm build && pnpm budget
-```
-
-| Script | What it protects |
+| Page | What you'll find |
 | --- | --- |
-| `pnpm tokens:check` | `src/styles/tokens.css` still matches `references/tokens.json` **and** the tables in `docs/DESIGN.md` §1 |
-| `pnpm domain:check` | the canonical host appears only in `src/lib/site.ts` |
-| `pnpm budget` | first-load JS, against the budget in `docs/BUILD.md` §Performance |
+| **Home** | One screen: a star field that reacts to your cursor, a pixel landscape, and the wordmark. Scroll down and the menu opens |
+| **My work** | Finished projects that are out in the world, starting with the 402 |
+| **About** | Who I am, what I made growing up, and why twelve. exists |
+| **Side projects** | Things I'm building, testing or still figuring out, like keebwiki and wake. |
+| **Contact** | The easiest way to reach me |
 
-`src/styles/tokens.css` is generated — run `pnpm tokens:build` rather than editing it.
+### The 402
 
-## Documentation
+**The 402** is my app for finding things to do around Omaha: tonight, this weekend, and near you. Its page on the site has its own look, taken from the app, and it's where you can [join the beta](https://bytw12ve.com/work/the-402#beta) before it opens on **October 31, 2026**. The app's [privacy policy](https://bytw12ve.com/402/privacy), [terms](https://bytw12ve.com/402/terms), [support](https://bytw12ve.com/402/support) and [account deletion](https://bytw12ve.com/402/delete-account) pages live here too.
 
-The project documents are the source of truth. Read them before making changes; if they and the code disagree, flag it rather than picking a side.
+## How it's made
 
-| File | What it holds |
-| --- | --- |
-| [`docs/TWELVE.md`](docs/TWELVE.md) | what Twelve is, brand direction, site purpose, and how work on the repo is done |
-| [`docs/DESIGN.md`](docs/DESIGN.md) | the visual source of truth: tokens, grid, page specs, motion, accessibility |
-| [`docs/BUILD.md`](docs/BUILD.md) | architecture, tooling, build stages and exit criteria, CI, Git, performance, SEO, launch |
-| [`docs/STATE.md`](docs/STATE.md) | **start here** — current stage, what is in flight, blockers, the next action |
-| [`references/README.md`](references/README.md) | rendered screens, live previews and `tokens.json` for every approved design |
+- **The star field** on the homepage is a single canvas. Hundreds of stars twinkle, a few flare, and the ones near your cursor drift away from it. It pauses whenever you can't see it.
+- **The pixel landscape** isn't an image. It's generated in code from a fixed seed, so it's the same every visit, and its clouds drift a pixel at a time.
+- **Every colour, size and space** comes from one set of design tokens. A check compares them against the design document on every change, so the site can't quietly drift from its design.
+- **No trackers.** No analytics, no cookies, no third-party scripts. The fonts are hosted on the site itself.
+- **Accessible by default.** Every page is checked for accessibility on every change, every control works from the keyboard, and all the motion switches off if you've asked your device to reduce it.
+- Built with Next.js and TypeScript, styled with CSS Modules, rendered as static pages, and hosted on Vercel.
+
+## For contributors
+
+The project's decisions and current status live in [`docs/`](docs). Start with [`docs/STATE.md`](docs/STATE.md), then [`docs/TWELVE.md`](docs/TWELVE.md). How to run and check the site is in [`docs/BUILD.md`](docs/BUILD.md#working-on-this-repo).
+
+---
+
+<p align="center">
+  © 2026 twelve. All rights reserved.<br>
+  <sub>Figtree, Archivo, Space Mono, Bricolage Grotesque, Instrument Sans and DM Mono are used under the SIL Open Font License.</sub>
+</p>
