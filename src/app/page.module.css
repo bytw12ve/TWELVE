@@ -1,0 +1,23 @@
+/*
+ * The homepage's only layout rule — docs/DESIGN.md §4.0.
+ *
+ * The nav strip, the hero and the footer stack to exactly one viewport: the
+ * hero takes what the strip and the footer leave. There is nothing to pin and nothing to reveal:
+ * the sticky phase existed to hold the hero while the route section rose
+ * beneath it, and with the section gone a pin would only delay reaching the
+ * footer.
+ *
+ * `--page-gap` is the same value the nav strip uses above and below its own
+ * content (src/styles/globals.css), so the panel sits with an identical gap on
+ * every side of it.
+ */
+.heroFrame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* svh, not vh: on a phone vh is the viewport with the toolbar retracted,
+     which pushed the footer under the toolbar on first load. */
+  height: calc(100svh - var(--nav-h) - var(--footer-h, 0px));
+  min-height: var(--hero-min-h, 0px);
+  padding: var(--page-gap);
+}

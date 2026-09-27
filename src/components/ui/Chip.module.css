@@ -1,0 +1,21 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-min);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--purple-700);
+  border-radius: var(--radius-sm);
+  background: var(--void-700);
+  color: var(--star-400);
+  font-family: var(--font-meta);
+  font-size: var(--text-meta-size);
+  line-height: var(--text-meta-leading);
+  font-weight: var(--text-meta-weight);
+  letter-spacing: var(--text-meta-tracking);
+  text-transform: uppercase;
+}
+
+.selected {
+  border-color: var(--purple-500);
+  color: var(--star-100);
+}

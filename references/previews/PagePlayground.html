@@ -1,0 +1,177 @@
+<!-- @dsCard group="1 · Pages" height=1520 width=1440 page subtitle="/playground — the archive as a grid, with cards that are not links" -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;800&family=Archivo:wght@400;500&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  :root{
+    --t-void-900: var(--void-900,#07060a); --t-void-800: var(--void-800,#0c0b11);
+    --t-void-700: var(--void-700,#15131c); --t-void-600: var(--void-600,#1f1c29);
+    --t-hair: var(--hairline-dark,#2f2b3b);
+    --t-paper-100: var(--paper-100,#f2efe9); --t-paper-200: var(--paper-200,#e7e2d8);
+    --t-hair-l: var(--hairline-light,#cfc8b9);
+    --t-ink-900: var(--ink-900,#14121c); --t-ink-600: var(--ink-600,#5f5a4e);
+    --t-star-100: var(--star-100,#edeaf5); --t-star-400: var(--star-400,#9b96ae);
+    --t-purple-400: var(--purple-400,#cbc0eb); --t-purple-500: var(--purple-500,#b5a9db);
+    --t-purple-600: var(--purple-600,#9a8bc7); --t-purple-700: var(--purple-700,#7868a8);
+    --t-purple-ink: var(--purple-ink,#4a3c78);
+    --t-sky-300: var(--sky-300,#7fb6ee); --t-grass-400: var(--grass-400,#6f9d4e);
+    --t-bloom-300: var(--bloom-300,#e9a6c6); --t-bloom-500: var(--bloom-500,#e0b431);
+    --f-display: var(--font-display, Figtree, sans-serif);
+    --f-edit: var(--font-editorial, Archivo, sans-serif);
+    --f-meta: var(--font-meta, "Space Mono", monospace);
+  }
+  *{box-sizing:border-box;margin:0}
+  body{background:var(--t-void-900);font-family:var(--f-edit)}
+  .stage{width:1440px;background:var(--t-void-900);color:var(--t-star-100);position:relative}
+
+  /* --- site chrome: nav, opener, footer --- */
+  .nav{height:96px;display:flex;align-items:center;justify-content:space-between;
+       padding:0 64px;border-bottom:1px solid var(--t-hair)}
+  .mark{font-family:var(--f-display);font-weight:800;font-size:20px;letter-spacing:-.02em;
+        color:var(--t-star-100);text-decoration:none}
+  .mark i{color:var(--t-purple-500);font-style:normal}
+  .links{display:flex;align-items:center;gap:32px}
+  .links a{font-size:16px;color:var(--t-star-100);text-decoration:none;
+        border-bottom:1px solid transparent;padding-bottom:3px}
+  .links a.current{border-bottom-color:var(--t-purple-500)}
+  .menu{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 20px;border-radius:999px;
+        border:1px solid var(--t-hair);color:var(--t-star-100);font-family:var(--f-meta);
+        font-size:14px;font-weight:700;letter-spacing:.1em}
+  .menu .bars{display:inline-flex;flex-direction:column;gap:4px}
+  .menu .bars b{display:block;width:16px;height:1.5px;background:currentColor;border-radius:2px}
+
+  .opener{padding:72px 64px 0;display:grid;grid-template-columns:1fr 280px;gap:64px;align-items:end}
+  .eyebrow{font-family:var(--f-meta);font-size:12px;letter-spacing:.14em;color:var(--t-star-400);
+        display:flex;align-items:center;gap:14px;margin-bottom:22px}
+  .eyebrow .st{font-family:var(--f-display);font-weight:800;font-size:16px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .eyebrow .st i{color:var(--t-purple-500);font-style:normal}
+  .slab{font-family:var(--f-display);font-weight:800;font-size:120px;line-height:.9;letter-spacing:-.035em}
+  .lead{margin-top:26px;max-width:640px;font-size:20px;line-height:1.5;color:var(--t-star-100)}
+  .openmeta{display:flex;flex-direction:column;gap:8px;padding-bottom:10px;
+        font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400);text-align:right}
+
+  .foot{margin-top:72px;padding:0 64px 34px}
+  .footbar{border-top:1px solid var(--t-hair);padding-top:22px;display:flex;align-items:center;
+        justify-content:space-between;font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;
+        color:var(--t-star-400)}
+  .footbar a{color:var(--t-star-100);text-decoration:none;
+        border-bottom:1px solid var(--t-purple-500);padding-bottom:2px}
+  .footstamp{font-family:var(--f-display);font-weight:800;font-size:18px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .footstamp i{color:var(--t-purple-500);font-style:normal}
+
+  .filters{padding:56px 64px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .filters .lbl{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400);margin-right:12px}
+  .fchip{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;border:1px solid var(--t-hair);
+        border-radius:999px;padding:8px 14px;color:var(--t-star-400);text-decoration:none}
+  .fchip.on{color:var(--t-star-100);border-color:var(--t-purple-500);background:var(--t-void-800)}
+
+  .grid{padding:32px 64px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .card{background:var(--t-void-700);border:1px solid var(--t-hair);border-radius:var(--radius-sm,10px);
+        padding:24px;display:flex;flex-direction:column;height:372px;text-decoration:none;color:inherit}
+  .card.hov{border-color:var(--t-purple-500);transform:translateY(-4px)}
+  .card.inert .t{color:var(--t-star-400)}
+  .chip{align-self:flex-start;font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;
+        border:1px solid var(--t-hair);border-radius:999px;padding:5px 10px;color:var(--t-star-400)}
+  .chip.live{color:var(--t-purple-500);border-color:var(--t-purple-700)}
+  .vis{flex:1;margin:20px 0;border-radius:6px;background:var(--t-void-800);overflow:hidden;position:relative}
+  .vis svg{position:absolute;inset:0;width:100%;height:100%}
+  .t{font-family:var(--f-edit);font-weight:500;font-size:22px;line-height:1.25;letter-spacing:-.01em}
+  .d{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400);margin-top:8px}
+  .a{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-purple-500);margin-top:10px}
+</style>
+
+<div class="stage">
+  <nav class="nav">
+    <a class="mark" href="/">twelve<i>.</i></a>
+    <div class="links">
+      <a href="/work">Work</a><a href="/about">About</a><a href="/playground" class="current">Playground</a>
+      <span class="menu">MENU <span class="bars"><b></b><b></b></span></span>
+    </div>
+  </nav>
+  <header class="opener">
+    <div>
+      <div class="eyebrow"><span class="st">12<i>.</i></span>PLAYGROUND</div>
+      <h1 class="slab">Playground</h1>
+      <p class="lead">Work is finished. This is not. Prototypes, design studies, small tools and game ideas we are still poking at.</p>
+    </div>
+    <div class="openmeta">
+      <span>SIX ENTRIES</span>
+      <span>OCT 2025 &rarr; MAR 2026</span>
+      <span>UPDATED OFTEN</span>
+    </div>
+  </header>
+  <section class="filters">
+    <span class="lbl">FILTER</span>
+    <a class="fchip on" href="#">ALL</a><a class="fchip" href="#">PROTOTYPE</a>
+    <a class="fchip" href="#">IN PROGRESS</a><a class="fchip" href="#">GAME</a>
+    <a class="fchip" href="#">DESIGN STUDY</a><a class="fchip" href="#">SKETCH</a>
+  </section>
+
+  <section class="grid">
+    <a class="card hov" href="/playground/x">
+      <span class="chip live">PROTOTYPE</span>
+      <div class="vis"><svg viewBox="0 0 330 200" id="c1"></svg></div>
+      <div class="t">Star field toy</div>
+      <div class="d">MAR 2026</div>
+      <div class="a">OPEN &rarr;</div>
+    </a>
+    <a class="card" href="/playground/x">
+      <span class="chip live">IN PROGRESS</span>
+      <div class="vis"><svg viewBox="0 0 330 200" id="c2" shape-rendering="crispEdges"></svg></div>
+      <div class="t">Tiny pixel world editor</div>
+      <div class="d">FEB 2026</div>
+      <div class="a">OPEN &rarr;</div>
+    </a>
+    <div class="card inert">
+      <span class="chip">SKETCH</span>
+      <div class="vis"><svg viewBox="0 0 330 200"><circle cx="165" cy="100" r="44" fill="none" stroke="var(--t-hair)" stroke-width="2"/><circle cx="165" cy="100" r="76" fill="none" stroke="var(--t-hair)" stroke-width="1"/><circle cx="165" cy="56" r="7" fill="var(--t-purple-500)"/></svg></div>
+      <div class="t">Orbit timer, abandoned</div>
+      <div class="d">NOV 2025</div>
+      
+    </div>
+    <a class="card" href="/playground/x">
+      <span class="chip live">GAME</span>
+      <div class="vis"><svg viewBox="0 0 330 200"><rect x="40" y="132" width="250" height="8" fill="var(--t-grass-400)"/><rect x="80" y="98" width="26" height="34" fill="var(--t-purple-500)"/><rect x="170" y="82" width="26" height="50" fill="var(--t-purple-400)"/><rect x="226" y="112" width="26" height="20" fill="var(--t-bloom-500)"/></svg></div>
+      <div class="t">One-button platformer</div>
+      <div class="d">JAN 2026</div>
+      <div class="a">OPEN &rarr;</div>
+    </a>
+    <a class="card" href="/playground/x">
+      <span class="chip live">DESIGN STUDY</span>
+      <div class="vis"><svg viewBox="0 0 330 200"><rect x="52" y="40" width="96" height="120" rx="10" fill="none" stroke="var(--t-hair)"/><rect x="172" y="40" width="96" height="56" rx="10" fill="var(--t-purple-500)" opacity=".5"/><rect x="172" y="104" width="96" height="56" rx="10" fill="none" stroke="var(--t-hair)"/></svg></div>
+      <div class="t">Type scale experiments</div>
+      <div class="d">DEC 2025</div>
+      <div class="a">OPEN &rarr;</div>
+    </a>
+    <div class="card inert">
+      <span class="chip">SKETCH</span>
+      <div class="vis"><svg viewBox="0 0 330 200"><rect x="66" y="52" width="198" height="96" rx="8" fill="none" stroke="var(--t-hair)" stroke-width="2"/><rect x="96" y="80" width="40" height="40" fill="var(--t-void-700)" stroke="var(--t-hair)"/><rect x="146" y="80" width="40" height="40" fill="var(--t-void-700)" stroke="var(--t-hair)"/><rect x="196" y="80" width="40" height="40" fill="var(--t-void-700)" stroke="var(--t-hair)"/></svg></div>
+      <div class="t">Arcade-bar portfolio, shelved</div>
+      <div class="d">OCT 2025</div>
+      
+    </div>
+  </section>
+  <footer class="foot">
+    <div class="footbar">
+      <span>TWELVE — OMAHA, NE</span>
+      <a href="mailto:contact@bytw12ve.com">contact@bytw12ve.com</a>
+      <span class="footstamp">12<i>.</i></span>
+      <span>© 2026</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  function rng(s){return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+  var r=rng(5),o=[];
+  for(var i=0;i<56;i++){var x=r()*330,y=r()*200,s=(0.8+r()*1.6);
+    o.push('<path transform="translate('+x.toFixed(1)+','+y.toFixed(1)+') scale('+s.toFixed(2)+')" opacity="'+(0.3+r()*0.5).toFixed(2)+'" fill="#fff" d="M0,-1 Q.16,-.16 1,0 Q.16,.16 0,1 Q-.16,.16 -1,0 Q-.16,-.16 0,-1 Z"/>');}
+  document.getElementById('c1').innerHTML=o.join('');
+  var r2=rng(31),p=[],cell=12;
+  for(var y=0;y<17;y++)for(var x=0;x<28;x++){
+    var v=r2(), f = y<9 ? (v<.12?'var(--t-sky-300)':'#101622') : (v<.3?'var(--t-grass-400)':(v<.38?'var(--t-bloom-300)':'#14211a'));
+    p.push('<rect x="'+(x*cell)+'" y="'+(y*cell)+'" width="'+(cell+0.6)+'" height="'+(cell+0.6)+'" fill="'+f+'"/>');
+  }
+  document.getElementById('c2').innerHTML=p.join('');
+})();
+</script>

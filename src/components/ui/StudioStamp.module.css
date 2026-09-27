@@ -1,0 +1,34 @@
+/* display-stamp 22 / 1 / 800, ls -0.02em — docs/DESIGN.md §1.3, §6.1 */
+.stamp {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: var(--text-display-stamp-size);
+  line-height: var(--text-display-stamp-leading);
+  font-weight: var(--text-display-stamp-weight);
+  letter-spacing: var(--text-display-stamp-tracking);
+}
+
+.period {
+  font-style: normal;
+}
+
+.dark {
+  color: var(--star-100);
+}
+.dark .period {
+  color: var(--purple-500);
+}
+
+/* On paper the brand purple reads at 1.9:1 — purple-ink instead (§1.2). */
+.paper {
+  color: var(--ink-900);
+}
+.paper .period {
+  color: var(--purple-ink);
+}
+
+/* §6.1: rotate only to 90°, never any other angle. */
+.rotated {
+  transform: rotate(90deg);
+  transform-origin: center;
+}

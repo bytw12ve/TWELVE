@@ -1,0 +1,71 @@
+<!-- @dsCard group="2 · Hero & menu" height=840 width=1440 subtitle="Full-screen paper overlay, row 02 shown in hover" -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;800&family=Archivo:wght@400;500&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  :root{
+    --t-paper-100: var(--paper-100,#f2efe9); --t-paper-200: var(--paper-200,#e7e2d8);
+    --t-hair-l: var(--hairline-light,#cfc8b9);
+    --t-ink-900: var(--ink-900,#14121c); --t-ink-600: var(--ink-600,#5f5a4e);
+    --t-purple-600: var(--purple-600,#9a8bc7);
+    --t-purple-ink: var(--purple-ink,#4a3c78);
+    --t-void-900: var(--void-900,#07060a);
+    --f-display: var(--font-display, Figtree, sans-serif);
+    --f-edit: var(--font-editorial, Archivo, sans-serif);
+    --f-meta: var(--font-meta, "Space Mono", monospace);
+  }
+  *{box-sizing:border-box;margin:0}
+  body{background:var(--t-void-900);font-family:var(--f-edit)}
+  .stage{width:1440px;height:840px;position:relative;background:var(--t-paper-100);
+         display:flex;flex-direction:column;padding:40px 64px 34px}
+  .top{display:flex;align-items:center;justify-content:space-between;height:56px;flex:none}
+  .mark{font-family:var(--f-display);font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--t-ink-900)}
+  .mark i{color:var(--t-purple-ink);font-style:normal}
+  .close{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 20px;border-radius:999px;
+         border:1px solid var(--t-ink-900);color:var(--t-ink-900);background:transparent;
+         font-family:var(--f-meta);font-size:14px;font-weight:700;letter-spacing:.1em}
+
+  .rows{flex:1;display:flex;flex-direction:column;justify-content:center;margin-top:8px}
+  .row{position:relative;display:flex;align-items:baseline;gap:28px;padding:14px 24px 16px;
+       border-top:1px solid var(--t-hair-l);text-decoration:none}
+  .row:last-of-type{border-bottom:1px solid var(--t-hair-l)}
+  .row .n{font-family:var(--f-meta);font-size:12px;letter-spacing:.16em;color:var(--t-ink-600);
+          align-self:flex-start;padding-top:14px;width:34px;flex:none}
+  .row .label{font-family:var(--f-edit);font-weight:400;font-size:76px;line-height:1.1;
+          letter-spacing:-.03em;color:var(--t-ink-900)}
+  .row .hint{margin-left:auto;font-family:var(--f-meta);font-size:11px;letter-spacing:.14em;
+          color:var(--t-ink-600);align-self:center}
+  .row.hover{background:var(--t-paper-200)}
+  .row.hover .n{color:var(--t-purple-ink)}
+  .row.focus{outline:2px solid var(--t-purple-ink);outline-offset:3px;border-radius:6px}
+
+  .foot{flex:none;display:flex;align-items:center;justify-content:space-between;padding-top:22px}
+  .foot a,.foot span{font-family:var(--f-edit);font-size:14px;color:var(--t-ink-600);text-decoration:none}
+  .socials{display:flex;gap:26px}
+  .clock{font-family:var(--f-meta);font-size:11px;letter-spacing:.14em;color:var(--t-ink-600)}
+  .stampmini{font-family:var(--f-display);font-weight:800;font-size:18px;color:var(--t-ink-900);letter-spacing:-.02em}
+  .stampmini i{color:var(--t-purple-ink);font-style:normal}
+</style>
+
+<div class="stage">
+  <div class="top">
+    <div class="mark">twelve<i>.</i></div>
+    <span class="close">CLOSE ✕</span>
+  </div>
+
+  <nav class="rows">
+    <a class="row" href="#"><span class="n">01</span><span class="label">Home</span><span class="hint">START HERE</span></a>
+    <a class="row hover" href="#"><span class="n">02</span><span class="label">Work</span><span class="hint">FINISHED THINGS</span></a>
+    <a class="row" href="#"><span class="n">03</span><span class="label">About</span><span class="hint">WHO AND WHY</span></a>
+    <a class="row" href="#"><span class="n">04</span><span class="label">Playground</span><span class="hint">UNFINISHED THINGS</span></a>
+    <a class="row" href="#"><span class="n">05</span><span class="label">Contact</span><span class="hint">SAY HELLO</span></a>
+  </nav>
+
+  <div class="foot">
+    <a href="#">contact@bytw12ve.com</a>
+    <div class="socials"><a href="#">Instagram</a><a href="#">GitHub</a></div>
+    <div style="display:flex;align-items:center;gap:20px">
+      <span class="clock">OMAHA 1:30:02 PM</span>
+      <span class="stampmini">12<i>.</i></span>
+    </div>
+  </div>
+</div>

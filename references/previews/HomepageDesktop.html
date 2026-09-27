@@ -1,0 +1,211 @@
+<!-- @dsCard group="1 · Pages" height=1420 width=1440 page subtitle="The homepage: hero, a short index of the four pages, and the footer" -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;800&family=Archivo:wght@400;500&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  :root{
+    --t-void-900: var(--void-900,#07060a); --t-void-800: var(--void-800,#0c0b11);
+    --t-void-700: var(--void-700,#15131c); --t-void-600: var(--void-600,#1f1c29);
+    --t-hair: var(--hairline-dark,#2f2b3b);
+    --t-star-100: var(--star-100,#edeaf5); --t-star-400: var(--star-400,#9b96ae);
+    --t-star-700: var(--star-700,#464154); --t-ink-900: var(--ink-900,#14121c);
+    --t-purple-700: var(--purple-700,#7868a8); --t-purple-600: var(--purple-600,#9a8bc7);
+    --t-purple-400: var(--purple-400,#cbc0eb); --t-purple-500: var(--purple-500,#b5a9db);
+    --t-sky-400: var(--sky-400,#5d9fe0); --t-sky-300: var(--sky-300,#7fb6ee);
+    --t-cloud-100: var(--cloud-100,#e8f1fb);
+    --t-grass-600: var(--grass-600,#33562f); --t-grass-400: var(--grass-400,#6f9d4e);
+    --t-bloom-300: var(--bloom-300,#e9a6c6); --t-bloom-500: var(--bloom-500,#e0b431);
+    --f-display: var(--font-display, Figtree, sans-serif);
+    --f-edit: var(--font-editorial, Archivo, sans-serif);
+    --f-meta: var(--font-meta, "Space Mono", monospace);
+  }
+  *{box-sizing:border-box;margin:0}
+  body{background:var(--t-void-900);font-family:var(--f-edit)}
+  .page{width:1440px;background:var(--t-void-900);color:var(--t-star-100)}
+  .sx-hero .stage{width:1440px;height:840px;position:relative}
+  .sx-hero .env{position:absolute;inset:32px;background:var(--t-void-800);border-radius:var(--radius-xl,40px);overflow:hidden}
+  .sx-hero .stars{position:absolute;inset:0;width:100%;height:100%}
+  .sx-hero .nav{position:absolute;top:0;left:0;right:0;height:96px;display:flex;align-items:center;
+       justify-content:space-between;padding:0 40px;z-index:5}
+  .sx-hero .mark{font-family:var(--f-display);font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .sx-hero .mark i{color:var(--t-purple-500);font-style:normal}
+  .sx-hero .navlinks{display:flex;align-items:center;gap:32px}
+  .sx-hero .navlinks a{font-family:var(--f-edit);font-size:16px;color:var(--t-star-100);text-decoration:none;
+       border-bottom:1px solid transparent;padding-bottom:3px}
+  .sx-hero .navlinks a.hov{border-bottom-color:var(--t-purple-500)}
+  .sx-hero .menu{display:flex;align-items:center;gap:10px;height:44px;padding:0 20px;border-radius:999px;
+       border:1px solid var(--t-hair);background:var(--t-void-800);color:var(--t-star-100);
+       font-family:var(--f-meta);font-size:14px;font-weight:700;letter-spacing:.1em}
+  .sx-hero .menu .bars{display:inline-flex;flex-direction:column;gap:4px}
+  .sx-hero .menu .bars b{display:block;width:16px;height:1.5px;background:currentColor;border-radius:2px}
+  .sx-hero .window{position:absolute;left:648px;top:172px;width:664px;height:374px;
+       border-radius:var(--radius-lg,28px);background:var(--t-void-700);overflow:hidden;
+       box-shadow:var(--shadow-window,0 24px 60px rgba(4,3,8,.55));z-index:2}
+  .sx-hero .window svg{display:block;width:100%;height:100%}
+  .sx-hero .wtag{position:absolute;left:14px;top:14px;z-index:3;font-family:var(--f-meta);font-size:10px;
+       letter-spacing:.16em;color:var(--t-star-100);background:rgba(7,6,10,.78);
+       border:1px solid var(--t-hair);border-radius:6px;padding:5px 9px}
+  .sx-hero .dot{position:absolute;left:470px;top:250px;width:336px;height:336px;border-radius:50%;z-index:3;
+       background:var(--t-purple-500);
+       background-image:linear-gradient(168deg, rgba(203,192,235,.55) 0%, rgba(181,169,219,0) 44%,
+                  rgba(120,104,168,.45) 100%)}
+  .sx-hero .word{position:absolute;left:92px;top:390px;z-index:4;font-family:var(--f-display);font-weight:800;
+       font-size:220px;line-height:.82;letter-spacing:-.045em;color:var(--t-star-100)}
+  .sx-hero .word i{color:var(--t-purple-500);font-style:normal}
+  .sx-hero /* the wordmark flips to ink-900 wherever it crosses a light object: 8.5:1 on the brand dot, .sx-hero 5.8-16:1 on the pixel world. Same type, .sx-hero same coordinates, .sx-hero clipped to each object. */
+  .knock{position:absolute;overflow:hidden;z-index:5;pointer-events:none}
+  .sx-hero .knock span{position:absolute;white-space:nowrap;font-family:var(--f-display);font-weight:800;
+       font-size:220px;line-height:.82;letter-spacing:-.045em;color:var(--t-ink-900)}
+  .sx-hero .knock-dot{left:470px;top:250px;width:336px;height:336px;border-radius:50%}
+  .sx-hero .knock-dot span{left:-378px;top:140px}
+  .sx-hero .knock-win{left:648px;top:172px;width:664px;height:374px;border-radius:var(--radius-lg,28px)}
+  .sx-hero .knock-win span{left:-556px;top:218px}
+  .sx-hero .line{position:absolute;left:96px;top:612px;z-index:4;font-size:20px;line-height:1.5;color:var(--t-star-100);max-width:540px}
+  .sx-hero .desc{position:absolute;left:96px;top:654px;z-index:4;font-family:var(--f-meta);font-size:12px;
+       letter-spacing:.14em;color:var(--t-star-400)}
+  .sx-hero .cta{position:absolute;left:96px;top:694px;z-index:4;display:inline-flex;align-items:center;gap:10px;
+       height:48px;padding:0 24px;border-radius:999px;border:1px solid var(--t-purple-500);
+       color:var(--t-star-100);background:transparent;font-family:var(--f-meta);font-size:14px;
+       font-weight:700;letter-spacing:.1em;text-decoration:none}
+  .sx-hero .m{position:absolute;z-index:4;font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400)}
+  .sx-hero .m-tl{left:40px;top:110px}
+  .sx-hero .m-tr{right:40px;top:110px}
+  .sx-hero .m-br{right:40px;bottom:34px}
+  .sx-hero .stamp{position:absolute;left:32px;top:50%;z-index:4;transform:translateY(-50%) rotate(-90deg);
+       font-family:var(--f-display);font-weight:800;font-size:22px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .sx-hero .stamp i{color:var(--t-purple-500);font-style:normal}
+
+  /* Index — the homepage's only other content: four ways in */
+  .idx{padding:56px 64px 0}
+  .idx .eyebrow{display:flex;justify-content:space-between;align-items:baseline;
+       font-family:var(--f-meta);font-size:12px;letter-spacing:.14em;color:var(--t-star-400);
+       border-top:1px solid var(--t-hair);padding-top:18px;margin-bottom:26px}
+  .idx .eyebrow b{color:var(--t-star-100);font-weight:400}
+  .idxrow{display:grid;grid-template-columns:52px 1fr 300px 40px;gap:24px;align-items:center;
+       padding:20px 8px;border-bottom:1px solid var(--t-hair);text-decoration:none;color:inherit}
+  .idxrow .n{font-family:var(--f-meta);font-size:11px;letter-spacing:.16em;color:var(--t-star-400)}
+  .idxrow .name{font-family:var(--f-edit);font-weight:500;font-size:34px;line-height:1.12;letter-spacing:-.02em}
+  .idxrow .what{font-family:var(--f-meta);font-size:11px;letter-spacing:.14em;color:var(--t-star-400)}
+  .idxrow .go{justify-self:end;font-family:var(--f-meta);font-size:16px;color:var(--t-purple-500)}
+  .idxrow.hov{background:var(--t-void-800)}
+  .idxrow.hov .go{color:var(--t-purple-400)}
+
+  /* Footer */
+  .foot{margin-top:44px;padding:0 64px 34px}
+  .footbar{border-top:1px solid var(--t-hair);padding-top:22px;display:flex;align-items:center;
+       justify-content:space-between;font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;
+       color:var(--t-star-400)}
+  .footbar a{color:var(--t-star-100);text-decoration:none;border-bottom:1px solid var(--t-purple-500);padding-bottom:2px}
+  .footstamp{font-family:var(--f-display);font-weight:800;font-size:18px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .footstamp i{color:var(--t-purple-500);font-style:normal}
+</style>
+
+<div class="page">
+  <div class="sx-hero">
+<div class="stage">
+  <div class="env">
+    <svg class="stars" id="sf" viewBox="0 0 1376 776" preserveAspectRatio="none" aria-hidden="true"></svg>
+
+    <div class="nav">
+      <div class="mark">twelve<i>.</i></div>
+      <div class="navlinks">
+        <a href="#" class="hov">Work</a><a href="#">About</a><a href="#">Playground</a>
+        <span class="menu">MENU <span class="bars"><b></b><b></b></span></span>
+      </div>
+    </div>
+
+    <div class="m m-tl">CREATIVE STUDIO — OMAHA, NE</div>
+    <div class="m m-tr">EST. 2026</div>
+    <div class="m m-br">DIGITAL / EXPERIMENTAL</div>
+    <div class="stamp">12<i>.</i></div>
+
+    <div class="dot"></div>
+    <div class="window">
+      <div class="wtag">WORLD 01</div>
+      <svg id="pw" viewBox="0 0 672 384" preserveAspectRatio="none" shape-rendering="crispEdges" role="img" aria-label="Pixel-art landscape: sky, clouds and a field of flowers"></svg>
+    </div>
+
+    <div class="word">twelve<i>.</i></div>
+    <div class="knock knock-win"><span>twelve.</span></div>
+    <div class="knock knock-dot"><span>twelve.</span></div>
+    <div class="line">Creative studio for digital things worth making.</div>
+    <div class="desc">APPS · WEBSITES · GAMES · EXPERIMENTS</div>
+    <a class="cta" href="/work">VIEW WORK ↓</a>
+  </div>
+</div>
+  </div>
+
+  <section class="idx">
+    <div class="eyebrow"><span>INDEX — <b>FOUR PLACES TO GO</b></span><span>BYTW12VE.COM</span></div>
+    <a class="idxrow hov" href="/work"><span class="n">01</span><span class="name">Work</span><span class="what">FINISHED THINGS — APPS, SITES, GAMES</span><span class="go">→</span></a>
+    <a class="idxrow" href="/about"><span class="n">02</span><span class="name">About</span><span class="what">WHO AND WHY</span><span class="go">→</span></a>
+    <a class="idxrow" href="/playground"><span class="n">03</span><span class="name">Playground</span><span class="what">EXPERIMENTS AND UNFINISHED IDEAS</span><span class="go">→</span></a>
+    <a class="idxrow" href="/contact"><span class="n">04</span><span class="name">Contact</span><span class="what">SAY HELLO</span><span class="go">→</span></a>
+  </section>
+
+  <footer class="foot">
+    <div class="footbar">
+      <span>TWELVE — OMAHA, NE</span>
+      <a href="mailto:contact@bytw12ve.com">contact@bytw12ve.com</a>
+      <span class="footstamp">12<i>.</i></span>
+      <span>© 2026</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+/* Twelve — deterministic star field + pixel landscape generators.
+   Shared verbatim by HeroDesktop, HeroMobile, Playground and ContactFooter. */
+(function(){
+  function rng(seed){var s=seed>>>0;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+
+  window.twelveStarfield=function(el,w,h,seed,tries){
+    var r=rng(seed),p=[];
+    p.push('<defs><pattern id="g'+seed+'" width="24" height="24" patternUnits="userSpaceOnUse">'+
+      '<circle cx="2" cy="2" r="1.5" fill="var(--t-star-700)" opacity=".55"/></pattern>'+
+      '<radialGradient id="q'+seed+'"><stop offset="0" stop-color="#fff" stop-opacity=".34"/>'+
+      '<stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>');
+    p.push('<rect width="'+w+'" height="'+h+'" fill="url(#g'+seed+')"/>');
+    var cx=w/2,cy=h/2,maxd=Math.sqrt(cx*cx+cy*cy);
+    for(var i=0;i<tries;i++){
+      var x=r()*w,y=r()*h;
+      var d=Math.sqrt((x-cx)*(x-cx)+(y-cy)*(y-cy))/maxd;
+      if(r()>0.10+d*0.62) continue;                  /* sparse centre, denser corners */
+      var s=1.1+r()*2.0, o=.32+r()*.46;
+      if(r()<0.05) p.push('<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+(s*3.4).toFixed(1)+'" fill="url(#q'+seed+')"/>');
+      p.push('<path transform="translate('+x.toFixed(1)+','+y.toFixed(1)+') scale('+s.toFixed(2)+')" opacity="'+o.toFixed(2)+'" fill="#fff" '+
+        'd="M0,-1 Q.16,-.16 1,0 Q.16,.16 0,1 Q-.16,.16 -1,0 Q-.16,-.16 0,-1 Z"/>');
+    }
+    el.innerHTML=p.join('');
+  };
+
+  window.twelvePixelWorld=function(el,cols,rows,cell,seed){
+    var r=rng(seed),out=[],x,y;
+    var horizon=Math.round(rows*0.58);
+    var clouds=[{x:cols*0.17,y:rows*0.21,rx:cols*0.16,ry:rows*0.085},
+                {x:cols*0.52,y:rows*0.12,rx:cols*0.12,ry:rows*0.065},
+                {x:cols*0.84,y:rows*0.27,rx:cols*0.14,ry:rows*0.075}];
+    for(y=0;y<rows;y++){
+      for(x=0;x<cols;x++){
+        var f;
+        if(y<horizon){
+          f = y < rows*0.16 ? 'var(--t-sky-400)' : 'var(--t-sky-300)';
+          for(var c=0;c<clouds.length;c++){
+            var C=clouds[c],dx=(x-C.x)/C.rx,dy=(y-C.y)/C.ry;
+            if(dx*dx+dy*dy < 1-(r()*0.18)) f='var(--t-cloud-100)';
+          }
+        } else {
+          var d=(y-horizon)/(rows-horizon);
+          if(y<horizon+2){ f='var(--t-grass-400)'; }
+          else { f = r() < 0.18+d*0.55 ? 'var(--t-grass-600)' : 'var(--t-grass-400)'; }
+          if(y>horizon+1 && r() < 0.015+d*0.11) f = r()<0.6 ? 'var(--t-bloom-300)' : 'var(--t-bloom-500)';
+        }
+        out.push('<rect x="'+(x*cell)+'" y="'+(y*cell)+'" width="'+(cell+0.6)+'" height="'+(cell+0.6)+'" fill="'+f+'"/>');
+      }
+    }
+    el.innerHTML=out.join('');
+  };
+
+  twelveStarfield(document.getElementById('sf'),1376,776,12,900);
+  twelvePixelWorld(document.getElementById('pw'),42,24,16,1212);
+})();
+</script>

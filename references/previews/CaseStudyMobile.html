@@ -1,0 +1,126 @@
+<!-- @dsCard group="5 · Case study" height=2360 width=430 page subtitle="/work/[project] at 430 — metadata in two columns, images full width" -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;800&family=Archivo:wght@400;500&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  :root{
+    --t-void-900: var(--void-900,#07060a); --t-void-800: var(--void-800,#0c0b11);
+    --t-void-700: var(--void-700,#15131c); --t-void-600: var(--void-600,#1f1c29);
+    --t-hair: var(--hairline-dark,#2f2b3b);
+    --t-paper-100: var(--paper-100,#f2efe9); --t-paper-200: var(--paper-200,#e7e2d8);
+    --t-hair-l: var(--hairline-light,#cfc8b9);
+    --t-ink-900: var(--ink-900,#14121c); --t-ink-600: var(--ink-600,#5f5a4e);
+    --t-star-100: var(--star-100,#edeaf5); --t-star-400: var(--star-400,#9b96ae);
+    --t-purple-400: var(--purple-400,#cbc0eb); --t-purple-500: var(--purple-500,#b5a9db);
+    --t-purple-600: var(--purple-600,#9a8bc7); --t-purple-700: var(--purple-700,#7868a8);
+    --t-purple-ink: var(--purple-ink,#4a3c78);
+    --t-sky-300: var(--sky-300,#7fb6ee); --t-grass-400: var(--grass-400,#6f9d4e);
+    --t-bloom-300: var(--bloom-300,#e9a6c6); --t-bloom-500: var(--bloom-500,#e0b431);
+    --f-display: var(--font-display, Figtree, sans-serif);
+    --f-edit: var(--font-editorial, Archivo, sans-serif);
+    --f-meta: var(--font-meta, "Space Mono", monospace);
+  }
+  *{box-sizing:border-box;margin:0}
+
+  body{background:#000;font-family:var(--f-edit)}
+  .stage{width:430px;background:var(--t-void-900);color:var(--t-star-100)}
+  .nav{height:64px;display:flex;align-items:center;justify-content:space-between;
+       padding:0 16px;border-bottom:1px solid var(--t-hair)}
+  .mark{font-family:var(--f-display);font-weight:800;font-size:18px;letter-spacing:-.02em;
+        color:var(--t-star-100);text-decoration:none}
+  .mark i{color:var(--t-purple-500);font-style:normal}
+  .menu{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px;border-radius:999px;
+        border:1px solid var(--t-hair);color:var(--t-star-100);font-family:var(--f-meta);
+        font-size:12px;font-weight:700;letter-spacing:.1em}
+  .menu .bars{display:inline-flex;flex-direction:column;gap:4px}
+  .menu .bars b{display:block;width:14px;height:1.5px;background:currentColor;border-radius:2px}
+  .back{padding:24px 16px 0}
+  .back a{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400);
+        text-decoration:none;display:inline-flex;align-items:center;gap:10px;min-height:44px}
+  .back a em{font-style:normal;color:var(--t-purple-500)}
+  .kind{display:inline-block;font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;
+        border:1px solid var(--t-hair);border-radius:999px;padding:5px 11px;color:var(--t-star-100)}
+  .chead{padding:0 16px}
+  .ctitle{font-family:var(--f-display);font-weight:800;font-size:56px;line-height:.94;
+        letter-spacing:-.03em;margin-top:16px}
+  .csum{margin-top:16px;font-size:17px;line-height:1.45}
+  .metabar{margin:28px 16px 0;border-top:1px solid var(--t-hair);border-bottom:1px solid var(--t-hair);
+        display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:20px 0}
+  .metabar dt{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400);margin-bottom:7px}
+  .metabar dd{font-size:15px;line-height:1.4}
+  .metabar .wide{grid-column:1 / -1}
+  .metabar .ext a{display:block;font-size:15px;color:var(--t-star-100);text-decoration:none;
+        border-bottom:1px solid var(--t-purple-500);padding-bottom:2px;margin-top:8px;min-height:44px}
+  .cover{margin:28px 16px 0;height:280px;border-radius:14px;background:var(--t-void-700);
+        border:1px solid var(--t-hair);overflow:hidden;position:relative}
+  .cover svg{position:absolute;inset:0;width:100%;height:100%}
+  .cap{margin:10px 16px 0;font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400)}
+  .body{padding:40px 16px 0}
+  .secn{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-purple-500)}
+  .body h2{font-family:var(--f-edit);font-weight:500;font-size:26px;line-height:1.18;margin:10px 0 14px}
+  .body p{font-size:17px;line-height:1.6;margin-bottom:16px}
+  .sec{margin-bottom:40px}
+  .quote{margin:6px 0 18px;padding-left:18px;border-left:2px solid var(--t-purple-500);
+        font-family:var(--f-edit);font-weight:500;font-size:24px;line-height:1.22}
+  .shot{height:230px;border-radius:12px;background:var(--t-void-700);border:1px solid var(--t-hair);
+        position:relative;overflow:hidden;margin-bottom:12px}
+  .shot svg{position:absolute;inset:0;width:100%;height:100%}
+  .pn{margin:40px 16px 0;border-top:1px solid var(--t-hair);padding-top:20px;display:flex;flex-direction:column;gap:12px}
+  .pn a{display:block;padding:18px;border:1px solid var(--t-hair);border-radius:14px;text-decoration:none;color:inherit}
+  .pn .l{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400)}
+  .pn .n{font-family:var(--f-edit);font-weight:500;font-size:26px;line-height:1.1;margin-top:8px}
+  .foot{margin-top:44px;padding:0 16px 26px}
+  .footbar{border-top:1px solid var(--t-hair);padding-top:18px;display:flex;flex-direction:column;gap:12px;
+        font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400)}
+  .footbar a{color:var(--t-star-100);text-decoration:none;border-bottom:1px solid var(--t-purple-500);padding-bottom:2px}
+  .frow{display:flex;align-items:center;justify-content:space-between}
+  .footstamp{font-family:var(--f-display);font-weight:800;font-size:16px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .footstamp i{color:var(--t-purple-500);font-style:normal}
+</style>
+
+<div class="stage">
+  <nav class="nav">
+    <a class="mark" href="/">twelve<i>.</i></a>
+    <span class="menu">MENU <span class="bars"><b></b><b></b></span></span>
+  </nav>
+  <div class="back"><a href="/work"><em>←</em> BACK TO WORK</a></div>
+  <header class="chead">
+    <span class="kind">iOS APP</span>
+    <h1 class="ctitle">The 402</h1>
+    <p class="csum">A self-discovery app for Omaha — events, places and things to do, built for people who already live here.</p>
+  </header>
+  <dl class="metabar">
+    <div><dt>YEAR</dt><dd>2026</dd></div>
+    <div><dt>KIND</dt><dd>iOS app</dd></div>
+    <div><dt>ROLE</dt><dd>Design and build</dd></div>
+    <div><dt>STATUS</dt><dd>Shipped</dd></div>
+    <div class="wide ext"><dt>ELSEWHERE</dt>
+      <a href="#">Live on the App Store ↗</a><a href="#">Source on GitHub ↗</a></div>
+  </dl>
+  <div class="cover"><svg viewBox="0 0 398 280" preserveAspectRatio="xMidYMid meet" role="img" aria-label="The 402 — app home screen">
+    <rect width="398" height="280" fill="#10121c"/><circle cx="199" cy="128" r="66" fill="var(--t-purple-500)"/>
+    <rect x="139" y="212" width="120" height="10" rx="5" fill="var(--t-star-400)" opacity=".5"/></svg></div>
+  <div class="cap">THE 402 — HOME SCREEN</div>
+  <div class="body">
+    <div class="sec"><div class="secn">01</div><h2>The question</h2>
+      <p>Every city app is built for visitors. They rank the same twelve restaurants and are useless by your second week in town. The 402 is built for the opposite person — someone who lives here and has run out of ideas.</p>
+      <p>That reframing changed almost every decision. No onboarding tour, no "top attractions", no map as the home screen.</p></div>
+    <div class="sec"><div class="secn">02</div>
+      <div class="quote">If you already live somewhere, discovery is not a map problem. It is a boredom problem.</div>
+      <p>The home screen became a single prompt rather than a directory: one thing, chosen for the day and the weather.</p>
+      <div class="shot"><svg viewBox="0 0 398 230" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Place detail screen">
+        <rect width="398" height="230" fill="#12101a"/><rect x="34" y="28" width="330" height="96" rx="12" fill="var(--t-purple-700)" opacity=".45"/>
+        <rect x="34" y="144" width="220" height="11" rx="5" fill="var(--t-star-400)" opacity=".45"/>
+        <rect x="34" y="176" width="100" height="28" rx="14" fill="var(--t-purple-500)"/></svg></div>
+      <div class="cap" style="margin-left:0">PLACE DETAIL</div></div>
+    <div class="sec"><div class="secn">03</div><h2>Where it is now</h2>
+      <p>Live, and used mostly by people who know the studio. The next question is whether the weekly hand-correction can be automated without the listings getting worse.</p></div>
+  </div>
+  <nav class="pn">
+    <a href="/work/ground"><div class="l">← PREVIOUS</div><div class="n">Ground</div></a>
+    <a href="/work/keeb-wiki"><div class="l">NEXT →</div><div class="n">Keeb.wiki</div></a>
+  </nav>
+  <footer class="foot"><div class="footbar">
+    <a href="mailto:contact@bytw12ve.com">contact@bytw12ve.com</a>
+    <div class="frow"><span>TWELVE — OMAHA, NE</span><span class="footstamp">12<i>.</i></span></div>
+    <span>© 2026</span></div></footer>
+</div>

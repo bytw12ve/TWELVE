@@ -1,0 +1,65 @@
+<!-- @dsCard height=288 -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@800&family=Archivo:wght@400&display=swap">
+<style>
+  :root{
+    --t-void-900: var(--void-900,#07060a); --t-void-800: var(--void-800,#0c0b11);
+    --t-star-100: var(--star-100,#edeaf5); --t-star-400: var(--star-400,#9b96ae);
+    --t-star-700: var(--star-700,#464154);
+    --t-purple-600: var(--purple-600,#9a8bc7); --t-purple-500: var(--purple-500,#b5a9db);
+    --t-paper-100: var(--paper-100,#f2efe9);
+    --t-sky-300: var(--sky-300,#7fb6ee); --t-grass-400: var(--grass-400,#6f9d4e);
+    --f-display: var(--font-display, Figtree, sans-serif);
+    --f-edit: var(--font-editorial, Archivo, sans-serif);
+  }
+  *{box-sizing:border-box;margin:0}
+  .cover{width:960px;height:288px;background:var(--t-void-900);position:relative;overflow:hidden}
+  .cover svg{position:absolute;inset:0}
+  .name{position:absolute;left:48px;bottom:74px;font-family:var(--f-display);font-weight:800;
+        font-size:120px;line-height:.92;letter-spacing:-.04em;color:var(--t-star-100);max-width:440px}
+  .name i{color:var(--t-purple-500);font-style:normal}
+  .tag{position:absolute;left:52px;bottom:40px;font-family:var(--f-edit);font-size:13px;
+        line-height:1.4;color:var(--t-star-400);max-width:440px}
+  .slab{fill:var(--t-void-700)} .disc{fill:var(--t-purple-500)}
+  .paper{fill:var(--t-paper-100)} .sky{fill:var(--t-sky-300)} .grass{fill:var(--t-grass-400)}
+</style>
+
+<!--
+  blocks: void-700 slab 300×240 (space-48 × space-24 multiples, radius-xl 40) · purple-500 disc r78 ·
+          paper-100 124×112 (radius-lg 28) · sky-300 and grass-400 60×112 and 56×112 (radius-sm 10)
+  arrangement: one tall dark slab with the brand disc bleeding off its right edge and three satellites
+          stacked to the right — the hero's own composition, not a swatch row
+  pattern: dot grid at one spacing step with scattered four-point stars, because Twelve's hero IS a
+          lattice of dots with stars off-grid; a generic technical system would stop at the grid
+  scales: pitch space-6 (24px), radii radius-xl / radius-lg / radius-sm, insets space-6 and space-12
+-->
+<div class="cover">
+  <svg viewBox="0 0 960 288" width="960" height="288" aria-hidden="true">
+    <defs>
+      <pattern id="cg" width="24" height="24" patternUnits="userSpaceOnUse">
+        <circle cx="2" cy="2" r="1.6" fill="var(--t-star-400)" opacity=".45"/>
+      </pattern>
+      <clipPath id="cs"><rect x="480" y="24" width="300" height="240" rx="40"/></clipPath>
+    </defs>
+
+    <rect class="slab" x="480" y="24" width="300" height="240" rx="40"/>
+    <g clip-path="url(#cs)">
+      <rect x="480" y="24" width="300" height="240" fill="url(#cg)"/>
+      <g fill="#fff">
+        <path transform="translate(524,76) scale(3.2)" opacity=".8" d="M0,-1 Q.16,-.16 1,0 Q.16,.16 0,1 Q-.16,.16 -1,0 Q-.16,-.16 0,-1 Z"/>
+        <path transform="translate(600,52) scale(2.1)" opacity=".6" d="M0,-1 Q.16,-.16 1,0 Q.16,.16 0,1 Q-.16,.16 -1,0 Q-.16,-.16 0,-1 Z"/>
+        <path transform="translate(556,214) scale(2.6)" opacity=".7" d="M0,-1 Q.16,-.16 1,0 Q.16,.16 0,1 Q-.16,.16 -1,0 Q-.16,-.16 0,-1 Z"/>
+        <path transform="translate(512,168) scale(1.8)" opacity=".5" d="M0,-1 Q.16,-.16 1,0 Q.16,.16 0,1 Q-.16,.16 -1,0 Q-.16,-.16 0,-1 Z"/>
+        <path transform="translate(644,238) scale(2.0)" opacity=".55" d="M0,-1 Q.16,-.16 1,0 Q.16,.16 0,1 Q-.16,.16 -1,0 Q-.16,-.16 0,-1 Z"/>
+      </g>
+    </g>
+
+    <circle class="disc" cx="762" cy="144" r="78"/>
+    <rect class="paper" x="820" y="24" width="116" height="104" rx="28"/>
+    <rect class="sky"   x="820" y="152" width="54" height="112" rx="10"/>
+    <rect class="grass" x="882" y="152" width="54" height="112" rx="10"/>
+  </svg>
+
+  <div class="name">twelve<i>.</i></div>
+  <div class="tag">Creative studio for digital things worth making.</div>
+</div>

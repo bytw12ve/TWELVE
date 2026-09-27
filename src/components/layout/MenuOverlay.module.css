@@ -1,0 +1,421 @@
+/*
+ * docs/DESIGN.md §6.2 — paper-100 fills the viewport, inset space-16
+ * horizontally, 40px top / 34px bottom. Three bands: top (mark + CLOSE, in the
+ * nav itself), rows, footer.
+ */
+.overlay {
+  position: fixed;
+  /* Right inset matches the scrollbar the lock removed, so the menu's gutter
+     lines up with the footer's and the 12. stamp does not move. */
+  inset: 0 var(--scrollbar-width, 0) 0 0;
+  z-index: 9;
+  background: var(--paper-100);
+  box-shadow: var(--shadow-overlay);
+  animation: wipe 560ms var(--menu-curtain);
+}
+
+/*
+ * §7.2, revised at the Stage 2 follow-up review. Two curves:
+ *
+ * - the curtain eases in and out. A full-screen panel on a strong ease-out
+ *   lurched on its first frame and then crawled; in-out reads as one weighted
+ *   movement.
+ * - the content eases out: rows and hover fills arrive fast and settle.
+ */
+.overlay,
+.pill {
+  --menu-curtain: cubic-bezier(0.76, 0, 0.24, 1);
+  --menu-settle: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* §7.2: wipes down from the top, bottom corners rounded during the wipe. */
+@keyframes wipe {
+  from {
+    clip-path: inset(0 0 100% 0 round 0 0 var(--radius-xl) var(--radius-xl));
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 0);
+  }
+}
+
+/* §7.2: closing reverses at 380ms — the same wipe, backwards and quicker. */
+.closing {
+  animation: unwipe 380ms var(--menu-curtain) forwards;
+}
+
+@keyframes unwipe {
+  from {
+    clip-path: inset(0 0 0 0 round 0);
+  }
+  to {
+    clip-path: inset(0 0 100% 0 round 0 0 var(--radius-xl) var(--radius-xl));
+  }
+}
+
+/* The rows leave with the panel rather than staggering out under it. */
+.closing .row,
+.closing .labelText {
+  animation: none;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding-inline: var(--space-16);
+  /* 40px top / 34px bottom, and clear of the 96px nav so CLOSE stays visible. */
+  padding-block: calc(var(--space-24) + var(--space-2)) calc(var(--space-8) + var(--space-1));
+  overflow-y: auto;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+/*
+ * Geometry from references/previews/MenuDesktop.html: 34px numeral column,
+ * baseline-aligned, generous row padding so the paper-200 hover fill reads as
+ * a band. Type sizes come from the §1.3 scale rather than the preview's
+ * off-scale 11px, because docs/DESIGN.md wins where the two disagree.
+ */
+.row {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: baseline;
+  gap: var(--space-6);
+  min-height: var(--target-min);
+  padding: var(--space-3) var(--space-6) var(--space-4);
+  border-top: 1px solid var(--hairline-light);
+  color: var(--ink-900);
+  text-decoration: none;
+  position: relative;
+  isolation: isolate;
+  /*
+   * §7.2: each row starts as the curtain's edge reaches it, not with the
+   * curtain. Starting together put most of the entrance under a clip that had
+   * not arrived yet, so all anyone saw was the tail of it — a pop.
+   */
+  --row-delay: calc(160ms + var(--row-index) * 55ms);
+  animation: rowIn 480ms var(--menu-settle) backwards;
+  animation-delay: var(--row-delay);
+}
+
+.row:last-child {
+  border-bottom: 1px solid var(--hairline-light);
+}
+
+/* The rule, numeral and hint fade; the label rises out of its own line. */
+@keyframes rowIn {
+  from {
+    opacity: 0;
+  }
+}
+
+/*
+ * §6.2, revised: the paper-200 fill sweeps in from the left and leaves to the
+ * right, rather than shrinking back the way it came — the band passes through
+ * the row instead of retracting.
+ */
+.row::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--paper-200);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 420ms var(--menu-settle);
+}
+
+.row:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.numeral {
+  color: var(--ink-600);
+  align-self: start;
+  padding-top: var(--space-3);
+  transition: color 300ms var(--menu-settle);
+}
+
+.row:hover .numeral,
+.currentRow .numeral {
+  color: var(--purple-ink);
+}
+
+/* menu-row 76 / 1.1 / 400, ls -0.03em — §1.3 */
+.label {
+  font-family: var(--font-editorial);
+  font-size: var(--text-menu-row-size);
+  line-height: var(--text-menu-row-leading);
+  font-weight: var(--text-menu-row-weight);
+  letter-spacing: var(--text-menu-row-tracking);
+  /*
+   * The mask the label rises through. `clip` rather than `hidden`: it is not a
+   * scroll container, so the row's baseline alignment is untouched. The margin
+   * keeps descenders — Playground's g and y — from being cut at rest.
+   */
+  overflow: clip;
+  overflow-clip-margin: 0.2em;
+}
+
+.labelText {
+  display: inline-block;
+  animation: rise 640ms var(--menu-settle) backwards;
+  animation-delay: calc(var(--row-delay) + 40ms);
+  transition:
+    transform 420ms var(--menu-settle),
+    color 300ms var(--menu-settle);
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(125%);
+  }
+}
+
+.row:hover .labelText {
+  transform: translateX(var(--space-3));
+}
+
+/*
+ * The other rows step back while one is hovered. Colour, not opacity: every
+ * frame must pass contrast (§4.0), and ink-600 on paper holds 6.0:1 where the
+ * opacity-muted token would take the numerals and hints below 3:1.
+ */
+.rows:has(.row:hover) .row:not(:hover) .labelText {
+  color: var(--ink-600);
+}
+
+.hint {
+  color: var(--ink-600);
+  text-align: right;
+  align-self: center;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  color: var(--ink-600);
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-leading);
+}
+
+.email {
+  color: var(--ink-600);
+  text-decoration: none;
+}
+
+.email:hover {
+  text-decoration: underline;
+}
+
+.socials {
+  display: flex;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*
+ * Without a URL: a label, not a control — no underline, no hover or focus
+ * treatment, nothing focusable (docs/DESIGN.md §7.1).
+ */
+.social {
+  color: var(--ink-600);
+  cursor: default;
+}
+
+/*
+ * With one: a real link. ink-600 at rest, ink-900 on hover and focus, and an
+ * underline that draws in from the left on the rows' own curve. 44px tall so
+ * it clears the touch target (§8); the paper focus ring comes from the menu.
+ */
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-min);
+  color: var(--ink-600);
+  text-decoration: none;
+  cursor: pointer;
+  background: linear-gradient(currentColor, currentColor) left calc(50% + 0.8em) / 0 1px no-repeat;
+  transition:
+    color 300ms var(--menu-settle),
+    background-size 420ms var(--menu-settle);
+}
+
+.socialLink:hover,
+.socialLink:focus-visible {
+  color: var(--ink-900);
+  background-size: 100% 1px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/*
+ * The clock's box is reserved on both axes before it mounts, so the value
+ * arriving cannot shift the footer. Width is sized for the widest string
+ * ("12:00 PM NE"); tabular figures hold it steady as digits change.
+ */
+.time {
+  display: inline-block;
+  /*
+   * Reserve the full box before the clock mounts, both axes, so the value
+   * appearing cannot shift the footer.
+   *
+   * Widest string is "OMAHA 12:00:00 PM" — 17 characters. `ch` alone
+   * under-reserves, because it measures the glyph advance and ignores the
+   * 0.14em meta tracking applied to each one; the tracking is added back
+   * explicitly. Measured empty vs filled: identical.
+   */
+  min-width: calc(17ch + 17 * var(--text-meta-tracking));
+  min-height: calc(var(--text-body-sm-size) * var(--text-body-sm-leading));
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-meta);
+  font-size: var(--text-meta-size);
+  letter-spacing: var(--text-meta-tracking);
+}
+
+.pill {
+  position: relative;
+  z-index: 11;
+}
+
+/*
+ * Both labels occupy the same grid cell, so the pill's width is the wider of
+ * the two and never changes between MENU and CLOSE.
+ */
+.labels {
+  display: grid;
+  place-items: center;
+}
+
+.pillLabel {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--space-2) + var(--space-1));
+  white-space: nowrap;
+  /*
+   * 300ms on the curtain's curve, so the label moves with the wipe and has
+   * finished before the 560ms panel does — the interaction should not end on
+   * the button.
+   */
+  transition: opacity 300ms var(--menu-curtain);
+}
+
+.pillLabelOut {
+  opacity: 0;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.bars {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.bars b {
+  display: block;
+  width: var(--space-4);
+  height: 1.5px;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+.glyph {
+  width: var(--space-4);
+  height: var(--space-4);
+  fill: none;
+}
+
+/* §2.2 / §6.2 mobile: space-4 gutters, rows at heading-lg with the numeral
+   inline before the label, each row ≥64px. Footer stacks to three lines. */
+@media (max-width: 1023px) {
+  .panel {
+    padding-inline: var(--space-4);
+    padding-block: calc(var(--space-16) + var(--space-2)) var(--space-8);
+  }
+
+  .row {
+    grid-template-columns: auto 1fr;
+    gap: var(--space-3);
+    min-height: var(--space-16); /* 64px */
+    align-items: center;
+    padding: var(--space-3) 0;
+  }
+
+  .numeral {
+    padding-top: 0;
+    align-self: center;
+  }
+
+  .label {
+    font-size: var(--text-heading-lg-size);
+    line-height: var(--text-heading-lg-leading);
+    letter-spacing: var(--text-heading-lg-tracking);
+  }
+
+  .hint {
+    display: none;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+
+  /*
+   * The stamp is the studio signature and sits at the right edge in every
+   * state, so it does not jump when the menu opens over the site footer.
+   * Stacked, that means this row spans the width and pushes the stamp out.
+   */
+  .meta {
+    justify-content: space-between;
+  }
+}
+
+/* §8: every animation is wrapped in prefers-reduced-motion. */
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .row,
+  .labelText {
+    animation: none;
+  }
+
+  .row::before,
+  .numeral,
+  .labelText,
+  .socialLink,
+  .pillLabel {
+    transition: none;
+  }
+
+  .row:hover .labelText {
+    transform: none;
+  }
+}

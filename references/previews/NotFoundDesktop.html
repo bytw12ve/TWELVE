@@ -1,0 +1,101 @@
+<!-- @dsCard group="6 · 404" height=900 width=1440 page subtitle="404 — the brand dot and the knockout, one line, two ways out" -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;800&family=Archivo:wght@400;500&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  :root{
+    --t-void-900: var(--void-900,#07060a); --t-void-800: var(--void-800,#0c0b11);
+    --t-void-700: var(--void-700,#15131c); --t-void-600: var(--void-600,#1f1c29);
+    --t-hair: var(--hairline-dark,#2f2b3b);
+    --t-paper-100: var(--paper-100,#f2efe9); --t-paper-200: var(--paper-200,#e7e2d8);
+    --t-hair-l: var(--hairline-light,#cfc8b9);
+    --t-ink-900: var(--ink-900,#14121c); --t-ink-600: var(--ink-600,#5f5a4e);
+    --t-star-100: var(--star-100,#edeaf5); --t-star-400: var(--star-400,#9b96ae);
+    --t-purple-400: var(--purple-400,#cbc0eb); --t-purple-500: var(--purple-500,#b5a9db);
+    --t-purple-600: var(--purple-600,#9a8bc7); --t-purple-700: var(--purple-700,#7868a8);
+    --t-purple-ink: var(--purple-ink,#4a3c78);
+    --t-sky-300: var(--sky-300,#7fb6ee); --t-grass-400: var(--grass-400,#6f9d4e);
+    --t-bloom-300: var(--bloom-300,#e9a6c6); --t-bloom-500: var(--bloom-500,#e0b431);
+    --f-display: var(--font-display, Figtree, sans-serif);
+    --f-edit: var(--font-editorial, Archivo, sans-serif);
+    --f-meta: var(--font-meta, "Space Mono", monospace);
+  }
+  *{box-sizing:border-box;margin:0}
+
+  body{background:var(--t-void-900);font-family:var(--f-edit)}
+  .stage{width:1440px;background:var(--t-void-900);color:var(--t-star-100);position:relative}
+  .nav{height:96px;display:flex;align-items:center;justify-content:space-between;
+       padding:0 64px;border-bottom:1px solid var(--t-hair)}
+  .mark{font-family:var(--f-display);font-weight:800;font-size:20px;letter-spacing:-.02em;
+        color:var(--t-star-100);text-decoration:none}
+  .mark i{color:var(--t-purple-500);font-style:normal}
+  .links{display:flex;align-items:center;gap:32px}
+  .links a{font-size:16px;color:var(--t-star-100);text-decoration:none;
+        border-bottom:1px solid transparent;padding-bottom:3px}
+  .links a.current{border-bottom-color:var(--t-purple-500)}
+  .menu{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 20px;border-radius:999px;
+        border:1px solid var(--t-hair);color:var(--t-star-100);font-family:var(--f-meta);
+        font-size:14px;font-weight:700;letter-spacing:.1em}
+  .menu .bars{display:inline-flex;flex-direction:column;gap:4px}
+  .menu .bars b{display:block;width:16px;height:1.5px;background:currentColor;border-radius:2px}
+  .foot{margin-top:72px;padding:0 64px 34px}
+  .footbar{border-top:1px solid var(--t-hair);padding-top:22px;display:flex;align-items:center;
+        justify-content:space-between;font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;
+        color:var(--t-star-400)}
+  .footbar a{color:var(--t-star-100);text-decoration:none;
+        border-bottom:1px solid var(--t-purple-500);padding-bottom:2px}
+  .footstamp{font-family:var(--f-display);font-weight:800;font-size:18px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .footstamp i{color:var(--t-purple-500);font-style:normal}
+
+  .nf{padding:120px 64px 0;position:relative}
+  .dot{position:absolute;left:330px;top:126px;width:286px;height:286px;border-radius:50%;z-index:0;
+       background:var(--t-purple-500);
+       background-image:linear-gradient(168deg, rgba(203,192,235,.55) 0%, rgba(181,169,219,0) 44%,
+                  rgba(120,104,168,.45) 100%)}
+  .code{position:relative;z-index:1;font-family:var(--f-display);font-weight:800;font-size:220px;
+        line-height:.82;letter-spacing:-.045em;color:var(--t-star-100)}
+  .knock{position:absolute;overflow:hidden;z-index:2;pointer-events:none;
+        left:330px;top:126px;width:286px;height:286px;border-radius:50%}
+  .knock span{position:absolute;white-space:nowrap;font-family:var(--f-display);font-weight:800;
+        font-size:220px;line-height:.82;letter-spacing:-.045em;color:var(--t-ink-900);left:-266px;top:-6px}
+  .nfline{position:relative;z-index:3;margin-top:36px;font-size:20px;line-height:1.5;max-width:520px}
+  .nfmeta{position:relative;z-index:3;margin-top:14px;font-family:var(--f-meta);font-size:12px;
+        letter-spacing:.14em;color:var(--t-star-400)}
+  .acts{position:relative;z-index:3;margin-top:40px;display:flex;gap:16px}
+  .acts a{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 24px;border-radius:999px;
+        border:1px solid var(--t-purple-500);color:var(--t-star-100);text-decoration:none;
+        font-family:var(--f-meta);font-size:14px;font-weight:700;letter-spacing:.1em}
+  .acts a.ghost{border-color:var(--t-hair)}
+  .stamp{position:absolute;left:32px;top:180px;z-index:3;transform:rotate(-90deg);
+        font-family:var(--f-display);font-weight:800;font-size:22px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .stamp i{color:var(--t-purple-500);font-style:normal}
+</style>
+
+<div class="stage">
+  <nav class="nav">
+    <a class="mark" href="/">twelve<i>.</i></a>
+    <div class="links">
+      <a href="/work">Work</a><a href="/about">About</a><a href="/playground">Playground</a>
+      <span class="menu">MENU <span class="bars"><b></b><b></b></span></span>
+    </div>
+  </nav>
+  <section class="nf">
+    <div class="stamp">12<i>.</i></div>
+    <div class="dot"></div>
+    <div class="code">404</div>
+    <div class="knock"><span>404</span></div>
+    <p class="nfline">This one didn't make it out of the Playground. The page you asked for isn't here — it may never have been.</p>
+    <div class="nfmeta">TWELVE — PAGE NOT FOUND</div>
+    <div class="acts">
+      <a href="/">← HOME</a>
+      <a href="/work" class="ghost">VIEW WORK →</a>
+    </div>
+  </section>
+  <footer class="foot">
+    <div class="footbar">
+      <span>TWELVE — OMAHA, NE</span>
+      <a href="mailto:contact@bytw12ve.com">contact@bytw12ve.com</a>
+      <span class="footstamp">12<i>.</i></span>
+      <span>© 2026</span>
+    </div>
+  </footer>
+</div>

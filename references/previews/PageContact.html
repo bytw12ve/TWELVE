@@ -1,0 +1,131 @@
+<!-- @dsCard group="1 · Pages" height=1180 width=1440 page subtitle="/contact — the close, with no form and no second CTA" -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;800&family=Archivo:wght@400;500&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  :root{
+    --t-void-900: var(--void-900,#07060a); --t-void-800: var(--void-800,#0c0b11);
+    --t-void-700: var(--void-700,#15131c); --t-void-600: var(--void-600,#1f1c29);
+    --t-hair: var(--hairline-dark,#2f2b3b);
+    --t-paper-100: var(--paper-100,#f2efe9); --t-paper-200: var(--paper-200,#e7e2d8);
+    --t-hair-l: var(--hairline-light,#cfc8b9);
+    --t-ink-900: var(--ink-900,#14121c); --t-ink-600: var(--ink-600,#5f5a4e);
+    --t-star-100: var(--star-100,#edeaf5); --t-star-400: var(--star-400,#9b96ae);
+    --t-purple-400: var(--purple-400,#cbc0eb); --t-purple-500: var(--purple-500,#b5a9db);
+    --t-purple-600: var(--purple-600,#9a8bc7); --t-purple-700: var(--purple-700,#7868a8);
+    --t-purple-ink: var(--purple-ink,#4a3c78);
+    --t-sky-300: var(--sky-300,#7fb6ee); --t-grass-400: var(--grass-400,#6f9d4e);
+    --t-bloom-300: var(--bloom-300,#e9a6c6); --t-bloom-500: var(--bloom-500,#e0b431);
+    --f-display: var(--font-display, Figtree, sans-serif);
+    --f-edit: var(--font-editorial, Archivo, sans-serif);
+    --f-meta: var(--font-meta, "Space Mono", monospace);
+  }
+  *{box-sizing:border-box;margin:0}
+  body{background:var(--t-void-900);font-family:var(--f-edit)}
+  .stage{width:1440px;background:var(--t-void-900);color:var(--t-star-100);position:relative}
+
+  /* --- site chrome: nav, opener, footer --- */
+  .nav{height:96px;display:flex;align-items:center;justify-content:space-between;
+       padding:0 64px;border-bottom:1px solid var(--t-hair)}
+  .mark{font-family:var(--f-display);font-weight:800;font-size:20px;letter-spacing:-.02em;
+        color:var(--t-star-100);text-decoration:none}
+  .mark i{color:var(--t-purple-500);font-style:normal}
+  .links{display:flex;align-items:center;gap:32px}
+  .links a{font-size:16px;color:var(--t-star-100);text-decoration:none;
+        border-bottom:1px solid transparent;padding-bottom:3px}
+  .links a.current{border-bottom-color:var(--t-purple-500)}
+  .menu{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 20px;border-radius:999px;
+        border:1px solid var(--t-hair);color:var(--t-star-100);font-family:var(--f-meta);
+        font-size:14px;font-weight:700;letter-spacing:.1em}
+  .menu .bars{display:inline-flex;flex-direction:column;gap:4px}
+  .menu .bars b{display:block;width:16px;height:1.5px;background:currentColor;border-radius:2px}
+
+  .opener{padding:72px 64px 0;display:grid;grid-template-columns:1fr 280px;gap:64px;align-items:end}
+  .eyebrow{font-family:var(--f-meta);font-size:12px;letter-spacing:.14em;color:var(--t-star-400);
+        display:flex;align-items:center;gap:14px;margin-bottom:22px}
+  .eyebrow .st{font-family:var(--f-display);font-weight:800;font-size:16px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .eyebrow .st i{color:var(--t-purple-500);font-style:normal}
+  .slab{font-family:var(--f-display);font-weight:800;font-size:120px;line-height:.9;letter-spacing:-.035em}
+  .lead{margin-top:26px;max-width:640px;font-size:20px;line-height:1.5;color:var(--t-star-100)}
+  .openmeta{display:flex;flex-direction:column;gap:8px;padding-bottom:10px;
+        font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400);text-align:right}
+
+  .foot{margin-top:72px;padding:0 64px 34px}
+  .footbar{border-top:1px solid var(--t-hair);padding-top:22px;display:flex;align-items:center;
+        justify-content:space-between;font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;
+        color:var(--t-star-400)}
+  .footbar a{color:var(--t-star-100);text-decoration:none;
+        border-bottom:1px solid var(--t-purple-500);padding-bottom:2px}
+  .footstamp{font-family:var(--f-display);font-weight:800;font-size:18px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .footstamp i{color:var(--t-purple-500);font-style:normal}
+
+  .make{display:inline-block;margin:72px 64px 0;font-family:var(--f-display);font-weight:800;
+        font-size:120px;line-height:.9;letter-spacing:-.035em;color:var(--t-star-100);text-decoration:none}
+  .make em{font-style:normal;color:var(--t-purple-500)}
+  .reach{padding:36px 64px 0;display:flex;align-items:flex-end;justify-content:space-between}
+  .email{font-size:20px;line-height:1.5;color:var(--t-star-100);text-decoration:none;
+        border-bottom:1px solid var(--t-purple-500);padding-bottom:3px}
+  .socials{display:flex;gap:26px}
+  .socials a{font-size:14px;color:var(--t-star-400);text-decoration:none}
+
+  .two{padding:80px 64px 0;display:grid;grid-template-columns:repeat(2,1fr);gap:64px}
+  .two section{border-top:1px solid var(--t-hair);padding-top:22px}
+  .two h3{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400);
+        font-weight:400;margin-bottom:18px}
+  .two li{font-size:16px;line-height:1.6;list-style:none;padding:12px 0;border-bottom:1px solid var(--t-hair);
+        display:flex;gap:16px}
+  .two li span{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-purple-500);padding-top:5px}
+</style>
+
+<div class="stage">
+  <nav class="nav">
+    <a class="mark" href="/">twelve<i>.</i></a>
+    <div class="links">
+      <a href="/work">Work</a><a href="/about">About</a><a href="/playground">Playground</a>
+      <span class="menu">MENU <span class="bars"><b></b><b></b></span></span>
+    </div>
+  </nav>
+  <header class="opener">
+    <div>
+      <div class="eyebrow"><span class="st">12<i>.</i></span>CONTACT</div>
+      <h1 class="slab">Contact</h1>
+      <p class="lead">Whether you want to build something together, hire the studio, or you just found a Twelve project and have a question — same inbox.</p>
+    </div>
+    <div class="openmeta">
+      <span>REPLIES IN A DAY OR TWO</span>
+      <span>OMAHA, NE — CST</span>
+      <span>OPEN FOR 2026</span>
+    </div>
+  </header>
+  <a class="make" href="mailto:contact@bytw12ve.com">Make something <em>&rarr;</em></a>
+  <div class="reach">
+    <a class="email" href="mailto:contact@bytw12ve.com">contact@bytw12ve.com</a>
+    <div class="socials"><a href="#">Instagram</a><a href="#">GitHub</a></div>
+  </div>
+
+  <div class="two">
+    <section>
+      <h3>USEFUL TO SEND</h3>
+      <ul>
+        <li><span>01</span>What you are making, in a couple of sentences.</li>
+        <li><span>02</span>Where it is now — an idea, a half-built thing, something live.</li>
+        <li><span>03</span>Roughly when you need it, and roughly what you can spend.</li>
+      </ul>
+    </section>
+    <section>
+      <h3>WHAT HAPPENS NEXT</h3>
+      <ul>
+        <li><span>01</span>A reply within a day or two, even if it is a no.</li>
+        <li><span>02</span>A short call if it looks like a fit.</li>
+        <li><span>03</span>A written plan with scope, price and dates before anything starts.</li>
+      </ul>
+    </section>
+  </div>
+  <footer class="foot">
+    <div class="footbar">
+      <span>TWELVE — OMAHA, NE</span>
+      <a href="mailto:contact@bytw12ve.com">contact@bytw12ve.com</a>
+      <span class="footstamp">12<i>.</i></span>
+      <span>© 2026</span>
+    </div>
+  </footer>
+</div>

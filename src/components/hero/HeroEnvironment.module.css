@@ -1,0 +1,317 @@
+/*
+ * Every coordinate below is a proportion of the panel, taken from the
+ * reference composition at 1440×840 (panel 1376×776). Expressing them once,
+ * as custom properties, is what lets the wordmark, the dot and the window and
+ * their knockouts share exact positions — §4.1's shearing warning.
+ *
+ *   window  648,172  664×374      dot  470,250  336
+ *   word     92,390   line 96,612  descriptor 96,654  cta 96,694
+ */
+.environment {
+  position: relative;
+  isolation: isolate;
+  /* The panel is the query container on BOTH axes, so the composition scales
+     with the panel rather than the viewport. `size` rather than `inline-size`
+     is what makes cqh available below; it is legal here because the panel now
+     has an explicit height. */
+  container-type: size;
+  overflow: hidden;
+  /*
+   * §4.1: the panel FILLS the viewport beneath the nav, inset by `--page-gap`
+   * — the same gap that sits above and below the nav strip's own content. It was locked to the reference's 1376/776 until the Stage 2
+   * review, where deriving the width from the height left it at 1234×696 on a
+   * 1440×900 window — a card adrift in black. The ratio is now free, and the
+   * composition follows the panel on both axes.
+   *
+   * There is **no maximum width**: the panel takes whatever the display gives
+   * it, centred, with the same gutter on every side.
+   *
+   * The two guards stop a free ratio from becoming a distorted one: never
+   * wider than 2.1:1, never taller than 1.25:1. That covers every ordinary
+   * window, so in practice the panel fills. Past those bounds the leftover
+   * becomes gutter and it letterboxes instead of stretching — 2.1 is where the
+   * brand dot, sized from the panel's width, stops bleeding off the pixel
+   * window's left edge, which is the composition's first relationship to break.
+   */
+  --hero-box-h: max(
+    calc(100svh - var(--nav-h) - var(--footer-h, 0px) - 2 * var(--page-gap, 16px)),
+    var(--hero-min-h, 0px) - 2 * var(--page-gap, 16px)
+  );
+  --hero-box-w: calc(100vw - 2 * var(--page-gap, 16px));
+  width: min(100%, var(--hero-box-h) * 2.1);
+  /*
+   * The height comes from the viewport, never from `100%` of the parent.
+   * Under prefers-reduced-motion §4.0 drops the pin and the sticky box becomes
+   * `height: auto` — a percentage then resolves against an auto height and
+   * collapses the panel to nothing, which is exactly what it did.
+   */
+  height: min(var(--hero-box-h), var(--hero-box-w) / 1.25);
+  margin-inline: auto;
+  border-radius: var(--radius-xl);
+  background: var(--void-800);
+
+  /*
+   * Every coordinate is a proportion of the panel in container query units,
+   * taken from the reference at panel size 1376×776 — horizontal against its
+   * width (cqw), vertical against its height (cqh).
+   *
+   * Container units rather than % because a percentage resolves against
+   * whatever box the element sits in — so `calc(var(--word-y) - var(--dot-y))`
+   * inside the dot's clip box would measure the two against different boxes and
+   * shear the knockout. §4.1's rule is *same axis, same container*: every such
+   * subtraction is cqw−cqw or cqh−cqh, and both resolve against this panel, so
+   * the arithmetic is real whatever the panel's ratio.
+   *
+   *   window 648,172 664×374 · dot 470,250 336 · word 92,390
+   */
+  --window-x: 47.093cqw;
+  --window-y: 22.165cqh;
+  --window-w: 48.256cqw;
+  --window-h: 48.196cqh;
+  --dot-x: 34.157cqw;
+  --dot-y: 32.216cqh;
+  /* Width-relative, with aspect-ratio 1 on the group — a height-relative size
+     would turn the circle into an ellipse once the ratio was free. */
+  --dot-size: 24.419cqw;
+  --word-x: 6.686cqw;
+  /*
+   * Raised from the reference's 390 to open the lower half. The wordmark's
+   * box is 180px of the panel's 776, so the copy stack could not breathe
+   * without it moving — and the type scale is a token, so the size stays at
+   * display-hero and the position does the work. Its baseline still crosses
+   * the dot's lower third (§4.1).
+   */
+  --word-y: 45.358cqh;
+  --copy-x: 6.977cqw;
+  /* The stack's top, where the line used to sit. Its own gaps space the rest. */
+  --copy-y: 72.701cqh;
+  /*
+   * The stack's rhythm follows the panel's height like every other vertical
+   * value — 32px of the reference's 776. It is the one part of the
+   * composition with a fixed pixel height (three tokens deep), so on a short
+   * panel a fixed gap is what pushes VIEW WORK through the bottom edge.
+   * Floored at space-4 so it never closes up entirely.
+   */
+  --copy-gap: clamp(var(--space-4), 4.124cqh, var(--space-8));
+  /* Peripheral labels sit further in than the reference render, so the
+     composition has a margin rather than touching its own edges. */
+  --meta-x: 3.85cqw;
+  --meta-y: 15.25cqh;
+  /*
+   * 220px at the reference panel 1376×776 — 15.99% of its width, 28.35% of its
+   * height. Bounded on both axes: a width-only bound oversizes the wordmark on
+   * a short wide panel, which is what drives the copy beneath it off the edge.
+   *
+   * **Not capped at the token.** docs/DESIGN.md §1.3: in the hero, display-hero
+   * is the size the composition scales *from*, not a ceiling. Capping it meant
+   * the wordmark stopped growing while the panel kept going — 15.8% of the
+   * panel at 1440, 8.8% at 2560 — so the composition drifted on exactly the
+   * displays with the most room for it.
+   */
+  --hero-type-size: min(15.988cqw, 28.351cqh);
+}
+
+/* Layer 2 — the pixel window (§4.1). */
+.window {
+  position: absolute;
+  left: var(--window-x);
+  top: var(--window-y);
+  width: var(--window-w);
+  height: var(--window-h);
+  z-index: 2;
+  border-radius: var(--radius-lg);
+  background: var(--void-700);
+  box-shadow: var(--shadow-window);
+  overflow: hidden;
+}
+
+.windowTag {
+  position: absolute;
+  left: var(--space-3);
+  top: var(--space-3);
+  z-index: 3;
+  padding: 5px 9px;
+  border: 1px solid var(--hairline-dark);
+  border-radius: 6px;
+  background: rgb(from var(--void-900) r g b / 0.78);
+  color: var(--star-100);
+}
+
+/* The two worlds differ in cell count, so each width renders its own. */
+.worldDesktop,
+.worldMobile {
+  position: absolute;
+  inset: 0;
+}
+
+.worldMobile {
+  display: none;
+}
+
+/* Layer 4 — copy beneath the wordmark. */
+.copy {
+  position: absolute;
+  left: var(--copy-x);
+  top: var(--copy-y);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--copy-gap);
+}
+
+.line {
+  margin: 0;
+  max-width: 44ch;
+  color: var(--star-100);
+  font-size: var(--text-body-lg-size);
+  line-height: var(--text-body-lg-leading);
+}
+
+.descriptor {
+  color: var(--star-400);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--space-2) + var(--space-1));
+  min-height: 48px;
+  padding-inline: var(--space-6);
+  border: 1px solid var(--purple-500);
+  border-radius: var(--radius-pill);
+  color: var(--star-100);
+  font-family: var(--font-meta);
+  font-size: var(--text-meta-lg-size);
+  font-weight: var(--text-meta-lg-weight);
+  letter-spacing: var(--text-meta-lg-tracking);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* §7.1: the arrow slides down 4px and returns. */
+.cta span {
+  transition: transform 180ms ease;
+}
+
+.cta:hover span {
+  transform: translateY(4px);
+}
+
+/* Peripheral metadata — four labels only (§4.1). */
+.metaTopLeft,
+.metaTopRight,
+.metaBottomLeft {
+  position: absolute;
+  z-index: 4;
+  color: var(--star-400);
+}
+
+/* Desktop only: mobile carries the location on its own label below (§2.1). */
+.metaBottomLeft {
+  display: none;
+}
+
+.metaTopLeft {
+  left: var(--meta-x);
+  top: var(--meta-y);
+}
+
+.metaTopRight {
+  right: var(--meta-x);
+  top: var(--meta-y);
+}
+
+/*
+ * There is no `12.` stamp here. §4.1: the hero carries no studio stamp at any
+ * breakpoint — it was tried rotated up the left edge and upright in the mobile
+ * corner, and the Stage 2 review removed it outright rather than relocating
+ * it. The stamp belongs to the footer and the menu. Nothing replaces it.
+ */
+
+/*
+ * §2.1 — the mobile hero. A reinterpretation, not a shrink: the window becomes
+ * a wide short band, the dot moves upper-right over its top edge, and the
+ * wordmark drops below the window on plain void-800.
+ */
+@media (max-width: 1023px) {
+  .environment {
+    /*
+     * §2.1: the mobile panel fills its sticky box too — same reasoning as
+     * desktop, and nothing here needs converting because mobile coordinates
+     * are already percentages of the panel, vertical against its height and
+     * horizontal against its width. That is safe precisely because §2.1 drops
+     * the knockouts: with none, there is no cross-box calc() to go wrong.
+     *
+     * Reference panel 394×844: window 18,152 358×214 · dot x204,112 168 ·
+     * word 18,468 · line 566 · descriptor 640 · cta 680
+     */
+    width: 100%;
+    height: var(--hero-box-h);
+
+    --window-x: 4.569%;
+    --window-y: 18.009%;
+    --window-w: 90.863%;
+    --window-h: 25.355%;
+    --dot-x: 51.777%;
+    --dot-y: 13.27%;
+    --dot-size: 42.64%;
+    --word-x: 4.569%;
+    --word-y: 55.45%;
+    --copy-y: 67.062%;
+    --copy-gap: var(--space-4);
+    --copy-x: 4.569%;
+    --meta-x: 4.569%;
+    --meta-y: 8.768%;
+    /* 88px at the reference panel width of 394 = 22.34%. */
+    --hero-type-size: min(var(--text-display-hero-mobile-size), 22.335cqw);
+  }
+
+  .worldDesktop {
+    display: none;
+  }
+
+  .worldMobile {
+    display: block;
+  }
+
+  .windowTag {
+    display: none;
+  }
+
+  .line {
+    max-width: 80%;
+    font-size: 17px;
+  }
+
+  .descriptor {
+    font-size: var(--text-meta-sm-size);
+    letter-spacing: var(--text-meta-sm-tracking);
+  }
+
+  .copy {
+    right: var(--copy-x);
+  }
+
+  /* §2.1: VIEW WORK is a full-width 52px pill on mobile. */
+  .cta {
+    align-self: stretch;
+    justify-content: center;
+    min-height: 52px;
+  }
+
+  .metaTopRight {
+    display: none;
+  }
+
+  /* §2.1: two labels only — CREATIVE STUDIO above, OMAHA, NE at the bottom. */
+  .metaLocation {
+    display: none;
+  }
+
+  .metaBottomLeft {
+    display: block;
+    left: var(--meta-x);
+    bottom: 2.844%;
+  }
+}

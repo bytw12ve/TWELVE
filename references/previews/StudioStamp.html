@@ -1,0 +1,37 @@
+<!-- @dsCard group="5 · Parts" height=300 width=1100 subtitle="The 12. mark: upright, rotated on an edge, and on paper" -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;800&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  :root{
+    --t-void-800: var(--void-800,#0c0b11); --t-void-700: var(--void-700,#15131c);
+    --t-hair: var(--hairline-dark,#2f2b3b);
+    --t-star-100: var(--star-100,#edeaf5); --t-star-400: var(--star-400,#9b96ae);
+    --t-purple-500: var(--purple-500,#b5a9db); --t-purple-600: var(--purple-600,#9a8bc7);
+    --t-purple-ink: var(--purple-ink,#4a3c78);
+    --t-paper-100: var(--paper-100,#f2efe9); --t-ink-900: var(--ink-900,#14121c);
+    --t-ink-600: var(--ink-600,#5f5a4e);
+    --f-display: var(--font-display, Figtree, sans-serif);
+    --f-meta: var(--font-meta, "Space Mono", monospace);
+  }
+  *{box-sizing:border-box;margin:0}
+  .stage{width:1100px;height:300px;background:var(--t-void-800);display:flex;gap:28px;padding:40px}
+  .tile{flex:1;background:var(--t-void-700);border:1px solid var(--t-hair);border-radius:14px;
+        position:relative;display:flex;align-items:center;justify-content:center}
+  .tile.paper{background:var(--t-paper-100);border-color:transparent}
+  .cap{position:absolute;left:16px;bottom:14px;font-family:var(--f-meta);font-size:10px;
+       letter-spacing:.16em;color:var(--t-star-400)}
+  .tile.paper .cap{color:var(--t-ink-600)}
+  .s{font-family:var(--f-display);font-weight:800;font-size:22px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .s.big{font-size:32px}
+  .s i{font-style:normal;color:var(--t-purple-500)}
+  .tile.paper .s{color:var(--t-ink-900)}
+  .tile.paper .s i{color:var(--t-purple-ink)}
+  .rot{position:absolute;left:18px;top:50%;transform:translateY(-50%) rotate(-90deg)}
+</style>
+
+<div class="stage">
+  <div class="tile"><span class="s big">12<i>.</i></span><span class="cap">UPRIGHT — MAX 32PX</span></div>
+  <div class="tile"><span class="s rot">12<i>.</i></span><span class="cap">ROTATED 90° ON AN EDGE</span></div>
+  <div class="tile paper"><span class="s big">12<i>.</i></span><span class="cap">ON PAPER — PERIOD IN PURPLE-INK</span></div>
+  <div class="tile"><span class="s">12<i>.</i></span><span class="cap">FOOTER SIZE — 18PX</span></div>
+</div>

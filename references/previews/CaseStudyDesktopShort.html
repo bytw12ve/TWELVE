@@ -1,0 +1,146 @@
+<!-- @dsCard group="5 · Case study" height=2180 width=1440 page subtitle="/work/[project] — the short state: same template, less content, still intentional" -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;800&family=Archivo:wght@400;500&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  :root{
+    --t-void-900: var(--void-900,#07060a); --t-void-800: var(--void-800,#0c0b11);
+    --t-void-700: var(--void-700,#15131c); --t-void-600: var(--void-600,#1f1c29);
+    --t-hair: var(--hairline-dark,#2f2b3b);
+    --t-paper-100: var(--paper-100,#f2efe9); --t-paper-200: var(--paper-200,#e7e2d8);
+    --t-hair-l: var(--hairline-light,#cfc8b9);
+    --t-ink-900: var(--ink-900,#14121c); --t-ink-600: var(--ink-600,#5f5a4e);
+    --t-star-100: var(--star-100,#edeaf5); --t-star-400: var(--star-400,#9b96ae);
+    --t-purple-400: var(--purple-400,#cbc0eb); --t-purple-500: var(--purple-500,#b5a9db);
+    --t-purple-600: var(--purple-600,#9a8bc7); --t-purple-700: var(--purple-700,#7868a8);
+    --t-purple-ink: var(--purple-ink,#4a3c78);
+    --t-sky-300: var(--sky-300,#7fb6ee); --t-grass-400: var(--grass-400,#6f9d4e);
+    --t-bloom-300: var(--bloom-300,#e9a6c6); --t-bloom-500: var(--bloom-500,#e0b431);
+    --f-display: var(--font-display, Figtree, sans-serif);
+    --f-edit: var(--font-editorial, Archivo, sans-serif);
+    --f-meta: var(--font-meta, "Space Mono", monospace);
+  }
+  *{box-sizing:border-box;margin:0}
+
+  body{background:var(--t-void-900);font-family:var(--f-edit)}
+  .stage{width:1440px;background:var(--t-void-900);color:var(--t-star-100);position:relative}
+  .nav{height:96px;display:flex;align-items:center;justify-content:space-between;
+       padding:0 64px;border-bottom:1px solid var(--t-hair)}
+  .mark{font-family:var(--f-display);font-weight:800;font-size:20px;letter-spacing:-.02em;
+        color:var(--t-star-100);text-decoration:none}
+  .mark i{color:var(--t-purple-500);font-style:normal}
+  .links{display:flex;align-items:center;gap:32px}
+  .links a{font-size:16px;color:var(--t-star-100);text-decoration:none;
+        border-bottom:1px solid transparent;padding-bottom:3px}
+  .links a.current{border-bottom-color:var(--t-purple-500)}
+  .menu{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 20px;border-radius:999px;
+        border:1px solid var(--t-hair);color:var(--t-star-100);font-family:var(--f-meta);
+        font-size:14px;font-weight:700;letter-spacing:.1em}
+  .menu .bars{display:inline-flex;flex-direction:column;gap:4px}
+  .menu .bars b{display:block;width:16px;height:1.5px;background:currentColor;border-radius:2px}
+  .foot{margin-top:72px;padding:0 64px 34px}
+  .footbar{border-top:1px solid var(--t-hair);padding-top:22px;display:flex;align-items:center;
+        justify-content:space-between;font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;
+        color:var(--t-star-400)}
+  .footbar a{color:var(--t-star-100);text-decoration:none;
+        border-bottom:1px solid var(--t-purple-500);padding-bottom:2px}
+  .footstamp{font-family:var(--f-display);font-weight:800;font-size:18px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .footstamp i{color:var(--t-purple-500);font-style:normal}
+
+  .back{padding:40px 64px 0}
+  .back a{font-family:var(--f-meta);font-size:11px;letter-spacing:.16em;color:var(--t-star-400);
+        text-decoration:none;display:inline-flex;align-items:center;gap:10px;min-height:44px}
+  .back a em{font-style:normal;color:var(--t-purple-500)}
+
+  .chead{padding:8px 64px 0;display:grid;grid-template-columns:1fr 380px;gap:64px;align-items:end}
+  .kind{display:inline-block;font-family:var(--f-meta);font-size:11px;letter-spacing:.16em;
+        border:1px solid var(--t-hair);border-radius:999px;padding:6px 13px;color:var(--t-star-100);margin-bottom:22px}
+  .ctitle{font-family:var(--f-display);font-weight:800;font-size:120px;line-height:.9;letter-spacing:-.035em}
+  .csum{margin-top:26px;max-width:640px;font-size:20px;line-height:1.5}
+
+  .metabar{margin:52px 64px 0;border-top:1px solid var(--t-hair);border-bottom:1px solid var(--t-hair);
+        display:grid;grid-template-columns:repeat(4,1fr) 1.4fr;gap:32px;padding:26px 0}
+  .metabar dt{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400);margin-bottom:9px}
+  .metabar dd{font-size:16px;line-height:1.45}
+  .metabar .ext{display:flex;flex-direction:column;gap:8px}
+  .metabar .ext a{font-size:16px;color:var(--t-star-100);text-decoration:none;
+        border-bottom:1px solid var(--t-purple-500);padding-bottom:2px;align-self:flex-start}
+  .metabar .ext a span{color:var(--t-purple-500)}
+
+  .cover{margin:52px 64px 0;height:640px;border-radius:var(--radius-md,18px);background:var(--t-void-700);
+        border:1px solid var(--t-hair);overflow:hidden;position:relative}
+  .cover svg{position:absolute;inset:0;width:100%;height:100%}
+  .cap{margin:14px 64px 0;font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400)}
+
+  .body{margin:80px 64px 0;display:grid;grid-template-columns:200px 1fr;gap:64px}
+  .body h2{font-family:var(--f-edit);font-weight:500;font-size:34px;line-height:1.12;
+        letter-spacing:-.02em;margin:0 0 20px}
+  .body p{font-size:18px;line-height:1.65;max-width:680px;margin-bottom:20px;color:var(--t-star-100)}
+  .sec{margin-bottom:64px}
+  .secn{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-purple-500);padding-top:10px}
+  .quote{margin:8px 0 8px;padding-left:28px;border-left:2px solid var(--t-purple-500);
+        font-family:var(--f-edit);font-weight:500;font-size:34px;line-height:1.18;letter-spacing:-.02em;max-width:760px}
+  .shots{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:34px 0 10px;max-width:880px}
+  .shot{height:300px;border-radius:var(--radius-md,18px);background:var(--t-void-700);
+        border:1px solid var(--t-hair);position:relative;overflow:hidden}
+  .shot svg{position:absolute;inset:0;width:100%;height:100%}
+
+  .pn{margin:96px 64px 0;border-top:1px solid var(--t-hair);display:grid;grid-template-columns:1fr 1fr;gap:24px;padding-top:28px}
+  .pn a{display:block;padding:26px;border:1px solid var(--t-hair);border-radius:var(--radius-md,18px);
+        text-decoration:none;color:inherit;min-height:44px}
+  .pn .l{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400)}
+  .pn .n{font-family:var(--f-edit);font-weight:500;font-size:34px;line-height:1.12;letter-spacing:-.02em;margin-top:12px}
+  .pn .k{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400);margin-top:10px}
+  .pn .next{text-align:right}
+</style>
+
+<div class="stage">
+  <nav class="nav">
+    <a class="mark" href="/">twelve<i>.</i></a>
+    <div class="links">
+      <a href="/work" class="current">Work</a><a href="/about">About</a><a href="/playground">Playground</a>
+      <span class="menu">MENU <span class="bars"><b></b><b></b></span></span>
+    </div>
+  </nav>
+  <div class="back"><a href="/work"><em>←</em> BACK TO WORK</a></div>
+  <header class="chead">
+    <div>
+      <span class="kind">CREATIVE TOOL</span>
+      <h1 class="ctitle">Mosh</h1>
+      <p class="csum">An internal dashboard for running the studio's client workflow — briefs, invoices and project state in one place.</p>
+    </div>
+  </header>
+  <dl class="metabar">
+    <div><dt>YEAR</dt><dd>2025</dd></div>
+    <div><dt>KIND</dt><dd>Creative tool</dd></div>
+    <div><dt>ROLE</dt><dd>Design and build</dd></div>
+    <div><dt>STATUS</dt><dd>Internal · in use</dd></div>
+    <div><dt>ELSEWHERE</dt><div class="ext"><span style="color:var(--t-star-400);font-size:16px">Not publicly available</span></div></div>
+  </dl>
+  <div class="cover" style="height:520px"><svg viewBox="0 0 1312 520" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mosh — nested panel interface">
+    <rect width="1312" height="520" fill="#121019"/>
+    <rect x="386" y="90" width="540" height="340" rx="20" fill="none" stroke="var(--t-purple-500)" stroke-width="2"/>
+    <rect x="450" y="140" width="412" height="240" rx="16" fill="none" stroke="var(--t-purple-400)" stroke-width="2" opacity=".7"/>
+    <rect x="514" y="190" width="284" height="140" rx="12" fill="var(--t-purple-600)" opacity=".35"/>
+    <circle cx="656" cy="260" r="26" fill="var(--t-purple-400)"/></svg></div>
+  <div class="cap">MOSH — PROJECT VIEW</div>
+
+  <div class="body">
+    <div class="secn">01</div>
+    <div class="sec">
+      <h2>The short version</h2>
+      <p>Mosh exists because running three client projects out of notes, email and memory stopped working. It is a single view of what is owed, what is owing, and what is waiting on someone else — built for one user, with no ambition beyond that.</p>
+      <p>It is not a product and is unlikely to become one. It is here because the interaction patterns in it — the status chips, the quiet empty states — ended up in work that shipped to other people.</p>
+    </div>
+  </div>
+  <nav class="pn">
+    <a href="/work/ground"><div class="l">← PREVIOUS</div><div class="n">Ground</div><div class="k">WEB PRODUCT · 2025</div></a>
+    <a href="/work/keeb-wiki" class="next"><div class="l">NEXT →</div><div class="n">Keeb.wiki</div><div class="k">WEB PRODUCT · 2025</div></a>
+  </nav>  <footer class="foot">
+    <div class="footbar">
+      <span>TWELVE — OMAHA, NE</span>
+      <a href="mailto:contact@bytw12ve.com">contact@bytw12ve.com</a>
+      <span class="footstamp">12<i>.</i></span>
+      <span>© 2026</span>
+    </div>
+  </footer>
+</div>

@@ -1,0 +1,29 @@
+.label {
+  font-family: var(--font-meta);
+  text-transform: uppercase;
+  color: inherit;
+}
+
+/* meta-sm 10 / 1.2 / 400, ls 0.16em — docs/DESIGN.md §1.3 */
+.sm {
+  font-size: var(--text-meta-sm-size);
+  line-height: var(--text-meta-sm-leading);
+  font-weight: var(--text-meta-sm-weight);
+  letter-spacing: var(--text-meta-sm-tracking);
+}
+
+/* meta 12 / 1.2 / 400, ls 0.14em */
+.md {
+  font-size: var(--text-meta-size);
+  line-height: var(--text-meta-leading);
+  font-weight: var(--text-meta-weight);
+  letter-spacing: var(--text-meta-tracking);
+}
+
+/* meta-lg 14 / 1.2 / 700, ls 0.1em — MENU, CLOSE, VIEW WORK */
+.lg {
+  font-size: var(--text-meta-lg-size);
+  line-height: var(--text-meta-lg-leading);
+  font-weight: var(--text-meta-lg-weight);
+  letter-spacing: var(--text-meta-lg-tracking);
+}

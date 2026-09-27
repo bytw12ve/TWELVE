@@ -1,0 +1,68 @@
+/*
+ * One set of type rules, used by the base layer and both knockouts, so the
+ * three copies cannot disagree about size or tracking.
+ */
+.wordmark,
+.knockoutType {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--hero-type-size);
+  line-height: var(--text-display-hero-leading);
+  font-weight: var(--text-display-hero-weight);
+  letter-spacing: var(--text-display-hero-tracking);
+  white-space: nowrap;
+}
+
+.wordmark {
+  position: absolute;
+  left: var(--word-x);
+  top: var(--word-y);
+  z-index: 4;
+  color: var(--star-100);
+}
+
+.period {
+  font-style: normal;
+  color: var(--purple-500);
+}
+
+.knockout {
+  position: absolute;
+  z-index: 5;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.knockoutType {
+  position: absolute;
+  color: var(--ink-900);
+  /* Offsets default to the dot's, which BrandDot composes; the window
+     knockout overrides them below. */
+  left: calc(var(--word-x) - var(--dot-x));
+  top: calc(var(--word-y) - var(--dot-y));
+}
+
+/* Each knockout box *is* the object it clips to — same variables, so the clip
+   cannot fall out of step with the object (§4.1). */
+.knockoutWindow {
+  left: var(--window-x);
+  top: var(--window-y);
+  width: var(--window-w);
+  height: var(--window-h);
+  border-radius: var(--radius-lg);
+}
+
+.knockoutWindow .knockoutType {
+  left: calc(var(--word-x) - var(--window-x));
+  top: calc(var(--word-y) - var(--window-y));
+}
+
+/*
+ * §2.1: below 1024 the wordmark sits below the window and crosses nothing
+ * light, so there is nothing to knock out.
+ */
+@media (max-width: 1023px) {
+  .knockout {
+    display: none;
+  }
+}

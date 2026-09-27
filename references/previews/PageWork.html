@@ -1,0 +1,171 @@
+<!-- @dsCard group="1 · Pages" height=2020 width=1440 page subtitle="/work — the page skeleton with editorial project rows" -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;800&family=Archivo:wght@400;500&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  :root{
+    --t-void-900: var(--void-900,#07060a); --t-void-800: var(--void-800,#0c0b11);
+    --t-void-700: var(--void-700,#15131c); --t-void-600: var(--void-600,#1f1c29);
+    --t-hair: var(--hairline-dark,#2f2b3b);
+    --t-paper-100: var(--paper-100,#f2efe9); --t-paper-200: var(--paper-200,#e7e2d8);
+    --t-hair-l: var(--hairline-light,#cfc8b9);
+    --t-ink-900: var(--ink-900,#14121c); --t-ink-600: var(--ink-600,#5f5a4e);
+    --t-star-100: var(--star-100,#edeaf5); --t-star-400: var(--star-400,#9b96ae);
+    --t-purple-400: var(--purple-400,#cbc0eb); --t-purple-500: var(--purple-500,#b5a9db);
+    --t-purple-600: var(--purple-600,#9a8bc7); --t-purple-700: var(--purple-700,#7868a8);
+    --t-purple-ink: var(--purple-ink,#4a3c78);
+    --t-sky-300: var(--sky-300,#7fb6ee); --t-grass-400: var(--grass-400,#6f9d4e);
+    --t-bloom-300: var(--bloom-300,#e9a6c6); --t-bloom-500: var(--bloom-500,#e0b431);
+    --f-display: var(--font-display, Figtree, sans-serif);
+    --f-edit: var(--font-editorial, Archivo, sans-serif);
+    --f-meta: var(--font-meta, "Space Mono", monospace);
+  }
+  *{box-sizing:border-box;margin:0}
+  body{background:var(--t-void-900);font-family:var(--f-edit)}
+  .stage{width:1440px;background:var(--t-void-900);color:var(--t-star-100);position:relative}
+
+  /* --- site chrome: nav, opener, footer --- */
+  .nav{height:96px;display:flex;align-items:center;justify-content:space-between;
+       padding:0 64px;border-bottom:1px solid var(--t-hair)}
+  .mark{font-family:var(--f-display);font-weight:800;font-size:20px;letter-spacing:-.02em;
+        color:var(--t-star-100);text-decoration:none}
+  .mark i{color:var(--t-purple-500);font-style:normal}
+  .links{display:flex;align-items:center;gap:32px}
+  .links a{font-size:16px;color:var(--t-star-100);text-decoration:none;
+        border-bottom:1px solid transparent;padding-bottom:3px}
+  .links a.current{border-bottom-color:var(--t-purple-500)}
+  .menu{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 20px;border-radius:999px;
+        border:1px solid var(--t-hair);color:var(--t-star-100);font-family:var(--f-meta);
+        font-size:14px;font-weight:700;letter-spacing:.1em}
+  .menu .bars{display:inline-flex;flex-direction:column;gap:4px}
+  .menu .bars b{display:block;width:16px;height:1.5px;background:currentColor;border-radius:2px}
+
+  .opener{padding:72px 64px 0;display:grid;grid-template-columns:1fr 280px;gap:64px;align-items:end}
+  .eyebrow{font-family:var(--f-meta);font-size:12px;letter-spacing:.14em;color:var(--t-star-400);
+        display:flex;align-items:center;gap:14px;margin-bottom:22px}
+  .eyebrow .st{font-family:var(--f-display);font-weight:800;font-size:16px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .eyebrow .st i{color:var(--t-purple-500);font-style:normal}
+  .slab{font-family:var(--f-display);font-weight:800;font-size:120px;line-height:.9;letter-spacing:-.035em}
+  .lead{margin-top:26px;max-width:640px;font-size:20px;line-height:1.5;color:var(--t-star-100)}
+  .openmeta{display:flex;flex-direction:column;gap:8px;padding-bottom:10px;
+        font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400);text-align:right}
+
+  .foot{margin-top:72px;padding:0 64px 34px}
+  .footbar{border-top:1px solid var(--t-hair);padding-top:22px;display:flex;align-items:center;
+        justify-content:space-between;font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;
+        color:var(--t-star-400)}
+  .footbar a{color:var(--t-star-100);text-decoration:none;
+        border-bottom:1px solid var(--t-purple-500);padding-bottom:2px}
+  .footstamp{font-family:var(--f-display);font-weight:800;font-size:18px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .footstamp i{color:var(--t-purple-500);font-style:normal}
+
+  .rows{padding:64px 64px 0}
+  .row{display:grid;grid-template-columns:64px 1fr 420px;gap:40px;align-items:center;
+       padding:30px 0;border-bottom:1px solid var(--t-hair);text-decoration:none;color:inherit}
+  .row.flip{grid-template-columns:420px 64px 1fr}
+  .row.flip .well{order:1} .row.flip .idx{order:2} .row.flip .txt{order:3}
+  .row:first-of-type{border-top:1px solid var(--t-hair)}
+  .idx{font-family:var(--f-meta);font-size:12px;letter-spacing:.14em;color:var(--t-star-400);align-self:start;padding-top:10px}
+  .title{font-family:var(--f-edit);font-weight:500;font-size:56px;line-height:1.02;letter-spacing:-.025em}
+  .meta{display:flex;gap:18px;align-items:center;margin-top:14px;
+        font-family:var(--f-meta);font-size:11px;letter-spacing:.14em;color:var(--t-star-400)}
+  .kind{border:1px solid var(--t-hair);border-radius:999px;padding:5px 12px;color:var(--t-star-100)}
+  .arrow{display:inline-flex;align-items:center;gap:8px;margin-top:20px;
+        font-family:var(--f-meta);font-size:12px;letter-spacing:.14em;color:var(--t-star-100)}
+  .arrow em{font-style:normal;color:var(--t-purple-500)}
+  .well{height:236px;border-radius:var(--radius-md,18px);background:var(--t-void-700);
+        border:1px solid var(--t-hair);overflow:hidden;position:relative}
+  .well svg{position:absolute;inset:0;width:100%;height:100%}
+  .row.hov .well{border-color:var(--t-purple-500)}
+  .row.dim{opacity:.62}
+</style>
+
+<div class="stage">
+  <nav class="nav">
+    <a class="mark" href="/">twelve<i>.</i></a>
+    <div class="links">
+      <a href="/work" class="current">Work</a><a href="/about">About</a><a href="/playground">Playground</a>
+      <span class="menu">MENU <span class="bars"><b></b><b></b></span></span>
+    </div>
+  </nav>
+  <header class="opener">
+    <div>
+      <div class="eyebrow"><span class="st">12<i>.</i></span>SELECTED WORK</div>
+      <h1 class="slab">Work</h1>
+      <p class="lead">Things we finished and shipped. Apps, products, tools and the occasional client site.</p>
+    </div>
+    <div class="openmeta">
+      <span>FIVE PROJECTS</span>
+      <span>2024 &rarr; 2026</span>
+      <span>OMAHA, NE</span>
+    </div>
+  </header>
+  <section class="rows">
+  <a class="row hov" href="/work/the-402">
+    <div class="idx">01</div>
+    <div class="txt">
+      <div class="title">The 402</div>
+      <div class="meta"><span class="kind">iOS APP</span><span>SELF-DISCOVERY FOR OMAHA</span><span>2026</span></div>
+      <div class="arrow">OPEN PROJECT <em>&rarr;</em></div>
+    </div>
+    <div class="well"><svg viewBox="0 0 420 236" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><circle cx="210" cy="118" r="62" fill="var(--t-purple-500)"/></svg></div>
+  </a>
+  <a class="row flip" href="/work/keebwiki">
+    <div class="well"><svg viewBox="0 0 420 236" id="w-keys" aria-hidden="true"></svg></div>
+    <div class="idx">02</div>
+    <div class="txt">
+      <div class="title">Keeb.wiki</div>
+      <div class="meta"><span class="kind">WEB PRODUCT</span><span>COMMUNITY BUILD ARCHIVE</span><span>2025</span></div>
+      <div class="arrow">OPEN PROJECT <em>&rarr;</em></div>
+    </div>
+  </a>
+  <a class="row" href="/work/mosh">
+    <div class="idx">03</div>
+    <div class="txt">
+      <div class="title">Mosh</div>
+      <div class="meta"><span class="kind">CREATIVE TOOL</span><span>STUDIO WORKFLOW, INTERNAL</span><span>2025</span></div>
+      <div class="arrow">OPEN PROJECT <em>&rarr;</em></div>
+    </div>
+    <div class="well"><svg viewBox="0 0 420 236" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><rect x="104" y="48" width="212" height="140" rx="18" fill="none" stroke="var(--t-purple-500)" stroke-width="2"/><rect x="132" y="68" width="156" height="100" rx="14" fill="none" stroke="var(--t-purple-400)" stroke-width="2" opacity=".7"/><rect x="160" y="88" width="100" height="60" rx="10" fill="var(--t-purple-600)" opacity=".45"/><circle cx="210" cy="118" r="12" fill="var(--t-purple-400)"/></svg></div>
+  </a>
+  <a class="row flip" href="/work/ground">
+    <div class="well"><svg viewBox="0 0 420 236" preserveAspectRatio="none" aria-hidden="true"><rect x="52" y="54" width="240" height="8" rx="4" fill="var(--t-star-400)" opacity=".5"/><rect x="52" y="84" width="316" height="8" rx="4" fill="var(--t-star-400)" opacity=".3"/><rect x="52" y="114" width="180" height="8" rx="4" fill="var(--t-star-400)" opacity=".3"/><rect x="52" y="156" width="96" height="26" rx="13" fill="var(--t-purple-500)"/></svg></div>
+    <div class="idx">04</div>
+    <div class="txt">
+      <div class="title">Ground</div>
+      <div class="meta"><span class="kind">WEB PRODUCT</span><span>FACT-FIRST INTERNATIONAL NEWS</span><span>2025</span></div>
+      <div class="arrow">OPEN PROJECT <em>&rarr;</em></div>
+    </div>
+  </a>
+  <a class="row" href="/work/ledger-coffee">
+    <div class="idx">05</div>
+    <div class="txt">
+      <div class="title">Ledger Coffee</div>
+      <div class="meta"><span class="kind">CLIENT WEBSITE</span><span>WAREHOUSE COFFEE, OMAHA</span><span>2024</span></div>
+      <div class="arrow">OPEN PROJECT <em>&rarr;</em></div>
+    </div>
+    <div class="well"><svg viewBox="0 0 420 236" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><rect x="60" y="40" width="300" height="156" rx="14" fill="#1b1720"/><rect x="60" y="40" width="300" height="52" rx="14" fill="var(--t-purple-700)" opacity=".5"/><circle cx="132" cy="146" r="26" fill="var(--t-bloom-500)" opacity=".8"/><rect x="176" y="132" width="150" height="10" rx="5" fill="var(--t-star-400)" opacity=".45"/><rect x="176" y="154" width="96" height="10" rx="5" fill="var(--t-star-400)" opacity=".28"/></svg></div>
+  </a>
+  </section>
+  <footer class="foot">
+    <div class="footbar">
+      <span>TWELVE — OMAHA, NE</span>
+      <a href="mailto:contact@bytw12ve.com">contact@bytw12ve.com</a>
+      <span class="footstamp">12<i>.</i></span>
+      <span>© 2026</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  function rng(s){return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+  var r=rng(77),out=[],cols=9,rows=4,w=34,h=34,gx=6,gy=6;
+  var ox=(420-(cols*w+(cols-1)*gx))/2, oy=(236-(rows*h+(rows-1)*gy))/2;
+  for(var y=0;y<rows;y++)for(var x=0;x<cols;x++){
+    var v=r(), f=v<0.10?'var(--t-purple-500)':(v<0.22?'#221f30':'#1a1826');
+    var st=v<0.10?'var(--t-purple-400)':'#2f2b3b';
+    out.push('<rect x="'+(ox+x*(w+gx))+'" y="'+(oy+y*(h+gy))+'" width="'+w+'" height="'+h+'" rx="6" fill="'+f+'" stroke="'+st+'"/>');
+  }
+  document.getElementById('w-keys').innerHTML=out.join('');
+})();
+</script>

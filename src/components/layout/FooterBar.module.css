@@ -1,0 +1,122 @@
+/*
+ * Three columns: the studio block left, the email centred, the stamp right.
+ * The outer columns are equal-width so the email is centred in the bar itself
+ * rather than in whatever space the neighbours leave.
+ *
+ * align-items: start puts the email and the stamp on the block's first line,
+ * so adding the copyright line beneath does not push the stamp down — its
+ * position has to match the stamp in the open menu.
+ */
+.footer {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
+  gap: var(--space-6);
+  margin-inline: var(--space-16);
+  padding-block: var(--space-8);
+  border-top: 1px solid var(--hairline-dark);
+  color: var(--star-400);
+  font-family: var(--font-meta);
+  font-size: var(--text-meta-size);
+  line-height: var(--text-meta-leading);
+  letter-spacing: var(--text-meta-tracking);
+}
+
+/* Studio and copyright are one block with one left edge. */
+.studio {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  text-transform: uppercase;
+}
+
+.year {
+  text-transform: uppercase;
+}
+
+.email {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-min);
+  margin-block: calc(var(--target-min) / -2 + 0.6em);
+  color: var(--star-100);
+  justify-self: center;
+}
+
+/* The signature, standing alone on the right edge. */
+.stamp {
+  justify-self: end;
+}
+
+/*
+ * Small screens: the email takes its own line, then the studio block sits
+ * left with the stamp opposite it. The copyright stays inside the studio
+ * block — it belongs to the studio, never to the stamp.
+ */
+@media (max-width: 1023px) {
+  /*
+   * Named areas rather than auto-placement. With the email spanning both
+   * columns, auto-placement pushed the stamp onto a third row in column one,
+   * so justify-self: end stopped at that column's edge — 16px short of the
+   * footer's — and the signature no longer lined up with the menu's.
+   */
+  .footer {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'email email'
+      'studio stamp';
+    gap: var(--space-4);
+    margin-inline: var(--space-4);
+  }
+
+  .email {
+    grid-area: email;
+    justify-self: start;
+    margin-block: 0;
+  }
+
+  .studio {
+    grid-area: studio;
+  }
+
+  .stamp {
+    grid-area: stamp;
+    justify-self: end;
+  }
+}
+
+/*
+ * §4.0 — the homepage only. The hero occupies the viewport, so scrolling
+ * arrives directly at the footer; without this it arrives on a hairline. Room
+ * above the divider makes that landing deliberate.
+ *
+ * Spacing, not animation: the footer has no scroll behaviour on any route.
+ */
+:global(html:has([data-hero])) .footer {
+  /*
+   * §4.0: the homepage is one screen, and the footer mirrors the nav strip —
+   * one 44px row, then --page-gap to the bottom edge. The gap above it is the
+   * hero frame's own padding, so panel → footer is the same 16px as nav →
+   * panel.
+   *
+   * No hairline: the panel's rounded edge is the separation, the same reason
+   * the strip carries none (§4.1). Width, not colour — a transparent border
+   * still takes a pixel.
+   */
+  grid-template-rows: var(--nav-control-h);
+  align-items: center;
+  height: var(--footer-h);
+  padding-block: 0 var(--page-gap);
+  border-top: 0;
+}
+
+:global(html:has([data-hero])) .email {
+  margin-block: 0;
+}
+
+@media (max-width: 1023px) {
+  :global(html:has([data-hero])) .footer {
+    grid-template-rows: var(--nav-control-h) var(--nav-control-h);
+    row-gap: 0;
+  }
+}

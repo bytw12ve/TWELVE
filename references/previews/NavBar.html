@@ -1,0 +1,70 @@
+<!-- @dsCard group="5 · Parts" height=360 width=1440 subtitle="Persistent nav, and every state of the MENU / CLOSE control" -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;800&family=Archivo:wght@400;500&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  :root{
+    --t-void-800: var(--void-800,#0c0b11); --t-void-600: var(--void-600,#1f1c29);
+    --t-hair: var(--hairline-dark,#2f2b3b);
+    --t-star-100: var(--star-100,#edeaf5); --t-star-400: var(--star-400,#9b96ae);
+    --t-purple-500: var(--purple-500,#b5a9db); --t-purple-600: var(--purple-600,#9a8bc7);
+    --t-purple-ink: var(--purple-ink,#4a3c78);
+    --t-paper-100: var(--paper-100,#f2efe9); --t-ink-900: var(--ink-900,#14121c);
+    --f-display: var(--font-display, Figtree, sans-serif);
+    --f-edit: var(--font-editorial, Archivo, sans-serif);
+    --f-meta: var(--font-meta, "Space Mono", monospace);
+  }
+  *{box-sizing:border-box;margin:0}
+  body{font-family:var(--f-edit)}
+  .stage{width:1440px;height:360px;background:var(--t-void-800)}
+  .bar{height:96px;display:flex;align-items:center;justify-content:space-between;padding:0 64px;
+       border-bottom:1px solid var(--t-hair)}
+  .mark{font-family:var(--f-display);font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .mark i{color:var(--t-purple-500);font-style:normal}
+  .links{display:flex;align-items:center;gap:32px}
+  .links a{font-size:16px;color:var(--t-star-100);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:3px}
+  .links a.hover{border-bottom-color:var(--t-purple-500)}
+  .links a.focus{outline:2px solid var(--t-purple-500);outline-offset:3px;border-radius:3px}
+  .pill{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 20px;border-radius:999px;
+        border:1px solid var(--t-hair);background:transparent;color:var(--t-star-100);
+        font-family:var(--f-meta);font-size:14px;font-weight:700;letter-spacing:.1em}
+  .pill .bars{display:inline-flex;flex-direction:column;gap:4px}
+  .pill .bars b{display:block;width:16px;height:1.5px;background:currentColor;border-radius:2px}
+  .pill.hover{background:var(--t-void-600);border-color:var(--t-star-400)}
+  .pill.focus{outline:2px solid var(--t-purple-500);outline-offset:3px}
+  .pill.light{border-color:var(--t-ink-900);color:var(--t-ink-900)}
+  .pill.light.focus{outline-color:var(--t-purple-ink)}
+  .states{display:flex;gap:56px;padding:40px 64px 0;align-items:flex-start}
+  .col{display:flex;flex-direction:column;gap:14px}
+  .cap{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400)}
+  .light-well{background:var(--t-paper-100);border-radius:14px;padding:22px 26px;display:flex;gap:26px;align-items:center}
+</style>
+
+<div class="stage">
+  <div class="bar">
+    <div class="mark">twelve<i>.</i></div>
+    <div class="links">
+      <a href="#">Work</a><a href="#">About</a><a href="#">Playground</a>
+      <span class="pill">MENU <span class="bars"><b></b><b></b></span></span>
+    </div>
+  </div>
+
+  <div class="states">
+    <div class="col"><span class="cap">LINK — REST / HOVER / FOCUS</span>
+      <div style="display:flex;gap:28px" class="links">
+        <a href="#">Work</a><a href="#" class="hover">Work</a><a href="#" class="focus">Work</a>
+      </div>
+    </div>
+    <div class="col"><span class="cap">MENU — REST</span>
+      <span class="pill">MENU <span class="bars"><b></b><b></b></span></span></div>
+    <div class="col"><span class="cap">MENU — HOVER</span>
+      <span class="pill hover">MENU <span class="bars"><b></b><b></b></span></span></div>
+    <div class="col"><span class="cap">MENU — FOCUS</span>
+      <span class="pill focus">MENU <span class="bars"><b></b><b></b></span></span></div>
+    <div class="col"><span class="cap">CLOSE — ON PAPER</span>
+      <div class="light-well">
+        <span class="pill light">CLOSE ✕</span>
+        <span class="pill light focus">CLOSE ✕</span>
+      </div>
+    </div>
+  </div>
+</div>

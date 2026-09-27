@@ -1,0 +1,25 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# deps
+node_modules/
+.pnpm-store/
+
+# next
+.next/
+out/
+build/
+
+# env
+.env*
+!.env.example
+
+# vercel
+.vercel
+
+# misc
+*.log
+.turbo/
+tsconfig.tsbuildinfo
+next-env.d.ts

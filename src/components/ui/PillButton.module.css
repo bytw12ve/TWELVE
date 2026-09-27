@@ -1,0 +1,58 @@
+/*
+ * references/previews/NavBar.html: 44px tall, 20px inline padding, pill
+ * radius, 1px hairline border, meta-lg text.
+ *
+ * 44px is the docs/DESIGN.md §8 touch-target minimum rather than a size token,
+ * and 20px sits between space-4 and space-6, so it is composed from tokens
+ * rather than written as a literal.
+ */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--space-2) + var(--space-1)); /* 10px, per the reference */
+  min-height: var(--target-min);
+  padding-inline: calc(var(--space-4) + var(--space-1)); /* 20px */
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  background: transparent;
+  font-family: var(--font-meta);
+  font-size: var(--text-meta-lg-size);
+  line-height: var(--text-meta-lg-leading);
+  font-weight: var(--text-meta-lg-weight);
+  letter-spacing: var(--text-meta-lg-tracking);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dark {
+  border-color: var(--hairline-dark);
+  color: var(--star-100);
+}
+
+/* §7.1: fill void-800 → void-600, border to star-400. */
+.dark:hover {
+  background: var(--void-600);
+  border-color: var(--star-400);
+}
+
+.paper {
+  border-color: var(--ink-900);
+  color: var(--ink-900);
+}
+
+.paper:hover {
+  background: var(--paper-200);
+}
+
+/* §7.1 active: hover treatment plus a 1px nudge. No colour flash. */
+.pill:active {
+  transform: translateY(1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill:active {
+    transform: none;
+  }
+}

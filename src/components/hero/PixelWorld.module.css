@@ -1,0 +1,85 @@
+.world {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/*
+ * docs/DESIGN.md §7.4 — clouds translate ~40px over 60s, looping, and nothing
+ * else in the world moves. steps() keeps the drift on whole pixels so the
+ * pixel art never renders between its own cells; alternate avoids the jump a
+ * restart would show.
+ */
+.clouds {
+  animation: drift 60s steps(40) infinite alternate;
+}
+
+@keyframes drift {
+  to {
+    transform: translateX(40px);
+  }
+}
+
+/*
+ * §7.4 — the walker. Parked at the right of the horizon; hovering the window
+ * walks it left, leaving walks it home. The distance is a share of the world's
+ * width (46%) so it stops well right of the dot and the wordmark's knockout,
+ * which cover the window's left quarter — the figure never passes under the
+ * lettering (§4.1's contrast guarantee). steps() keeps it on whole pixels.
+ */
+.walker {
+  transition: transform 2.4s steps(var(--walk-steps));
+}
+
+:global(:is(:hover, :focus-within)) > .world .walker {
+  transform: translateX(var(--walk));
+}
+
+.legsB {
+  opacity: 0;
+}
+
+/* Two leg frames swap for as long as the walk takes — a walk, not a slide. */
+:global(:hover) > .world .legsA {
+  animation: strideA 0.3s steps(1) 8;
+}
+
+:global(:hover) > .world .legsB {
+  animation: strideB 0.3s steps(1) 8;
+}
+
+@keyframes strideA {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes strideB {
+  from {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clouds {
+    animation: none;
+  }
+
+  .walker {
+    transition: none;
+  }
+
+  :global(:is(:hover, :focus-within)) > .world .walker {
+    transform: none;
+  }
+
+  :global(:hover) > .world :is(.legsA, .legsB) {
+    animation: none;
+  }
+}

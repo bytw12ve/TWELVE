@@ -1,0 +1,113 @@
+<!-- @dsCard group="4 · Mobile" height=1560 width=430 page subtitle="/about at 430 — paper band holds, principles stack" -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;800&family=Archivo:wght@400;500&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  :root{
+    --t-void-900: var(--void-900,#07060a); --t-void-800: var(--void-800,#0c0b11);
+    --t-void-700: var(--void-700,#15131c); --t-void-600: var(--void-600,#1f1c29);
+    --t-hair: var(--hairline-dark,#2f2b3b);
+    --t-paper-100: var(--paper-100,#f2efe9); --t-paper-200: var(--paper-200,#e7e2d8);
+    --t-hair-l: var(--hairline-light,#cfc8b9);
+    --t-ink-900: var(--ink-900,#14121c); --t-ink-600: var(--ink-600,#5f5a4e);
+    --t-star-100: var(--star-100,#edeaf5); --t-star-400: var(--star-400,#9b96ae);
+    --t-purple-400: var(--purple-400,#cbc0eb); --t-purple-500: var(--purple-500,#b5a9db);
+    --t-purple-600: var(--purple-600,#9a8bc7); --t-purple-700: var(--purple-700,#7868a8);
+    --t-purple-ink: var(--purple-ink,#4a3c78);
+    --t-sky-300: var(--sky-300,#7fb6ee); --t-grass-400: var(--grass-400,#6f9d4e);
+    --t-bloom-300: var(--bloom-300,#e9a6c6); --t-bloom-500: var(--bloom-500,#e0b431);
+    --f-display: var(--font-display, Figtree, sans-serif);
+    --f-edit: var(--font-editorial, Archivo, sans-serif);
+    --f-meta: var(--font-meta, "Space Mono", monospace);
+  }
+  *{box-sizing:border-box;margin:0}
+
+  body{background:#000;font-family:var(--f-edit)}
+  .stage{width:430px;background:var(--t-void-900);color:var(--t-star-100);position:relative}
+  .nav{height:64px;display:flex;align-items:center;justify-content:space-between;
+       padding:0 16px;border-bottom:1px solid var(--t-hair)}
+  .mark{font-family:var(--f-display);font-weight:800;font-size:18px;letter-spacing:-.02em;
+        color:var(--t-star-100);text-decoration:none}
+  .mark i{color:var(--t-purple-500);font-style:normal}
+  .menu{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px;border-radius:999px;
+        border:1px solid var(--t-hair);color:var(--t-star-100);font-family:var(--f-meta);
+        font-size:12px;font-weight:700;letter-spacing:.1em}
+  .menu .bars{display:inline-flex;flex-direction:column;gap:4px}
+  .menu .bars b{display:block;width:14px;height:1.5px;background:currentColor;border-radius:2px}
+
+  .opener{padding:36px 16px 0}
+  .eyebrow{display:flex;align-items:center;gap:12px;font-family:var(--f-meta);font-size:10px;
+        letter-spacing:.16em;color:var(--t-star-400);margin-bottom:16px}
+  .eyebrow .st{font-family:var(--f-display);font-weight:800;font-size:15px;
+        letter-spacing:-.02em;color:var(--t-star-100)}
+  .eyebrow .st i{color:var(--t-purple-500);font-style:normal}
+  .slab{font-family:var(--f-display);font-weight:800;font-size:56px;line-height:.94;letter-spacing:-.03em}
+  .lead{margin-top:18px;font-size:17px;line-height:1.45;color:var(--t-star-100)}
+  .omark{margin-top:16px;display:flex;flex-wrap:wrap;gap:6px 14px;
+        font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400)}
+
+  .foot{margin-top:48px;padding:0 16px 26px}
+  .footbar{border-top:1px solid var(--t-hair);padding-top:18px;display:flex;flex-direction:column;gap:12px;
+        font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400)}
+  .footbar a{color:var(--t-star-100);text-decoration:none;
+        border-bottom:1px solid var(--t-purple-500);padding-bottom:2px}
+  .frow{display:flex;align-items:center;justify-content:space-between}
+  .footstamp{font-family:var(--f-display);font-weight:800;font-size:16px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .footstamp i{color:var(--t-purple-500);font-style:normal}
+
+  .band{margin-top:40px;background:var(--t-paper-100);padding:40px 16px}
+  .rule{width:48px;height:2px;background:var(--t-purple-ink);margin-bottom:14px}
+  .blabel{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-ink-600)}
+  .stmt{font-family:var(--f-edit);font-weight:500;font-size:34px;line-height:1.12;
+        letter-spacing:-.02em;color:var(--t-ink-900);margin-top:20px}
+  .sub{margin-top:20px;font-size:16px;line-height:1.6;color:var(--t-ink-600)}
+  .cols{padding:40px 16px 0}
+  .col{border-top:1px solid var(--t-hair);padding:18px 0 22px}
+  .coln{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-purple-500)}
+  .col h3{font-family:var(--f-edit);font-weight:500;font-size:22px;line-height:1.25;margin:10px 0 10px}
+  .col p{font-size:16px;line-height:1.6;color:var(--t-star-400)}
+  .facts{padding:26px 16px 0}
+  .facts dt{font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400);
+        padding-top:16px;border-top:1px solid var(--t-hair)}
+  .facts dd{font-size:16px;line-height:1.5;padding:6px 0 14px}
+</style>
+
+<div class="stage">
+  <nav class="nav">
+    <a class="mark" href="/">twelve<i>.</i></a>
+    <span class="menu">MENU <span class="bars"><b></b><b></b></span></span>
+  </nav>
+  <header class="opener">
+    <div class="eyebrow"><span class="st">12<i>.</i></span>ABOUT TWELVE</div>
+    <h1 class="slab">About</h1>
+    <p class="lead">A one-person studio in Omaha that builds digital things — usually to answer a question rather than to fill a brief.</p>
+    <div class="omark"><span>EST. 2026</span><span>OMAHA, NE</span></div>
+  </header>
+  <section class="band">
+    <div class="rule"></div><div class="blabel">THE SHORT VERSION</div>
+    <div class="stmt">We make digital things to find out what they want to be. Some become products. Some stay experiments.</div>
+    <div class="sub">Twelve started because the interesting part of building is finding out what a thing is while you build it. What we learn in the Playground ends up in the work we ship.</div>
+  </section>
+  <section class="cols">
+    <div class="col"><span class="coln">01</span><h3>Build to find out</h3>
+      <p>Most projects here start as a question. The fastest way to answer it is to build a rough version and see what it wants to become.</p></div>
+    <div class="col"><span class="coln">02</span><h3>Finish some, publish the rest</h3>
+      <p>Work is what got finished. Playground is everything else, kept visible on purpose.</p></div>
+    <div class="col"><span class="coln">03</span><h3>Make it usable</h3>
+      <p>An idea nobody can navigate is not finished. Contrast, focus states and reduced motion are part of the design.</p></div>
+  </section>
+  <section class="facts">
+    <dl>
+      <dt>FOUNDED</dt><dd>2026</dd>
+      <dt>BASED</dt><dd>Omaha, Nebraska</dd>
+      <dt>WORKS IN</dt><dd>Apps, websites, games, digital products, experiments</dd>
+      <dt>SAYS HELLO AT</dt><dd>contact@bytw12ve.com</dd>
+    </dl>
+  </section>
+  <footer class="foot">
+    <div class="footbar">
+      <a href="mailto:contact@bytw12ve.com">contact@bytw12ve.com</a>
+      <div class="frow"><span>TWELVE — OMAHA, NE</span><span class="footstamp">12<i>.</i></span></div>
+      <span>© 2026</span>
+    </div>
+  </footer>
+</div>

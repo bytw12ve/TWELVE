@@ -1,0 +1,130 @@
+<!-- @dsCard group="4 · Mobile" height=880 width=430 subtitle="Vertical reinterpretation: dot moves to the upper right, type stacks below the window" -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;800&family=Archivo:wght@400;500&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  :root{
+    --t-void-900: var(--void-900,#07060a); --t-void-800: var(--void-800,#0c0b11);
+    --t-void-700: var(--void-700,#15131c); --t-hair: var(--hairline-dark,#2f2b3b);
+    --t-star-100: var(--star-100,#edeaf5); --t-star-400: var(--star-400,#9b96ae);
+    --t-star-700: var(--star-700,#464154);
+    --t-purple-700: var(--purple-700,#7868a8); --t-purple-600: var(--purple-600,#9a8bc7);
+    --t-purple-400: var(--purple-400,#cbc0eb); --t-purple-500: var(--purple-500,#b5a9db);
+    --t-sky-400: var(--sky-400,#5d9fe0); --t-sky-300: var(--sky-300,#7fb6ee);
+    --t-cloud-100: var(--cloud-100,#e8f1fb);
+    --t-grass-600: var(--grass-600,#33562f); --t-grass-400: var(--grass-400,#6f9d4e);
+    --t-bloom-300: var(--bloom-300,#e9a6c6); --t-bloom-500: var(--bloom-500,#e0b431);
+    --f-display: var(--font-display, Figtree, sans-serif);
+    --f-edit: var(--font-editorial, Archivo, sans-serif);
+    --f-meta: var(--font-meta, "Space Mono", monospace);
+  }
+  *{box-sizing:border-box;margin:0}
+  body{background:#000;font-family:var(--f-edit)}
+  .stage{width:430px;height:880px;position:relative;background:var(--t-void-900);padding:18px}
+  .env{position:absolute;inset:18px;background:var(--t-void-800);border-radius:36px;overflow:hidden}
+  .stars{position:absolute;inset:0;width:100%;height:100%}
+
+  .nav{position:absolute;top:0;left:0;right:0;height:64px;display:flex;align-items:center;
+       justify-content:space-between;padding:0 18px;z-index:5}
+  .mark{font-family:var(--f-display);font-weight:800;font-size:18px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .mark i{color:var(--t-purple-500);font-style:normal}
+  .menu{display:flex;align-items:center;gap:8px;height:44px;padding:0 16px;border-radius:999px;
+       border:1px solid var(--t-hair);color:var(--t-star-100);
+       font-family:var(--f-meta);font-size:12px;font-weight:700;letter-spacing:.1em}
+  .menu .bars{display:inline-flex;flex-direction:column;gap:4px}
+  .menu .bars b{display:block;width:14px;height:1.5px;background:currentColor;border-radius:2px}
+
+  .m{position:absolute;z-index:4;font-family:var(--f-meta);font-size:10px;letter-spacing:.16em;color:var(--t-star-400)}
+  .m-t{left:18px;top:74px}
+  .m-b{left:18px;bottom:24px}
+  .stamp{position:absolute;right:18px;bottom:20px;z-index:4;font-family:var(--f-display);
+       font-weight:800;font-size:18px;letter-spacing:-.02em;color:var(--t-star-100)}
+  .stamp i{color:var(--t-purple-500);font-style:normal}
+
+  .window{position:absolute;left:18px;top:152px;width:358px;height:214px;border-radius:22px;
+       background:var(--t-void-700);overflow:hidden;z-index:2;
+       box-shadow:var(--shadow-window,0 24px 60px rgba(4,3,8,.55))}
+  .window svg{display:block;width:100%;height:100%}
+  .dot{position:absolute;right:22px;top:112px;width:168px;height:168px;border-radius:50%;z-index:3;
+       background:var(--t-purple-500);
+       background-image:linear-gradient(168deg, rgba(203,192,235,.55) 0%, rgba(181,169,219,0) 44%, rgba(120,104,168,.45) 100%)}
+
+  .word{position:absolute;left:18px;top:468px;z-index:4;font-family:var(--f-display);font-weight:800;
+       font-size:88px;line-height:.86;letter-spacing:-.04em;color:var(--t-star-100)}
+  .word i{color:var(--t-purple-500);font-style:normal}
+  .line{position:absolute;left:18px;right:40px;top:566px;z-index:4;font-size:17px;line-height:1.45;color:var(--t-star-100)}
+  .desc{position:absolute;left:18px;top:640px;z-index:4;font-family:var(--f-meta);font-size:10px;
+       letter-spacing:.14em;color:var(--t-star-400)}
+  .cta{position:absolute;left:18px;right:18px;top:680px;z-index:4;height:52px;border-radius:999px;
+       border:1px solid var(--t-purple-500);color:var(--t-star-100);display:flex;align-items:center;
+       justify-content:center;gap:10px;font-family:var(--f-meta);font-size:13px;font-weight:700;
+       letter-spacing:.1em;text-decoration:none}
+</style>
+
+<div class="stage">
+  <div class="env">
+    <svg class="stars" id="sf" viewBox="0 0 394 844" preserveAspectRatio="none" aria-hidden="true"></svg>
+    <div class="nav">
+      <div class="mark">twelve<i>.</i></div>
+      <span class="menu">MENU <span class="bars"><b></b><b></b></span></span>
+    </div>
+    <div class="m m-t">CREATIVE STUDIO</div>
+    <div class="m m-b">OMAHA, NE</div>
+    <div class="stamp">12<i>.</i></div>
+
+    <div class="window">
+      <svg id="pw" viewBox="0 0 360 216" preserveAspectRatio="none" shape-rendering="crispEdges"
+           role="img" aria-label="Pixel-art landscape: sky, clouds and a field of flowers"></svg>
+    </div>
+    <div class="dot"></div>
+
+    <div class="word">twelve<i>.</i></div>
+    <div class="line">Creative studio for digital things worth making.</div>
+    <div class="desc">APPS · WEBSITES · GAMES · EXPERIMENTS</div>
+    <a class="cta" href="/work">VIEW WORK ↓</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  function rng(seed){var s=seed>>>0;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+  function starfield(el,w,h,seed,tries){
+    var r=rng(seed),p=[];
+    p.push('<defs><pattern id="g'+seed+'" width="24" height="24" patternUnits="userSpaceOnUse">'+
+      '<circle cx="2" cy="2" r="1.5" fill="var(--t-star-700)" opacity=".55"/></pattern>'+
+      '<radialGradient id="q'+seed+'"><stop offset="0" stop-color="#fff" stop-opacity=".34"/>'+
+      '<stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>');
+    p.push('<rect width="'+w+'" height="'+h+'" fill="url(#g'+seed+')"/>');
+    var cx=w/2,cy=h/2,maxd=Math.sqrt(cx*cx+cy*cy);
+    for(var i=0;i<tries;i++){
+      var x=r()*w,y=r()*h,d=Math.sqrt((x-cx)*(x-cx)+(y-cy)*(y-cy))/maxd;
+      if(r()>0.10+d*0.62) continue;
+      var s=1.0+r()*1.8,o=.32+r()*.46;
+      if(r()<0.05) p.push('<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+(s*3.4).toFixed(1)+'" fill="url(#q'+seed+')"/>');
+      p.push('<path transform="translate('+x.toFixed(1)+','+y.toFixed(1)+') scale('+s.toFixed(2)+')" opacity="'+o.toFixed(2)+'" fill="#fff" d="M0,-1 Q.16,-.16 1,0 Q.16,.16 0,1 Q-.16,.16 -1,0 Q-.16,-.16 0,-1 Z"/>');
+    }
+    el.innerHTML=p.join('');
+  }
+  function world(el,cols,rows,cell,seed){
+    var r=rng(seed),out=[],x,y,horizon=Math.round(rows*0.58);
+    var clouds=[{x:cols*0.17,y:rows*0.22,rx:cols*0.17,ry:rows*0.09},
+                {x:cols*0.58,y:rows*0.13,rx:cols*0.13,ry:rows*0.07},
+                {x:cols*0.88,y:rows*0.28,rx:cols*0.12,ry:rows*0.07}];
+    for(y=0;y<rows;y++)for(x=0;x<cols;x++){
+      var f;
+      if(y<horizon){
+        f = y<rows*0.16 ? 'var(--t-sky-400)' : 'var(--t-sky-300)';
+        for(var c=0;c<clouds.length;c++){var C=clouds[c],dx=(x-C.x)/C.rx,dy=(y-C.y)/C.ry;
+          if(dx*dx+dy*dy<1-(r()*0.18)) f='var(--t-cloud-100)';}
+      } else {
+        var d=(y-horizon)/(rows-horizon);
+        f = y<horizon+2 ? 'var(--t-grass-400)' : (r()<0.18+d*0.55?'var(--t-grass-600)':'var(--t-grass-400)');
+        if(y>horizon+1 && r()<0.015+d*0.11) f = r()<0.6?'var(--t-bloom-300)':'var(--t-bloom-500)';
+      }
+      out.push('<rect x="'+(x*cell)+'" y="'+(y*cell)+'" width="'+(cell+0.6)+'" height="'+(cell+0.6)+'" fill="'+f+'"/>');
+    }
+    el.innerHTML=out.join('');
+  }
+  starfield(document.getElementById('sf'),394,844,12,520);
+  world(document.getElementById('pw'),30,18,12,1212);
+})();
+</script>

@@ -1,0 +1,61 @@
+# Stage 0 guardrail (docs/BUILD.md §Build Stages).
+# Every step fails the job — a red check blocks merge, it does not warn.
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: lint · typecheck · build · budget · a11y
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # pnpm version comes from the "packageManager" field in package.json,
+      # so local, CI and Vercel all resolve the same one.
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        env:
+          # chromedriver must match the Chrome already on the runner, which
+          # moves independently of the npm package. Without this the a11y step
+          # fails with "This version of ChromeDriver only supports Chrome
+          # version N". Tells chromedriver's postinstall to detect the
+          # installed browser and fetch the matching driver.
+          DETECT_CHROMEDRIVER_VERSION: 'true'
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Token parity — docs/DESIGN.md §1 → tokens.json → tokens.css
+        run: pnpm tokens:check
+
+      - name: Domain is declared only in src/lib/site.ts
+        run: pnpm domain:check
+
+      - name: Production build
+        run: pnpm build
+
+      - name: First-load JS budget
+        run: pnpm budget
+
+      # docs/BUILD.md §Stage 1: "axe reports no violations on any route".
+      # Runs against the production server, so it tests what ships.
+      - name: Accessibility — axe on every route
+        run: pnpm a11y

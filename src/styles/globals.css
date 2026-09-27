@@ -1,0 +1,217 @@
+/*
+ * Base layer only. Every value comes from tokens.css — no literals.
+ * Components own their own .module.css (docs/BUILD.md §Styling).
+ */
+@import './tokens.css';
+
+/*
+ * tokens.css declares the documented family stacks; next/font/local supplies
+ * the actual self-hosted faces as --font-*-loaded (src/styles/fonts.ts).
+ * Prefer the loaded face, keep the documented stack as the fallback. This is
+ * the one place the two meet, so tokens.css stays generated and untouched.
+ */
+:root {
+  --font-display: var(--font-display-loaded), 'Helvetica Neue', Arial, sans-serif;
+  --font-editorial: var(--font-editorial-loaded), 'Helvetica Neue', Arial, sans-serif;
+  --font-meta: var(--font-meta-loaded), ui-monospace, monospace;
+
+  /*
+   * Minimum touch target, docs/DESIGN.md §8. An accessibility floor rather
+   * than a design token, which is why it is not in tokens.css.
+   */
+  --target-min: 44px;
+
+  /*
+   * The nav strip's height. Declared here rather than in the component because
+   * the homepage's hero subtracts it to size itself — one value, two users,
+   * no drift.
+   */
+  --nav-h: var(--space-24); /* 96px */
+
+  /*
+   * The homepage's vertical rhythm, docs/DESIGN.md §4.1. One gap, used three
+   * times: above the nav's content, between it and the hero panel, and beneath
+   * the panel. The panel's own inset is this same value, so the rhythm holds by
+   * construction rather than by two numbers happening to agree.
+   */
+  --page-gap: var(--space-4);
+  /* The tallest thing in the nav — the MENU pill. The wordmark matches it. */
+  --nav-control-h: var(--target-min);
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --nav-h: var(--space-16); /* 64px */
+  }
+}
+
+/*
+ * The homepage's strip is shorter than the bar on inner pages — it carries
+ * only the wordmark and MENU, and the 96px of a full bar was 96px the hero
+ * could not use (docs/DESIGN.md §4.1). 72px from existing tokens rather than
+ * a new one, so token parity stays honest.
+ *
+ * **The min-width matters.** `html:has([data-hero])` outscores `:root`, so
+ * without it this would override the 64px above and make the phone's strip
+ * taller, not shorter.
+ */
+/*
+ * On the homepage the strip is exactly a gap plus one control — 60px — rather
+ * than a bar with its content centred in whatever height it happens to be.
+ * Centring in a 72px strip put 14px above the MENU pill and 38px below it to
+ * the panel, which is what made the hero read as pushed down and cut off at
+ * the bottom. Now the gap above the pill, the gap below it and the gap under
+ * the panel are the same number.
+ *
+ * It needs no breakpoint of its own: `--page-gap` is the same at every width,
+ * and inner pages keep the 96px bar because this is scoped to `data-hero`.
+ */
+html:has([data-hero]) {
+  --nav-h: calc(var(--page-gap) + var(--nav-control-h));
+  /*
+   * §4.0: the homepage is one screen — nav strip, panel, footer, and nothing
+   * below. The footer mirrors the strip: one 44px row, then the gap to the
+   * viewport's bottom edge, the same way the strip is the gap then one row.
+   * The hero subtracts this, so the three stack to exactly the viewport.
+   */
+  --footer-h: calc(var(--nav-control-h) + var(--page-gap));
+}
+
+/* Below 1024 the footer stacks to two rows (§2.2): the email, then studio and stamp. */
+@media (max-width: 1023px) {
+  html:has([data-hero]) {
+    --footer-h: calc(2 * var(--nav-control-h) + var(--page-gap));
+    /*
+     * §2.1's vertical composition needs about 600px of panel before the
+     * OMAHA, NE label meets the VIEW WORK pill. Shorter phones (an SE at 667)
+     * keep the panel at that floor and scroll to the footer instead — the
+     * one-screen rule gives way to legibility, never the reverse.
+     */
+    --hero-min-h: calc(600px + 2 * var(--page-gap));
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--void-900);
+  color: var(--star-100);
+  font-family: var(--font-editorial);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  font-weight: var(--text-body-weight);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The shell is nav · main · footer; main takes the slack so the footer sits
+   at the bottom of short pages without being fixed. */
+main {
+  flex: 1;
+  padding: var(--space-16);
+}
+
+/*
+ * The homepage is the exception: the hero is a full-bleed environment that the
+ * nav sits over, so main contributes no padding of its own and the page owns
+ * its spacing (docs/DESIGN.md §4.1).
+ */
+html:has([data-hero]) main {
+  padding: 0;
+}
+
+main:focus {
+  outline: none;
+}
+
+@media (max-width: 1023px) {
+  main {
+    padding: var(--space-8) var(--space-4);
+  }
+}
+
+a {
+  color: inherit;
+}
+
+/*
+ * Focus is never removed (docs/DESIGN.md §8): 2px focus-dark on dark,
+ * focus-light on paper, 3px offset. The menu is the only paper surface, and
+ * sets the ring colour for everything inside it.
+ */
+:focus-visible {
+  outline: 2px solid var(--focus-dark);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 20;
+  padding: var(--space-2) var(--space-4);
+  min-height: var(--target-min);
+  display: inline-flex;
+  align-items: center;
+  background: var(--void-700);
+  color: var(--star-100);
+  border: 1px solid var(--hairline-dark);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-meta);
+  font-size: var(--text-meta-size);
+  letter-spacing: var(--text-meta-tracking);
+  text-transform: uppercase;
+  text-decoration: none;
+  transform: translateY(calc(-100% - var(--space-4)));
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-display-xl-size);
+  line-height: var(--text-display-xl-leading);
+  font-weight: var(--text-display-xl-weight);
+  letter-spacing: var(--text-display-xl-tracking);
+  margin: 0 0 var(--space-6);
+}
+
+@media (max-width: 1023px) {
+  h1 {
+    font-size: var(--text-heading-xl-size);
+    line-height: var(--text-heading-xl-leading);
+    letter-spacing: var(--text-heading-xl-tracking);
+  }
+}
+
+p {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--star-400);
+  font-size: var(--text-body-lg-size);
+  line-height: var(--text-body-lg-leading);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
