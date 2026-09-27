@@ -13,7 +13,8 @@ import { absoluteUrl, site } from '@/lib/site'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
-  title: page.meta.title,
+  // The app's own page: its name alone, without the studio's "— Twelve" suffix.
+  title: { absolute: page.meta.title },
   description: page.meta.description,
   alternates: { canonical: absoluteUrl('/work/the-402') },
 }

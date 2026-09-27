@@ -132,7 +132,7 @@ A future product page would add `content/products/` following the same shape. Do
 ## SEO
 
 - Per-route `metadata` exports: title, description, canonical, Open Graph, Twitter card.
-- Title template: `%s — Twelve`; home is `Twelve — Creative studio` (shortened by Jaycee, 2026-09-27; the hero line keeps the full sentence).
+- Title template: `%s — Twelve`, except on the 402's routes, which are titled for the app ("Privacy policy — The 402", "The 402") with no studio suffix; home is `Twelve — Creative studio` (shortened by Jaycee, 2026-09-27; the hero line keeps the full sentence).
 - `app/sitemap.ts` and `app/robots.ts` generated from the route list plus the content directory.
 - OG images generated at build with `next/og` from the brand composition (dark ground, brand dot, wordmark). One per route, one per project.
 - JSON-LD: `Organization` on the homepage, `CreativeWork` on each project page.

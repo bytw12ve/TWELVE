@@ -6,7 +6,8 @@ import { HelpPage, helpStyles as styles } from '@/components/the-402/HelpPage'
 import { absoluteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: `${privacyPage.title} — The 402`,
+  // The app's pages carry the app's name, without the studio's "— Twelve" suffix.
+  title: { absolute: `${privacyPage.title} — The 402` },
   description: privacyPage.lead,
   alternates: { canonical: absoluteUrl('/402/privacy') },
 }
