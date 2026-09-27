@@ -12,7 +12,34 @@ Visual reference lives in `references/` — rendered screens, the live HTML prev
 
 `docs/STATE.md` holds the live status; this file holds the rules.
 
-Approved: the homepage (built, Stage 2), the **Pages v2** designs of 2026-09-26 — My work, About, Playground, Contact, the 402 page and its four help pages — the 404 and case-study designs, `docs/DESIGN.md`, and the decisions in this file. Pages v2's design source is `twelve-design/pages-v2/`; `references/` carries its screens.
+Approved and built: the homepage (Stage 2) and **Pages v2** (Stages 3–4, approved 2026-09-27) — My work, About, Side projects, Contact, the 402 page and its four help pages. Designed but not yet built: the 404 (Stage 6) and the case-study template (Stage 5, deferred). Pages v2's design source is `twelve-design/pages-v2/`.
+
+## Working on this repo
+
+pnpm is required and pinned via `packageManager`; Node comes from `.nvmrc` (24).
+
+```bash
+pnpm install --frozen-lockfile
+pnpm dev                 # local development
+pnpm build && pnpm start # the production build, as Vercel serves it
+```
+
+**The gate** — CI runs the same on every push and pull request, and every step fails the job:
+
+```bash
+pnpm install --frozen-lockfile && pnpm lint && pnpm typecheck && pnpm tokens:check && pnpm domain:check && pnpm build && pnpm budget
+pnpm a11y            # axe over every route, against the production build
+pnpm policy:check    # local only: the web privacy policy against the 402 app's (§Content Structure)
+```
+
+| Script | What it protects |
+| --- | --- |
+| `pnpm tokens:check` | `src/styles/tokens.css` still matches `references/tokens.json` **and** the tables in `docs/DESIGN.md` §1. Never edit `tokens.css`; run `pnpm tokens:build` |
+| `pnpm domain:check` | the canonical host appears only in `src/lib/site.ts` |
+| `pnpm budget` | first-load JS, against §Performance |
+| `pnpm a11y` | no axe violations on any route |
+
+**This repository is public.** Commits and pull requests carry no tool attribution, and no file with an embedded provenance tag is committed: check any new image or font with `strings <file> | grep -iE "c2pa|provenance"` first. Design files that fail that check live in the private design repository. Secrets live only in Vercel's environment settings and the git-ignored `.env.local`.
 
 ## Framework
 
@@ -98,7 +125,7 @@ Imported as `@content/…` (a `tsconfig` path). The root layout imports `@/lib/c
 - **This repository is public: never commit an image or file that carries an embedded provenance tag** (C2PA, or tool metadata naming how it was generated), and never strip one either. Check before adding any binary: `strings <file> | grep -iE "c2pa|provenance"` must be empty. Files that fail stay in the private design repository.
 - **Literal domains stay out of content.** The help pages print their own address and the contact email, and Contact prints the GitHub handle; all are built from `src/lib/site.ts` (`host`, `email`, `handle`). The one exemption from `pnpm domain:check` is `content/the-402/privacy.ts`, the app's policy copied word for word, which names its address.
 
-**The privacy policy has one source, and it is not this repository.** The web policy must match the in-app policy word for word, and Jaycee chose the app's text: `apps/mobile/src/features/legal/policy.ts` in the 402's repository. `content/the-402/privacy.ts` copies its exports (`POLICY_VERSION`, `POLICY_UPDATED`, `POLICY_INTRO`, `POLICY_SHORT`, `POLICY_SECTIONS`) with the same names and shape. `pnpm policy:check` (`scripts/check-402-policy.mjs`) imports both files and fails on any difference; it looks for the app at `THE402_REPO`, defaulting to `~/Documents/GitHub/The 402`. CI has no copy of the app, so it is not part of the gate; run it whenever either side changes. **The words change in the app first**, then here. One exception, recorded: the launch text (v1.1, 2026-09-27) came from Jaycee's legal draft and went on the site first; `pnpm policy:check` fails until the app's `policy.ts` carries the same words. The 402 page's fine print is `POLICY_SHORT` from the same module, not its own copy.
+**The privacy policy has one source, and it is not this repository.** The web policy must match the in-app policy word for word, and Jaycee chose the app's text: `apps/mobile/src/features/legal/policy.ts` in the 402's repository. `content/the-402/privacy.ts` copies its exports (`POLICY_VERSION`, `POLICY_UPDATED`, `POLICY_INTRO`, `POLICY_SHORT`, `POLICY_SECTIONS`) with the same names and shape. `pnpm policy:check` (`scripts/check-402-policy.mjs`) imports both files and fails on any difference; it looks for the app at `THE402_REPO` (the environment, or a line in the git-ignored `.env.local`), then at a sibling folder named `the-402`. CI has no copy of the app, so it is not part of the gate; run it whenever either side changes. **The words change in the app first**, then here. One exception, recorded: the launch text (v1.1, 2026-09-27) came from Jaycee's legal draft and went on the site first; `pnpm policy:check` fails until the app's `policy.ts` carries the same words. The 402 page's fine print is `POLICY_SHORT` from the same module, not its own copy.
 
 A future product page would add `content/products/` following the same shape. Do not introduce a CMS to solve a problem we do not have yet.
 

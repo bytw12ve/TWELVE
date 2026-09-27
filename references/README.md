@@ -24,7 +24,7 @@ Most names appear in both folders — a PNG to look at, an HTML file to open in 
 | --- | --- | --- |
 | `MyWork{Desktop,Mobile}` | `/work` | One orange card for the 402, and the note pointing to the Playground |
 | `About{Desktop,Mobile}` | `/about` | Photo placeholder and story, paper statement band, What I make, Before twelve., Want to make something together? |
-| `Playground{Desktop,Mobile}` | `/playground` | Filter chips and four real projects |
+| `Playground{Desktop,Mobile}` | `/projects` | Filter chips and four real projects. The page is now called **Side projects** (renamed 2026-09-27) |
 | `Contact{Desktop,Mobile}` | `/contact` | "Let's make something." with the orbiting dot, copy email, three columns |
 | `The402{Desktop,Mobile}` | `/work/the-402` | The 402's own orange skin and fonts |
 | `The402Privacy{Desktop,Mobile}` | `/402/privacy` | **Shows the handoff's draft text.** The build uses the app's `policy.ts` instead (`docs/DESIGN.md` §5.8) |
@@ -65,7 +65,7 @@ Most names appear in both folders — a PNG to look at, an HTML file to open in 
 | `StudioStamp` | The `12.` mark: upright, rotated, on paper, at footer size |
 | `Cover` | The design system's cover composition — the source for OG image art direction |
 
-Removed in Pages v2, and still in git history: the old `Page*` and `Mobile*` page screens and previews, and the `SelectedWork`, `AboutTwelve`, `Playground` and `ContactFooter` sections. They showed the old "we" voice, projects that are no longer listed, and the inline nav.
+Removed in Pages v2, and kept in the private archive repository: the old `Page*` and `Mobile*` page screens and previews, and the `SelectedWork`, `AboutTwelve`, `Playground` and `ContactFooter` sections. They showed the old "we" voice, projects that are no longer listed, and the inline nav.
 
 ## How to use these when building
 

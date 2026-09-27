@@ -2,7 +2,9 @@
 
 ## What Twelve Is
 
-Twelve is a creative studio for digital things worth making.
+Twelve (written **twelve.**) is Jaycee's creative studio for digital things worth making, based in Omaha, Nebraska. It's one person: Jaycee makes everything herself, and the site speaks in her first-person voice.
+
+The name comes from her birthday, February 12th; purple is her favorite color, which is where the brand purple comes from.
 
 Twelve can create:
 - apps
@@ -28,63 +30,36 @@ Twelve should feel:
 
 Avoid AI/startup buzzwords and generic agency language.
 
-Preferred voice:
+Preferred voice (details in `docs/DESIGN.md` §9):
+- first person, the way Jaycee talks
 - simple
 - direct
 - human
 - confident
-- concise
+- concise, without being so short it reads as a slogan
 
 ## Website Purpose
 
 The site should:
 1. Introduce Twelve clearly.
 2. Show finished work.
-3. Show experiments and unfinished ideas through Playground.
+3. Show side projects and unfinished ideas (the Side projects page).
 4. Give people a clear way to contact the studio.
 5. Leave room for future Twelve products, tools, games, and releases.
 
 ## Site Structure
 
-Primary pages:
-- Home
-- Work
-- About
-- Playground
-- Contact
+Primary pages, all reachable from the MENU:
 
-### Home
-The homepage is primarily an immersive hero / entry experience.
+| Page | Route | What it is |
+| --- | --- | --- |
+| Home | `/` | One screen: the immersive hero (star field, pixel world, brand dot, wordmark) and the footer. Scrolling down opens the menu; `VIEW WORK` goes to My work |
+| My work | `/work` | Finished, public projects, described by what they are. Today: the 402 |
+| About | `/about` | Who Jaycee is, what she's made, and why twelve. exists |
+| Side projects | `/projects` | Things being built, tested or still figured out. Called the Playground until 2026-09-27; `/playground` redirects |
+| Contact | `/contact` | Email, and where to find Jaycee online (GitHub, YouTube) |
 
-It should not become a long traditional agency landing page.
-
-On load:
-- the hero is the main focus
-
-On scroll:
-- an index/navigation section reveals below the hero
-
-The index points to:
-- Work
-- About
-- Playground
-- Contact
-
-`VIEW WORK` goes directly to the Work page.
-
-### Work
-Finished, polished projects and products.
-
-Projects should be described by what they are, not by whether they were client work.
-
-### Playground
-Experiments, prototypes, studies, unfinished ideas, small tools, game concepts, interaction tests, and other things being explored.
-
-### About
-A short explanation of Twelve, what it makes, and why.
-
-### Contact
-A clear way to reach the studio.
+**The 402** — Jaycee's Omaha events app — has its own page at `/work/the-402`, in the app's own look, plus four help and legal pages the app stores require: `/402/privacy`, `/402/terms`, `/402/support`, `/402/delete-account`. Those four paths are submitted to Apple and Google and must never move.
 
 ## Current Design Direction
 
@@ -129,16 +104,12 @@ Before doing meaningful work, read:
 
 ## Current Phase
 
-Implementation. The design system, every page design and `docs/DESIGN.md` are approved; `docs/BUILD.md` decisions are locked.
+**`docs/STATE.md` says what is built, what is in flight and what comes next. This file does not track status** — it would only go stale twice over.
 
-**`docs/STATE.md` says which stage is active and what the next action is. This file does not track status** — it would only go stale twice over.
-
-The build runs in ordered stages with exit criteria. A stage does not close until its criteria pass, and Stages 2 and 5 need Jaycee's review before the next stage starts.
+The build runs in ordered stages with exit criteria (`docs/BUILD.md` §Build Stages). A stage does not close until its criteria pass, and stages marked REVIEW need Jaycee's approval.
 
 Launch domain is `bytw12ve.com`, declared once in `src/lib/site.ts`.
 
-**There are no design blockers.** What remains is not design work: real project and Playground content, and a custom display face to replace the Figtree stand-in.
-
-Visual reference for every approved design lives in `references/` — a rendered screen and a live preview each, indexed by `references/README.md`.
+Visual reference for approved designs is indexed by `references/README.md`: live previews are in this repository; rendered screens and the design package live in the private `twelve-design` repository.
 
 Do not reinterpret approved design rules during implementation without explicit instruction.

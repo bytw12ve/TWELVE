@@ -42,7 +42,7 @@ All values are design tokens. No hard-coded colours, sizes, radii or spacing in 
 
 ### 1.2 The brand purple
 
-`purple-500` `#b5a9db` is the Twelve purple, sampled directly from the dot in the `twelve.` wordmark (`assets/Brand/twelve-wordmark.png`). **The wordmark is the authority.** If it ever changes, `purple-500` changes with it and `purple-400` / `600` / `700` are re-derived from it at the same hue (254°).
+`purple-500` `#b5a9db` is the Twelve purple, sampled directly from the dot in the original `twelve.` wordmark raster (kept outside this repository; see `assets/brand/README.md`). **The wordmark is the authority.** If it ever changes, `purple-500` changes with it and `purple-400` / `600` / `700` are re-derived from it at the same hue (254°).
 
 Rules:
 
@@ -181,7 +181,7 @@ Pages v2 (2026-09-26) replaced the Stage 1 mobile designs. References: `twelve-d
 
 - **My work** — the 402 card stacks: text first, then the two phones in a 440px band beneath it.
 - **About** — the photo and the story stack, photo capped at 420px wide; the paper band drops to one column with the dot pushed further off the corner; "What I make" goes two-by-two below 900 and one column below 520.
-- **Playground** — the card grid goes to one column below 760. The filter chips wrap.
+- **Side projects** — the card grid goes to one column below 760. The filter chips wrap.
 - **Contact** — "Let's make something." on two lines at its fluid minimum; the three columns stack.
 - **The 402** — every two-column section stacks; the app screens go above their text; the fine print's points go to one column.
 
@@ -207,13 +207,13 @@ Shared chrome on every route:
 | `/402/privacy` · `/402/terms` · `/402/support` · `/402/delete-account` | The 402's help and legal pages, which the App Store and Google Play require as public URLs (§5.8) |
 | `/work/[project]` | The case-study template (§5.5). **Deferred** until a second finished project exists — the 402 is a one-off page, not an instance of it |
 
-Playground entries have no detail route. A card links to the live thing, its repo, or nothing at all.
+Side projects entries have no detail route. A card links to the live thing, its repo, or nothing at all.
 
 **The full-screen menu is the only navigation**, identical on every page: `01 Home · 02 My work · 03 About · 04 Side projects · 05 Contact`. **The nav is the wordmark and MENU at every width, on every route** — Pages v2 removed the inline Work / About / Playground shortcuts, so every page works the way the homepage does. Contact lives in the menu and in every footer. The 402's pages are reached from My work and from each other, not from the menu.
 
 ### 3.1 Page skeleton
 
-The four inner pages (My work, About, Playground, Contact) share one skeleton:
+The four inner pages (My work, About, Side projects, Contact) share one skeleton:
 
 1. the persistent nav — wordmark and MENU
 2. an opener (`PageOpener`): the `12.` mark and a `meta` eyebrow naming the page; the page name as a `display` slab (fluid 72→176px, leading 0.86, ls −0.045em) ending in a **purple period** — a `purple-500` disc, not a glyph; one lead paragraph; and two `meta` labels, right-aligned beside the slab on desktop and in a row beneath it below 700px. A hairline closes the opener
@@ -359,13 +359,13 @@ The copy for every page below lives in the content layer (`docs/BUILD.md` §Cont
 
 Reference: `twelve-design/screens/MyWorkDesktop.png`, `MyWorkMobile.png`.
 
-**Only finished, public projects.** Today that is one: the 402. keeb.wiki and Ledger Coffee live in the Playground until their own pages are designed; Mosh and Ground are gone.
+**Only finished, public projects.** Today that is one: the 402. keebwiki and Ledger Coffee live in Side projects until their own pages are designed; Mosh and Ground are gone.
 
 - **Opener** — eyebrow `My work`, slab **My work.**, lead, labels `1 project` / `More on the way`. The count is derived from the content, not typed.
 - **The feature card** — one large `marquee-500` card, `radius` 28, the whole card one link to `/work/the-402`. Left: a `the402-label` row (`01`, `iOS & Android app`, `2026`), the full THE 402 logo in cream, a cream `the402-section`-class headline, the lead paragraph, the tags (`Beta Oct 31` on a `night-900` fill, then `iOS`, `Android`, `Free`), and a footer row with the call to action and a cream circle holding the arrow. Right: two app screens, overlapping and floating (§7.5), behind them a `marquee-600` tower silhouette.
   - **Contrast (§1.5):** the headline is large and stays cream. The label row, paragraph, tags and call to action are set in `night-950`, not cream as the prototype has them — they are under 19px.
   - Below 900 the phones drop beneath the text in a 440px band.
-- **The Playground note** — a dashed `star-700` box: one `star-400` line saying where keeb.wiki and Ledger Coffee went, and a `purple-400` `meta-lg` link to `/playground`.
+- **The Side projects note** — a dashed `star-700` box: one `star-400` line saying where keebwiki and Ledger Coffee went, and a `purple-400` `meta-lg` link to `/playground`.
 
 ### 5.2 About
 
@@ -384,14 +384,14 @@ Reference: `twelve-design/screens/PlaygroundDesktop.png`, `PlaygroundMobile.png`
 
 **Real projects only.** Four: keebwiki (live; its page is coming soon), Ledger Coffee (a concept inspired by downtown Omaha), wake. (a psychological mystery game, starting 2027), this website (live).
 
-- **Opener** — eyebrow `Playground`, slab **Playground.**, lead, labels counting things and live things, derived from the content.
+- **Opener** — eyebrow `Side projects`, slab **Side projects.**, lead, labels counting things and live things, derived from the content.
 - **Filter** — a row of chips, `All` / `Live` / `Building` / `Concept`, each with its count. `aria-pressed` toggles; the pressed chip fills `star-100` with `ink-900` text. Filtering hides the other cards and animates the remaining ones back in (§7.5). Without JavaScript every card shows and the filter does nothing harmful.
 - **Cards** — a two-column grid (one below 760), `void-700`, `radius` 18. Each: a 280px visual with a status badge (`Live` carries a pulsing green dot), a title at 26px `editorial` 500, one `star-400` line, a `meta-sm` kind and date, and a footer row.
   - A card with somewhere to go has a real link in its footer row — `Visit site ↗`, `Go to the homepage ↗` — which opens in a new tab. The card itself is not a link (§7.1).
   - A card with nowhere to go has a plain `star-400` footer line instead (`Page coming soon`, `Nothing to play yet`). No link, no arrow, not focusable.
   - **Hover lift** is only on cards with somewhere to go, per §7.1. The prototype lifts all four; the build does not (settled with Jaycee, 2026-09-26).
-- **Why the Playground is separate from My work** (Jaycee, 2026-09-26): My work is finished things people can use and test. The Playground is prototypes and work in progress. A project moves across when it is finished.
-  - Each visual is its own small piece: keeb.wiki's keyboard presses its own keys; Ledger Coffee's brick wall and sign with a spinning brass coin; the game's pixel stars and a stepped loading bar; this website's stars that flee the cursor, the purple dot and a `12.`. All are `aria-hidden`.
+- **Why Side projects is separate from My work** (Jaycee, 2026-09-26): My work is finished things people can use and test. Side projects is prototypes and work in progress. A project moves across when it is finished.
+  - Each visual is its own small piece: keebwiki's keyboard presses its own keys; Ledger Coffee's brick wall and sign with a spinning brass coin; the game's pixel stars and a stepped loading bar; this website's stars that flee the cursor, the purple dot and a `12.`. All are `aria-hidden`.
 
 ### 5.4 Contact
 
@@ -461,7 +461,7 @@ Reference: `twelve-design/screens/The402Desktop.png`, `The402Mobile.png`; the li
 6. **About the logo** — a `night-950` panel: `The 0 is a building.` and two paragraphs on the left; the logo on the right, where the letters dim and the tower pops up in orange with a callout, `Mutual of Omaha tower · 677 ft`. **The copy is Jaycee's, approved as written — keep it exactly. The joke is never spelled out.**
 7. **Beta signup** (`#beta`) — a cream panel with three `marquee-100` towers drifting up behind it. Left: label in `marquee-700`, `Try it before everyone else.`, one paragraph. Right: the form (§6.4). Beneath, across both columns: `Coming to` and the two store badges, not links yet.
 8. **The fine print** — `Your data stays yours.` and four checked points on cream tiles, then a list of links to the four help pages. **The four points are the app policy's short version (`POLICY_SHORT`), word for word**, read from the same content module as the privacy page so the two cannot drift (Jaycee, 2026-09-26). They replace the prototype's four, whose first point, `Only your name, email, and location`, the policy contradicts.
-9. **Back / Next** — `← Back · My work` and `Next → · Playground`, the names in cream `the402-section`-scale type, the small labels in `night-950`.
+9. **Back / Next** — `← Back · My work` and `Next → · Side projects`, the names in cream `the402-section`-scale type, the small labels in `night-950`.
 
 **Contrast fixes over the prototype** (§1.5): the nav's MENU pill, the step-circle numerals, the form's submit label (set at 19px/700 so cream passes, or in `night-950`), and every orange label on cream (`marquee-700`, not `marquee-600`). Hover on the fine-print links and the crumb moves and underlines them; it does not turn them cream, which would fail at their size.
 
@@ -498,7 +498,7 @@ Four pages the stores require as public URLs: **Privacy policy** (App Store Conn
 | `MenuOverlay` | Site layout |
 | `FooterBar` | Site layout |
 | `HeroEnvironment` | `/` only — star field, pixel window, brand dot, knocked-out wordmark as children |
-| `PageOpener` | My work, About, Playground, Contact — the slab with the purple period (§3.1) |
+| `PageOpener` | My work, About, Side projects, Contact — the slab with the purple period (§3.1) |
 | `FeatureCard` | `/work` — the 402's orange card (§5.1) |
 | `PhotoFrame` · `StatementBand` · `MakeGrid` · `BeforeTwelve` | `/about` |
 | `PlaygroundFilter` · `PlaygroundCard` | `/playground` |
@@ -524,7 +524,7 @@ The menu is the site's primary navigation and is identical on every route.
 **Desktop.** `paper-100` fills the whole viewport, inset `space-16` horizontally, `40px` top / `34px` bottom. Three bands:
 
 - **Top** — the `twelve.` mark in `ink-900` with the period in `purple-ink`, left; the CLOSE pill right, at the exact coordinates the MENU pill occupied.
-- **Rows** — five, vertically centred in the remaining space, each a `hairline-light` rule above (and below the last). Per row: a `meta` numeral `01`–`05` top-aligned in a 34px column, the label in `menu-row` `ink-900`, and a right-aligned `meta` hint in `ink-600`. Labels and hints since Pages v2: `Home — START HERE`, `My work — FINISHED THINGS`, `About — WHO'S MAKING THIS`, `Playground — EVERYTHING ELSE`, `Contact — SAY HI`. The menu's design is otherwise unchanged.
+- **Rows** — five, vertically centred in the remaining space, each a `hairline-light` rule above (and below the last). Per row: a `meta` numeral `01`–`05` top-aligned in a 34px column, the label in `menu-row` `ink-900`, and a right-aligned `meta` hint in `ink-600`. Labels and hints (2026-09-27): `Home — START HERE`, `My work — FINISHED PROJECTS`, `About — WHO I AM`, `Side projects — IN PROGRESS`, `Contact — GET IN TOUCH`. The menu's footer lists GitHub and YouTube. The menu's design is otherwise unchanged.
 - **Footer** — the email left, the social links centre, the local time and the `12.` stamp right, all `body-sm` / `meta` in `ink-600`. The studio has **GitHub only** (`https://github.com/bytw12ve/TWELVE`); there is no Instagram. A social with a URL in `src/lib/site.ts` is a real link — new tab, a `↗` glyph, "(opens in a new tab)" for screen readers, `ink-600` → `ink-900` with an underline drawing in from the left on hover and focus, 44px tall. One without a URL is plain text (§7.1).
 
 **Mobile.** Same structure at `space-4` gutters. Rows drop to `heading-lg` with the numeral **inline before** the label, each row ≥ 64px tall. The footer stacks to three lines: email, socials, then time and stamp on one row.
@@ -564,7 +564,7 @@ Where the signup goes is a build decision — `docs/BUILD.md` §Contact.
 | VIEW WORK | Arrow slides down 4px and returns | 2px `focus-dark` |
 | Menu row | Ground fills `paper-200` left-to-right, 220ms; numeral turns `purple-ink` | 2px `focus-light` |
 | My work card | The phones drift apart (§7.5); the tower rises 24px; the arrow circle grows and turns −45° | 2px `night-950` on the card |
-| Playground card (with a link) | Lifts 6px, border to `star-700`; the link's `↗` nudges up and right | 2px `focus-dark` on the link |
+| Side projects card (with a link) | Lifts 6px, border to `star-700`; the link's `↗` nudges up and right | 2px `focus-dark` on the link |
 | Filter chip | Lifts 2px | 2px `focus-dark` |
 | What I make column | The name moves 6px right and turns `purple-400` | — (not interactive) |
 | `Get in touch` / purple pills | Lift 3px over a `purple-ink` shadow; the arrow moves 5px right | 2px `focus-dark` |
@@ -581,7 +581,7 @@ Other states:
 
 - **Active / pressed** — the element's hover treatment plus a 1px downward nudge on pills. No colour flash.
 - **Current route** — a persistent `purple-500` underline in the nav; `purple-ink` numeral in the menu.
-- **Non-interactive by design** — a Playground card with nothing to open is not a link, not focusable, has no arrow and no hover response, and its title sits in `star-400`. This is a designed state, not a disabled one.
+- **Non-interactive by design** — a Side projects card with nothing to open is not a link, not focusable, has no arrow and no hover response, and its title sits in `star-400`. This is a designed state, not a disabled one.
 - **Visited** — not styled. Links look the same before and after.
 
 ### 7.2 Menu
@@ -644,11 +644,11 @@ Jaycee likes this motion; it is part of the design, not decoration to trim. Ever
 | Menu | Unchanged from §7.2 |
 | My work card | Both phones float on slow loops (6s, 7s). On hover they drift apart using the individual **`translate`** property, so the hover never fights the float's `transform` — the snapping Jaycee saw in the prototype came from animating the same property twice |
 | About | The photo frame tilts −1.5° on hover; the sparkles blink in two steps; the statement dot drifts and breathes over 7s; the pixel clouds drift; the "Before twelve." chips scroll on a 38s loop, pause while hovered or focused, and lift when hovered |
-| Playground | Cards lift on hover; filtering animates the remaining cards back in with a small scale spring, 60ms apart; keeb.wiki's keys press themselves; Ledger's brass coin spins; the game's loading bar fills in 14 steps; "This website"'s stars flee the cursor |
+| Side projects | Cards lift on hover; filtering animates the remaining cards back in with a small scale spring, 60ms apart; keebwiki's keys press themselves; Ledger's brass coin spins; the game's loading bar fills in 14 steps; "This website"'s stars flee the cursor |
 | Contact | The dot orbits over 12s; its ink knockout stays clipped to it every frame; the copy button confirms |
 | The 402 | The logo's tower grows up out of the "0" on load; the phones and notes float and bob; the countdown pill's dot pulses; the Why panel's tower rises as it scrolls in; the logo section dims the letters and pops the tower; towers drift up behind the beta panel; each app screen lifts and tilts on hover; the FAQ opens **and closes** smoothly **every time** — the prototype animated only the first opening |
 
-**Loops pause when they cannot be seen.** The canvas pieces (About's pixel world, the Playground's game and star cards) run only while on screen and while the tab is visible, the same rule as the hero (`docs/BUILD.md` §Performance).
+**Loops pause when they cannot be seen.** The canvas pieces (About's pixel world, Side projects' game and star cards) run only while on screen and while the tab is visible, the same rule as the hero (`docs/BUILD.md` §Performance).
 
 ---
 
@@ -681,14 +681,15 @@ Jaycee likes this motion; it is part of the design, not decoration to trim. Ever
 
 ## 10. Open items for the build
 
-**Design is complete for every route that is being built.** Pages v2 (2026-09-26) supplies desktop and mobile designs for My work, About, Playground, Contact, the 402 and its four help pages, and the menu. The 404 (§5.6) and the case-study template (§5.5) are unchanged from their approval and were drawn in the old voice.
+**Design is complete for everything built so far.** Pages v2 (2026-09-26, built and approved 2026-09-27) covers My work, About, Side projects, Contact, the 402 and its help pages, and the menu. The 404 (§5.6) and the case-study template (§5.5) are designed but not built; both were drawn in the older voice, so any rewording is Jaycee's when they are built.
 
-Waiting on Jaycee, not design work:
+Still to come, none of it design work:
 
-- **Her photo** for About (§5.2).
-- Her final read of the Terms (§5.8).
-- **The 402 app's policy update** — the 14-day deletion grace period and verified organizers posting events land in the app's `policy.ts` first; then the privacy and delete-account pages sync (§5.8).
-- A custom display face to replace Figtree, which is a stand-in. Because every size lives in a token, this is a font swap and a scale re-check, not a redesign.
+- **Jaycee's photo** for About (§5.2).
+- **The 14-day deletion grace period** text on the delete-account page, once the app does it (§5.8).
+- **A custom display face** to replace Figtree, which is a stand-in. Because every size lives in a token, this is a font swap and a scale re-check, not a redesign.
 - The wordmark is live text (`assets/brand/README.md`); a real vector file is optional.
 
-Settled: the hero scroll behaviour (§4.0), the routing tree (§3), the nav (wordmark and MENU everywhere, §3), the mobile layouts (§2.1–2.2), the 402 skin (§1.5), and the contact method — mailto on Twelve's pages, with the 402's beta form as the one exception (`docs/BUILD.md` §Contact).
+Settled: the hero and its scroll behaviour (§4.0), the routing tree (§3), the nav (wordmark and MENU everywhere, §3), the mobile layouts (§2.1–2.2), the 402 skin (§1.5), the voice (§9), and the contact method — mailto on Twelve's pages, with the 402's beta form as the one exception (`docs/BUILD.md` §Contact).
+
+Status and everything not design — the legal review, the app's policy update, performance — is tracked in `docs/STATE.md`.

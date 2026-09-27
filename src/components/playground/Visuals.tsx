@@ -10,7 +10,7 @@ import { useInView } from './useInView'
 const KEYS = 43
 const SPACE = 40
 
-/** keeb.wiki — a keyboard that presses its own keys. */
+/** keebwiki — a keyboard that presses its own keys. */
 export function KeyboardVisual() {
   const ref = useRef<HTMLDivElement>(null)
   const active = useInView(ref)

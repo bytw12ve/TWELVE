@@ -4,19 +4,27 @@
  * (docs/BUILD.md §Content Structure). The app's file is the source; this
  * compares every export of content/the-402/privacy.ts against it.
  *
- * Runs only where the 402's repository is checked out — set THE402_REPO, or
- * it looks in the usual place. CI has no copy of the app, so it skips there
+ * Runs only where the 402's repository is checked out. It looks at
+ * THE402_REPO (from the environment or the git-ignored .env.local), then at a
+ * sibling folder named the-402. CI has no copy of the app, so it skips there
  * and says so; that is why this is `pnpm policy:check`, not part of the gate.
  *
  * Needs a Node that strips TypeScript types on import (22.18+ / 23.6+).
  */
-import { existsSync } from 'node:fs'
-import { homedir } from 'node:os'
+import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
 const root = join(fileURLToPath(import.meta.url), '..', '..')
-const repo = process.env.THE402_REPO ?? join(homedir(), 'Documents', 'GitHub', 'The 402')
+const fromEnvFile = () => {
+  try {
+    const line = readFileSync(join(root, '.env.local'), 'utf8').match(/^THE402_REPO=(.+)$/m)
+    return line?.[1]?.trim().replace(/^["']|["']$/g, '')
+  } catch {
+    return undefined
+  }
+}
+const repo = process.env.THE402_REPO ?? fromEnvFile() ?? join(root, '..', 'the-402')
 const appFile = join(repo, 'apps/mobile/src/features/legal/policy.ts')
 const webFile = join(root, 'content/the-402/privacy.ts')
 
