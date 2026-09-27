@@ -19,7 +19,7 @@ This repository is the studio's website.
 
 ## What's on the site
 
-| | |
+| Page | What you'll find |
 | --- | --- |
 | **Home** | One screen: a star field that reacts to your cursor, a pixel landscape, and the wordmark. Scroll down and the menu opens |
 | **My work** | Finished projects that are out in the world, starting with the 402 |
