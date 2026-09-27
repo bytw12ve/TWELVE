@@ -27,9 +27,9 @@ pnpm build && pnpm start # the production build, as Vercel serves it
 **The gate** — CI runs the same on every push and pull request, and every step fails the job:
 
 ```bash
-pnpm install --frozen-lockfile && pnpm lint && pnpm typecheck && pnpm tokens:check && pnpm domain:check && pnpm build && pnpm budget
+pnpm install --frozen-lockfile && pnpm lint && pnpm typecheck && pnpm tokens:check && pnpm domain:check && pnpm policy:check && pnpm build && pnpm budget
 pnpm a11y            # axe over every route, against the production build
-pnpm policy:check    # local only: the web privacy policy against the 402 app's (§Content Structure)
+pnpm policy:check    # mandatory parity against CI's exact pinned The 402 revision (§Content Structure)
 ```
 
 | Script | What it protects |
@@ -125,7 +125,7 @@ Imported as `@content/…` (a `tsconfig` path). The root layout imports `@/lib/c
 - **This repository is public: never commit an image or file that carries an embedded provenance tag** (C2PA, or tool metadata naming how it was generated), and never strip one either. Check before adding any binary: `strings <file> | grep -iE "c2pa|provenance"` must be empty. Files that fail stay in the private design repository.
 - **Literal domains stay out of content.** The help pages print their own address and the contact email, and Contact prints the GitHub handle; all are built from `src/lib/site.ts` (`host`, `email`, `handle`). The one exemption from `pnpm domain:check` is `content/the-402/privacy.ts`, the app's policy copied word for word, which names its address.
 
-**The privacy policy has one source, and it is not this repository.** The web policy must match the in-app policy word for word, and Jaycee chose the app's text: `apps/mobile/src/features/legal/policy.ts` in the 402's repository. `content/the-402/privacy.ts` copies its exports (`POLICY_VERSION`, `POLICY_UPDATED`, `POLICY_INTRO`, `POLICY_SHORT`, `POLICY_SECTIONS`) with the same names and shape. `pnpm policy:check` (`scripts/check-402-policy.mjs`) imports both files and fails on any difference; it looks for the app at `THE402_REPO` (the environment, or a line in the git-ignored `.env.local`), then at a sibling folder named `the-402`. CI has no copy of the app, so it is not part of the gate; run it whenever either side changes. **The words change in the app first**, then here. One exception, recorded: the launch text (v1.1, 2026-09-27) came from Jaycee's legal draft and went on the site first; `pnpm policy:check` fails until the app's `policy.ts` carries the same words. The 402 page's fine print is `POLICY_SHORT` from the same module, not its own copy.
+**The privacy policy has one source, and it is not this repository.** The web policy must match the in-app policy word for word, and Jaycee chose the app's text: `apps/mobile/src/features/legal/policy.ts` in the 402's repository. `content/the-402/privacy.ts` copies its exports (`POLICY_VERSION`, `POLICY_UPDATED`, `POLICY_INTRO`, `POLICY_SHORT`, `POLICY_SECTIONS`) with the same names and shape. `pnpm policy:check` (`scripts/check-402-policy.mjs`) imports both files and fails if the app checkout is absent or any export differs. Locally it looks for `THE402_REPO` (the environment, or a line in the git-ignored `.env.local`), then a sibling folder named `the-402`. CI checks out The 402 at the exact reviewed Stage 10 commit recorded in `.github/workflows/ci.yml`; a branch name is not an acceptable release comparison because it can move after review. **The words change in the app first**, then here. The 402 page's fine print is `POLICY_SHORT` from the same module, not its own copy.
 
 A future product page would add `content/products/` following the same shape. Do not introduce a CMS to solve a problem we do not have yet.
 
@@ -361,12 +361,12 @@ Do not turn every element into its own file. A component earns a file when it is
 
 ### The 402 beta signup — the one form
 
-**Decision (Jaycee, 2026-09-26): a route handler emails each signup to the studio through Resend.** The 402's beta form (`docs/DESIGN.md` §6.4) collects an email address and iPhone or Android. TestFlight invites testers by email, and Google Play closed testing takes a list of testers' Google account emails, which is why it asks for both. Options considered: this; a hosted form service (Tally, Formspree), which adds a third party that sees visitors' addresses; a prefilled `mailto:`, which changes the design; and a stored list (Upstash, Vercel KV), which adds a database. Resend was chosen because the 402 app already uses it, and nothing is stored.
+**Decision (Jaycee, 2026-09-26; retention clarified 2026-09-27): a route handler emails each signup to the studio through Resend.** The 402's beta form (`docs/DESIGN.md` §6.4) collects an email address and iPhone or Android. TestFlight invites testers by email, and Google Play closed testing takes a list of testers' Google account emails, which is why it asks for both. Options considered: this; a hosted form service (Tally, Formspree), which adds a third party that sees visitors' addresses; a prefilled `mailto:`, which changes the design; and a separate stored list (Upstash, Vercel KV), which adds a database. Resend was chosen because the 402 app already uses it. The delivered message is the list in the studio inbox and follows policy v1.2's deletion schedule.
 
 How it works:
 
 - `src/app/api/beta/route.ts` accepts `POST` only, form-encoded or JSON. It validates the email (length-capped, one `@`, a dot in the domain) and the platform (`ios` or `android`, nothing else), and rejects anything with the honeypot field filled.
-- It sends **one plain-text email to `site.email`**, with the address and platform in the body and `Reply-To` set to the signup's address. **Nothing is stored** — not in a database, not in logs beyond Vercel's standard request logs. The inbox is the list.
+- It sends **one plain-text email to `site.email`**, with the address and platform in the body and `Reply-To` set to the signup's address. There is no separate website database: Resend processes the message for delivery and the studio inbox stores the delivered message. It is removed within 30 days after an invitation is sent, or sooner on a verified request, as policy v1.2 states.
 - It calls Resend's HTTP API with `fetch` — **no SDK dependency**. The key is `RESEND_API_KEY`, a server-only environment variable in Vercel, never `NEXT_PUBLIC_`, never committed. **Jaycee sets it herself** in Vercel for Production and Preview; nobody else handles the key. `bytw12ve.com` is already a verified sending domain in Resend (Jaycee, 2026-09-26). The sender is `The 402 <beta@bytw12ve.com>`, declared in `src/lib/site.ts` alongside `email`, and every signup goes to `contact@bytw12ve.com`.
 - Responses: `303` back to `/work/the-402?beta=ok#beta` (or `=invalid`, `=error`) for a plain form post, so it works without JavaScript; JSON for the enhanced form. The success, invalid and error states are designed (`docs/DESIGN.md` §6.4).
 - Abuse: the honeypot, a size cap on the body, and one submission per request. No rate limiter at launch; add one if the inbox shows abuse, and record it here.
@@ -382,7 +382,7 @@ Nothing to disclose, no cookie banner, no third-party script. If analytics are a
 
 ## Privacy
 
-With the decisions above, the site loads no third-party resources in the browser: fonts are self-hosted, there is no analytics and no embeds. **The one piece of personal data in transit** is the 402 beta signup (§Contact): an email address and a phone platform, posted to our own origin and emailed onward to the studio by Resend, server to server. Nothing is stored, and the form says what the address is for. Keep it that way unless there is a stated reason not to — and record that reason here.
+With the decisions above, the site loads no third-party resources in the browser: fonts are self-hosted, there is no analytics and no embeds. **The one piece of personal data handled by the site** is the 402 beta signup (§Contact): an email address and a phone platform, posted to our own origin, processed for delivery by Resend, and stored as a delivered message in the studio inbox. The form links to policy v1.2, which limits use to the invited beta and requires removal within 30 days after invitation (or sooner on request). There is no separate signup database.
 
 ## Deployment
 
@@ -479,7 +479,7 @@ Current launch architecture requires no cookie banner: there is no analytics, no
 
 Before launch, still verify the actual implementation matches that assumption.
 
-Add a Privacy Policy for the site itself if Twelve later collects personal data through analytics, forms, mailing lists, accounts, payments or other tracking. **Open question for Jaycee:** the beta signup collects an email address. The form states its one use, and the 402's privacy policy covers the app, not this form — whether the site needs its own short notice is her call before the form goes live.
+Add a broader Privacy Policy for the studio site if Twelve later collects personal data through analytics, other forms, mailing lists, accounts, payments or tracking. The existing beta form is covered explicitly by The 402 policy v1.2, and the form links to that notice.
 
 The 402's privacy policy and terms at `/402/*` are **the app's** legal pages, published here because the app stores require public URLs for them. They are not the site's.
 

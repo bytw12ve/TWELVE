@@ -4,8 +4,10 @@
  * "if a reviewer sees a literal domain anywhere else in the codebase, that is
  * a bug". This makes it a machine-checked bug instead of a review-time one.
  *
- * Scans tracked source files for a literal `bytw12ve`, ignoring the one file
- * allowed to contain it and the documentation that discusses it.
+ * Scans tracked source files for the literal canonical domain, ignoring the
+ * one file allowed to contain it and the documentation that discusses it.
+ * Repository and account identifiers such as `bytw12ve/the-402` are not host
+ * declarations and must remain usable in CI configuration.
  */
 import { execFileSync } from 'node:child_process'
 import { existsSync, readFileSync } from 'node:fs'
@@ -31,7 +33,7 @@ for (const file of files) {
   if (!existsSync(file)) continue
   const lines = readFileSync(file, 'utf8').split('\n')
   lines.forEach((line, i) => {
-    if (line.includes('bytw12ve')) offenders.push(`${file}:${i + 1}: ${line.trim()}`)
+    if (line.includes('bytw12ve.com')) offenders.push(`${file}:${i + 1}: ${line.trim()}`)
   })
 }
 

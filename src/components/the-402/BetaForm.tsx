@@ -13,6 +13,7 @@ type Copy = {
   submit: string
   sending: string
   fine: string
+  fineHref: string
   invalid: string
   failed: string
   done: string
@@ -108,12 +109,25 @@ export function BetaForm({ copy, contactEmail }: { copy: Copy; contactEmail: str
       <fieldset className={styles.field}>
         <legend className={styles.label}>{copy.phone}</legend>
         <div className={styles.seg}>
-          <input type="radio" id="beta-ios" name="os" value="ios" defaultChecked className={styles.radio} />
+          <input
+            type="radio"
+            id="beta-ios"
+            name="os"
+            value="ios"
+            defaultChecked
+            className={styles.radio}
+          />
           <label htmlFor="beta-ios" className={styles.choice}>
             <Apple />
             {copy.ios}
           </label>
-          <input type="radio" id="beta-android" name="os" value="android" className={styles.radio} />
+          <input
+            type="radio"
+            id="beta-android"
+            name="os"
+            value="android"
+            className={styles.radio}
+          />
           <label htmlFor="beta-android" className={styles.choice}>
             <Android />
             {copy.android}
@@ -127,24 +141,41 @@ export function BetaForm({ copy, contactEmail }: { copy: Copy; contactEmail: str
         <input id="beta-company" type="text" name="company" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <p id="beta-invalid" className={`${styles.error} ${state === 'invalid' ? '' : styles.target}`} role="alert">
+      <p
+        id="beta-invalid"
+        className={`${styles.error} ${state === 'invalid' ? '' : styles.target}`}
+        role="alert"
+      >
         {copy.invalid}
       </p>
-      <p id="beta-error" className={`${styles.error} ${state === 'error' ? '' : styles.target}`} role="alert">
+      <p
+        id="beta-error"
+        className={`${styles.error} ${state === 'error' ? '' : styles.target}`}
+        role="alert"
+      >
         {fill(copy.failed, { email: contactEmail })}
       </p>
 
       <button type="submit" className={styles.submit} disabled={state === 'sending'}>
         {state === 'sending' ? copy.sending : copy.submit}
       </button>
-      <p className={styles.fine}>{copy.fine}</p>
+      <p className={styles.fine}>
+        {copy.fine} <a href={copy.fineHref}>Read it →</a>
+      </p>
     </form>
   )
 }
 
 function Check() {
   return (
-    <svg width="26" height="26" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.4">
+    <svg
+      width="26"
+      height="26"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.4"
+    >
       <path d="M4 10.5l4 4 8-9" />
     </svg>
   )
@@ -152,7 +183,12 @@ function Check() {
 
 export function Apple({ className }: { className?: string }) {
   return (
-    <svg className={className ?? styles.glyph} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg
+      className={className ?? styles.glyph}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
       <path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9s-1.8-.9-3-.8C7 7.4 5.6 8.3 4.8 9.7c-1.6 2.8-.4 6.9 1.2 9.1.8 1.1 1.7 2.3 2.8 2.3 1.1 0 1.6-.7 3-.7s1.8.7 3 .7 2-1.1 2.8-2.2c.9-1.3 1.2-2.5 1.2-2.6 0 0-2.4-.9-2.4-3.7zM14.1 5.8c.6-.8 1.1-1.8 1-2.8-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.7-1 2.7 1 .1 2-.5 2.7-1.3z" />
     </svg>
   )
@@ -160,7 +196,12 @@ export function Apple({ className }: { className?: string }) {
 
 export function Android({ className }: { className?: string }) {
   return (
-    <svg className={className ?? styles.glyph} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg
+      className={className ?? styles.glyph}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
       <path d="M6 9h12v8a1 1 0 0 1-1 1h-1v3h-2v-3h-4v3H8v-3H7a1 1 0 0 1-1-1V9zm1.5-1a4.5 4.5 0 0 1 9 0h-9zM10 6.2a.6.6 0 1 0 0-1.2.6.6 0 0 0 0 1.2zm4 0a.6.6 0 1 0 0-1.2.6.6 0 0 0 0 1.2zM3.5 9.5a1 1 0 0 1 2 0v5a1 1 0 0 1-2 0v-5zm15 0a1 1 0 0 1 2 0v5a1 1 0 0 1-2 0v-5z" />
     </svg>
   )

@@ -18,6 +18,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check out The 402 for legal-copy parity
+        uses: actions/checkout@v4
+        with:
+          repository: bytw12ve/the-402
+          # Stage 10C's reviewed source/evidence head. Keep this immutable.
+          ref: 3f2fc05ffbace318d389b79310e43fdbe985e7be
+          path: the-402
+
       # pnpm version comes from the "packageManager" field in package.json,
       # so local, CI and Vercel all resolve the same one.
       - uses: pnpm/action-setup@v4
@@ -48,6 +56,11 @@ jobs:
 
       - name: Domain is declared only in src/lib/site.ts
         run: pnpm domain:check
+
+      - name: The 402 privacy policy matches the app
+        run: pnpm policy:check
+        env:
+          THE402_REPO: ${{ github.workspace }}/the-402
 
       - name: Production build
         run: pnpm build

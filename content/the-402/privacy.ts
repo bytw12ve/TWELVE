@@ -2,10 +2,8 @@
  * The 402's privacy policy, word for word.
  *
  * The web page and the app must say exactly the same thing (docs/BUILD.md
- * §Content Structure). This version (v1.1) was written for the launch and
- * leads the app: it goes into `apps/mobile/src/features/legal/policy.ts` next,
- * and `pnpm policy:check` fails until it does. After that, the words change in
- * the app first, then here.
+ * §Content Structure). The app is the source, and `pnpm policy:check` blocks a
+ * release whenever these exports differ from it.
  *
  * It states only what the app does today. The 14-day deletion grace period is
  * added once that feature works in production.
@@ -14,10 +12,10 @@
  * address, and a verbatim copy cannot swap it for a constant.
  */
 
-export const POLICY_VERSION = 'v1.1'
+export const POLICY_VERSION = 'v1.2'
 
 /** The date the words take effect, not the date of the build. */
-export const POLICY_UPDATED = 'October 31, 2026'
+export const POLICY_UPDATED = 'September 27, 2026'
 
 export const POLICY_INTRO =
   'The 402 is an Omaha events-discovery app made by twelve. You can browse without an account. We collect only the information needed to provide the features you choose to use.'
@@ -50,6 +48,16 @@ export const POLICY_SECTIONS: PolicySection[] = [
     ],
   },
   {
+    id: 'beta',
+    question: 'What happens when I join the website beta list?',
+    paragraphs: [
+      'The beta signup form on bytw12ve.com collects the email address and whether you use iPhone or Android that you choose to submit. It does not create an app account.',
+      "The form sends that information through Resend to twelve.'s studio inbox. Resend processes the email and message content for delivery, and the studio inbox stores the delivered message.",
+      'We use beta signup information only to manage the invited beta and send the invitation or beta-related messages you requested. We do not add it to a general marketing list.',
+      'We remove the beta signup message from the studio inbox within 30 days after we send your invitation. You may ask us to delete it sooner by emailing contact@bytw12ve.com from the address you submitted.',
+    ],
+  },
+  {
     id: 'location',
     question: 'What happens with my location?',
     paragraphs: [
@@ -63,9 +71,9 @@ export const POLICY_SECTIONS: PolicySection[] = [
     paragraphs: [
       'We disclose information only as needed to operate the service, provide a feature you request, protect the service, or comply with law. We do not sell it or disclose it for advertising.',
       'Supabase (our host, database and sign-in provider, on servers in the United States) processes account, authentication, and service and security data needed to run the app.',
-      'Resend receives the recipient email and message content needed to deliver account emails.',
+      'Resend receives the recipient email and message content needed to deliver account emails and website beta signups.',
+      'The studio inbox receives and stores website beta signup messages so twelve. can manage invitations.',
       'OpenFreeMap serves map content. Network information such as your IP address reaches it when maps load.',
-      'Google is involved when you choose Continue with Google for authentication.',
       'Ticket, Directions, and other external links may open third-party services. Their own terms and privacy practices apply.',
     ],
   },
@@ -81,6 +89,7 @@ export const POLICY_SECTIONS: PolicySection[] = [
     question: 'How long is information kept?',
     paragraphs: [
       'Account information is kept while your account is active. Event information may remain after an event ends.',
+      'Website beta signup messages are removed from the studio inbox within 30 days after an invitation is sent, unless you ask us to remove yours sooner.',
       'Authentication, security, email-delivery, backup, and service-provider records may have separate retention periods needed for security, reliability, legal compliance, or backup operations.',
     ],
   },
@@ -91,7 +100,8 @@ export const POLICY_SECTIONS: PolicySection[] = [
       'Settings → Export my data lets you obtain a portable copy. Supported account details can be corrected in the app.',
       'To delete your account, go to You → Settings → Delete account. Your account is deleted right away.',
       'If you no longer have the app, email contact@bytw12ve.com from the account email with the subject "Delete my account." We will process the request and respond within 7 days.',
-      'Deletion covers account data under our control, including email, name, username, saves, Interested and Going marks, followed organizers, preferences, and stored starting location. We use available provider controls to delete associated account data held on our behalf where applicable.',
+      'To delete a website beta signup before the normal removal date, email contact@bytw12ve.com from the address you submitted with the subject "Remove my beta signup."',
+      'Account deletion covers account data under our control, including email, name, username, saves, Interested and Going marks, followed organizers, preferences, and stored starting location. We use available provider controls to delete associated account data held on our behalf where applicable.',
     ],
   },
   {

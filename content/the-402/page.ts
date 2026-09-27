@@ -29,10 +29,7 @@ export const screens = {
     'nearby',
     'The 402 map of Omaha showing 22 things nearby, with pins in Benson and Aksarben',
   ),
-  account: screen(
-    'account',
-    'The 402 create account screen: keep what you find worth keeping',
-  ),
+  account: screen('account', 'The 402 create account screen: keep what you find worth keeping'),
 } as const
 
 /** Every string on /work/the-402 — docs/DESIGN.md §5.7. */
@@ -116,8 +113,10 @@ export const the402Page = {
     heading: 'Go from scrolling to making plans.',
     screen: screens.account,
     features: [
-      { title: 'Save it for later', body: 'Save events you’re thinking about so they’re easy to find again.' },
-      { title: 'Make lists', body: 'Group events and places into your own lists, like date ideas or things to do this summer.' },
+      {
+        title: 'Save it for later',
+        body: 'Save events you’re thinking about so they’re easy to find again.',
+      },
       {
         title: 'Interested or going',
         body: 'Mark what you’re going to, and see how many other people are going too.',
@@ -152,7 +151,8 @@ export const the402Page = {
       submit: 'Join the beta',
       /** New copy — not in the prototype. Needs Jaycee's OK. */
       sending: 'Sending…',
-      fine: 'I’ll only email you about the beta.',
+      fine: 'I’ll only email you about the beta. See how this signup is handled in the Privacy policy.',
+      fineHref: '/402/privacy',
       invalid: "That email doesn't look right. Check it and try again.",
       /** New copy — not in the prototype. Needs Jaycee's OK. */
       failed: "That didn't go through. Try again in a minute, or email me at {email}.",
