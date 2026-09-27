@@ -58,6 +58,9 @@ const typeStyles = tokens.type.groups.flatMap((group) =>
     if (style.letterSpacing) {
       rows.push(`  --text-${style.name}-tracking: ${style.letterSpacing};`)
     }
+    if (style.fontStretch) {
+      rows.push(`  --text-${style.name}-stretch: ${style.fontStretch};`)
+    }
     return rows
   }),
 )

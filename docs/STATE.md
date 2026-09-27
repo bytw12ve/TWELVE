@@ -1,28 +1,78 @@
 # Twelve State
 
-Last updated: 2026-09-26
+Last updated: 2026-09-26 (Pages v2 planned)
 
 **Read this file before starting any work.** It is the only place that says what is happening right now; `docs/TWELVE.md`, `docs/DESIGN.md` and `docs/BUILD.md` say what is true in general.
 
 ## Current Phase
 
-**Stage 2 — Hero: COMPLETE**, approved by Jaycee on 2026-09-26 after six review rounds, and merged to `main` through PR #3. The follow-up homepage polish was approved by Jaycee the same day and merged through PR #4.
+**Pages v2 — in flight.** Jaycee designed the inner pages, a page for the 402 and its four help pages (`twelve-design/pages-v2/`, 2026-09-26). The plan below was approved by her on 2026-09-26. **PR 1 of 4 — `design/pages-v2`, docs only — is open for review** on the public repository.
 
 | | |
 | --- | --- |
-| Stage 2 follow-up | ✅ approved and **merged** — PR #4, squash-merged from `feature/homepage-polish` |
-| Stage 2 | ✅ closed and **merged** — PR #3, squash-merged from `feature/hero` at `ad084fa` |
-| Stage 1 | ✅ closed and **merged** — PR #2 as `db389e7` |
-| Stage 0 | ✅ closed and **merged** — PR #1 merged 2026-09-20 19:26Z as `e8727e0` |
-| Production | ✅ **live** — `twelve-eta.vercel.app` serves the placeholder. It returned 404 until the merge only because production pointed at the docs-only commit |
-| Vercel | project `twelve`. Settings verified — see `docs/BUILD.md` §Deployment |
+| Pages v2 | 🟡 **PR 1 open** — `design/pages-v2`: docs and references brought in line with the design package, 402 tokens through the pipeline. No page code |
+| Stage 2 follow-up | ✅ merged — PR #4 |
+| Stage 2 | ✅ closed and merged — PR #3 |
+| Stage 1 | ✅ closed and merged — PR #2 |
+| Stage 0 | ✅ closed and merged — PR #1 |
+| Production | ✅ live at `twelve-roan.vercel.app`, the new `twelve` Vercel project on the public repo. `bytw12ve.com` is **not connected yet** — see the plan |
 | CI | ✅ green on `main` |
 
 ## Next Action
 
-**Waiting on Jaycee: design of the inner pages.** The homepage is done. Jaycee will design the other pages next and come back to start building them. Until then nothing is in flight.
+**Jaycee reviews and merges PR 1 (`design/pages-v2`).** Then `feature/content-layer` (Stage 3) starts off the new `main`.
 
-When work resumes it follows the stage order: **Stage 3 — Content layer** comes before **Stage 4 — Inner pages** (`docs/BUILD.md`). Each starts on a new branch off `main`, and only when Jaycee says so. If the new page designs change the approved specs in `docs/DESIGN.md` §5 or `references/`, update those first — the docs and references are the source of truth for the build.
+### Pages v2 — the plan
+
+The 402's beta opens **October 31, 2026**. `/402/privacy`, `/402/support` and `/402/delete-account` must be live on `bytw12ve.com` around **October 24** so the builds can be submitted. The stage order is kept: Stage 3 closes before Stage 4, and inside Stage 4 the 402 goes first (`docs/BUILD.md` §Build Stages → Pages v2).
+
+| # | Branch | Stage | Status |
+| --- | --- | --- | --- |
+| 1 | `design/pages-v2` | — | 🟡 open for review |
+| 2 | `feature/content-layer` | 3 | not started |
+| 3 | `page/the-402` | 4, part 1 | not started — **target merged by October 20** |
+| 4 | `page/inner-pages` | 4, part 2 | not started |
+
+After PR 3 merges: connect `bytw12ve.com` and `www` in Vercel, **with Jaycee's go-ahead at that moment**, and check the three store URLs.
+
+### Decisions Jaycee made, 2026-09-26
+
+| Decision | Recorded in |
+| --- | --- |
+| The beta form emails each signup to the studio through Resend, from one route handler. Nothing stored | `docs/BUILD.md` §Contact, §Framework, §Privacy |
+| The web privacy policy is the app's `policy.ts`, word for word. She's open to a joint review of both | `docs/BUILD.md` §Content Structure, `docs/DESIGN.md` §5.8 |
+| `bytw12ve.com` is connected early, once the 402 pages merge | `docs/BUILD.md` §Deployment |
+| `/work/the-402` is a one-off page; the case-study template is deferred until a second project | `docs/BUILD.md` §Routing, §Stage 5 |
+| The nav is the wordmark and MENU on every route; first-person voice; the 402's own skin | `docs/DESIGN.md` §3, §9, §1.5 (from the handoff) |
+
+### Jaycee's answers to PR 1's flags, 2026-09-26
+
+| Flag | Answer | Recorded in |
+| --- | --- | --- |
+| Privacy draft vs the app's `policy.ts` | `policy.ts` is right, word for word | `docs/DESIGN.md` §5.8 |
+| The 402 fine print | Use the policy's four short-version points (`POLICY_SHORT`) | `docs/DESIGN.md` §5.7 |
+| Accounts | Optional, but encouraged — saves, interests, follows and notifications are the point. Browsing without one is fine | voice guidance for the 402 copy |
+| Delete account | **A 14-day grace period**: gone immediately, restorable for 14 days, then erased. App behaviour, so the 402 app and `policy.ts` change first; the site follows. Email requests answered within 7 days | `docs/DESIGN.md` §5.8 |
+| Terms | Only verified organizers post events for now (so scam events can't get in); everyone else browses, saves and follows. Effective Oct 31, 2026; Nebraska law | `docs/DESIGN.md` §5.8 |
+| Contact socials | No Instagram. GitHub only, linking the TWELVE repo | `docs/DESIGN.md` §5.4 |
+| Playground hover | Only cards with a link lift. The two pages stay separate: My work is finished, the Playground is in progress | `docs/DESIGN.md` §5.3 |
+| Resend | `bytw12ve.com` is already verified; Jaycee has the key | `docs/BUILD.md` §Contact |
+| Contrast | The spec's fixes stand | `docs/DESIGN.md` §1.5, §5.7 |
+
+### The repository went public — 2026-09-27
+
+`bytw12ve/TWELVE` is now a **public** repository, started from one clean commit of the site as it stood. The earlier history, including PRs #1–#5, is in the private `bytw12ve/TWELVE-archive`; **PR numbers before 2026-09-27 in this file refer to the archive.** Design images and the Pages v2 design package are in the private `bytw12ve/twelve-design`. The tree and every file's metadata were checked before publishing: no secrets, no personal details. The archive is deleted only when Jaycee says.
+
+### Waiting on Jaycee
+
+- Review and merge PR 1.
+- Add **`RESEND_API_KEY`** in Vercel → Settings → Environment Variables, for Production and Preview. That exact name.
+- Update the 402 app and its policy (14-day grace period, verified organizers). The site's privacy and delete-account pages sync once `policy.ts` changes.
+- After PR 3, the go-ahead to connect the domain.
+- ~~Re-exported app screens~~ — **done differently, 2026-09-27**: six real screens captured from the app in the Simulator on the local preview data (Today evening, Discover, an event, Nearby, Today overnight, create account). No Saved or onboarding screen — both need a signed-in account. In `twelve-design/pages-v2/app-screens/`.
+- Two things in those screens for her to decide before they go public: **the event photos** come from the app's listings (the Stinson Park crowd shot, for one) — does she have the right to show them in marketing? And the overnight screen shows **IHOP and Denny's logos**; fine inside the app, but on a marketing page they can read as an endorsement. Either crop or blur them, or pick different shots.
+- Her final read of the Terms at the PR 3 review.
+- Her photo for About.
 
 **Closed: Stage 2 follow-up — homepage polish.** Branch `feature/homepage-polish`, off `main` at `e308d06`, merged through PR #4. **Approved by Jaycee on 2026-09-26** ("this is what we should have done in the first place"). Jaycee reviewed the live homepage after the Stage 2 merge and asked for six things; all six shipped:
 
@@ -373,10 +423,10 @@ Exit criteria in `docs/BUILD.md` §Build Stages. A stage closes only when its cr
 | --- | --- | --- | --- |
 | 0 | Foundation and guardrails | CI + token parity | ✅ **closed 2026-09-20, merged** |
 | 1 | Layout shell and primitives | keyboard, axe | ✅ **closed 2026-09-20, approved** |
-| 2 | Hero | **Jaycee review** | **in progress** — `feature/hero` |
-| 3 | Content layer | build-time validation | not started |
-| 4 | Inner pages | four breakpoints | not started |
-| 5 | Case study route | **Jaycee review** of the built route | not started |
+| 2 | Hero | **Jaycee review** | ✅ **closed 2026-09-26, merged** |
+| 3 | Content layer | build-time validation | not started — Pages v2 PR 2 |
+| 4 | Inner pages | four breakpoints, **Jaycee review** | not started — Pages v2 PRs 3 and 4 |
+| 5 | Case study route | **Jaycee review** of the built route | **deferred** until a second finished project |
 | 6 | SEO, metadata, 404 | discovery checklist | not started |
 | 7 | Launch QA | performance gates | not started |
 | 8 | Deploy and monitor | — | not started |
@@ -387,20 +437,18 @@ Exit criteria in `docs/BUILD.md` §Build Stages. A stage closes only when its cr
 | --- | --- | --- |
 | Local Node is 26.7.0 against `engines.node: 24.x` | any time | ⬜ cosmetic — every pnpm command prints "Unsupported engine". Nothing fails; CI and Vercel both run 24. Pinned to an exact major while debugging the deploy, which turned out not to be the cause. Either raise the pin or use Node 24 locally |
 | `contact@bytw12ve.com` confirmed to receive mail | before launch | ⬜ **Jaycee** — a studio site with a dead contact address is the one bug that costs real work |
-| **Re-render the stale reference screens** | **before Stage 4 begins** | ⬜ the `screens/*.png` renders predate the Stage 1 reviews and are wrong in five ways — old email, Are.na, footer composition, stamp position, copyright placement, and the old Home hint. `references/README.md` lists each. **Stage 4 is built against these screens, so they must be true before it starts** |
-| Real project and Playground content | before Stage 3 is useful | ⬜ current entries are placeholders |
+| Re-render the stale reference screens | before Stage 4 | ✅ **superseded** — Pages v2 replaced every page screen Stage 4 builds against. Older renders that remain (homepage, 404, case study) have their drift listed in `references/README.md` |
+| Real project and Playground content | before Stage 3 is useful | ✅ supplied by Pages v2 — the 402 and four real Playground entries |
 | A custom display face to replace the Figtree stand-in | any time before launch | ⬜ swapping it changes font files and the scale check, not components |
 | A real vector wordmark | optional | ⬜ the mark is live text (`assets/brand/README.md`) |
 
 ## Review Queue
 
-Nine designs completed on 2026-09-19 are awaiting Jaycee's sign-off: the four inner pages at mobile width, the `/work/[project]` case study in long, short and mobile states, and the 404 in desktop and mobile. Reference screens are in `twelve-design/screens/`; specs in `docs/DESIGN.md` §2.1–2.2, §5.5 and §5.6.
-
-Nothing is blocked by this today — **Stage 4 should not start until the mobile pages are approved, and Stage 5 not until the case-study template is.**
+**Superseded by Pages v2.** The nine designs of 2026-09-19 that waited here — the four inner pages at mobile width, the case study and the 404 — are resolved: Pages v2 replaced the inner pages at both widths; the case study is deferred; the 404 stands for Stage 6.
 
 ## Design Blockers
 
-**None.** Every route has an approved desktop and mobile design.
+**None.** Every route being built has an approved desktop and mobile design.
 
 ## Repository
 

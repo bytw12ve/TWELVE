@@ -38,11 +38,32 @@
   --grass-400: #6f9d4e;
   --bloom-300: #e9a6c6;
   --bloom-500: #e0b431;
+  --marquee-500: #ee4b1e;
+  --marquee-600: #d33f16;
+  --marquee-700: #a82f0d;
+  --marquee-100: #fde6de;
+  --cream-0: #ffffff;
+  --cream-50: #faf7f1;
+  --cream-100: #f2eee5;
+  --night-950: #0a0b0d;
+  --night-900: #131418;
+  --night-800: #1c1d22;
+  --night-700: #31343a;
+  --night-500: #5b616c;
+  --night-300: #c9ccd2;
+  --river-600: #1c5fa8;
+  --prairie-600: #2f6b4f;
+  --corn-400: #f5b72e;
+  --hairline-cream: #dedcd7;
+  --hairline-orange: #c03e1b;
 
   /* Type — families */
   --font-display: Figtree, "Helvetica Neue", Arial, sans-serif;
   --font-editorial: Archivo, "Helvetica Neue", Arial, sans-serif;
   --font-meta: "Space Mono", ui-monospace, monospace;
+  --font-the402-display: "Bricolage Grotesque", "Helvetica Neue", Helvetica, sans-serif;
+  --font-the402-sans: "Instrument Sans", "Helvetica Neue", Helvetica, sans-serif;
+  --font-the402-mono: "DM Mono", ui-monospace, monospace;
 
   /* Type — scale, docs/DESIGN.md §1.3 */
   --text-display-hero-size: 220px;
@@ -53,6 +74,10 @@
   --text-display-hero-mobile-leading: 0.86;
   --text-display-hero-mobile-weight: 800;
   --text-display-hero-mobile-tracking: -0.04em;
+  --text-display-page-size: 176px;
+  --text-display-page-leading: 0.86;
+  --text-display-page-weight: 800;
+  --text-display-page-tracking: -0.045em;
   --text-display-xl-size: 120px;
   --text-display-xl-leading: 0.9;
   --text-display-xl-weight: 800;
@@ -98,6 +123,52 @@
   --text-meta-lg-leading: 1.2;
   --text-meta-lg-weight: 700;
   --text-meta-lg-tracking: 0.1em;
+  --text-the402-hero-size: clamp(44px, 29.14px + 3.810vw, 84px);
+  --text-the402-hero-leading: 0.94;
+  --text-the402-hero-weight: 800;
+  --text-the402-hero-tracking: -0.035em;
+  --text-the402-hero-stretch: 80%;
+  --text-the402-title-size: clamp(44px, 27.66px + 4.190vw, 88px);
+  --text-the402-title-leading: 0.92;
+  --text-the402-title-weight: 800;
+  --text-the402-title-tracking: -0.035em;
+  --text-the402-title-stretch: 80%;
+  --text-the402-section-size: clamp(36px, 25.6px + 2.667vw, 64px);
+  --text-the402-section-leading: 0.96;
+  --text-the402-section-weight: 800;
+  --text-the402-section-tracking: -0.035em;
+  --text-the402-section-stretch: 80%;
+  --text-the402-quote-size: clamp(30px, 21.09px + 2.286vw, 54px);
+  --text-the402-quote-leading: 1.08;
+  --text-the402-quote-weight: 700;
+  --text-the402-quote-tracking: -0.03em;
+  --text-the402-quote-stretch: 85%;
+  --text-the402-heading-size: clamp(22px, 19.77px + 0.571vw, 28px);
+  --text-the402-heading-leading: 1.2;
+  --text-the402-heading-weight: 700;
+  --text-the402-heading-tracking: -0.02em;
+  --text-the402-heading-stretch: 90%;
+  --text-the402-feature-size: 20px;
+  --text-the402-feature-leading: 1.15;
+  --text-the402-feature-weight: 700;
+  --text-the402-feature-tracking: -0.02em;
+  --text-the402-feature-stretch: 90%;
+  --text-the402-body-lg-size: 18px;
+  --text-the402-body-lg-leading: 1.6;
+  --text-the402-body-lg-weight: 400;
+  --text-the402-body-size: 17px;
+  --text-the402-body-leading: 1.68;
+  --text-the402-body-weight: 400;
+  --text-the402-body-sm-size: 15px;
+  --text-the402-body-sm-leading: 1.5;
+  --text-the402-body-sm-weight: 400;
+  --text-the402-button-size: 16px;
+  --text-the402-button-leading: 1;
+  --text-the402-button-weight: 600;
+  --text-the402-label-size: 12px;
+  --text-the402-label-leading: 1.3;
+  --text-the402-label-weight: 500;
+  --text-the402-label-tracking: 0.08em;
 
   /* Spacing — docs/DESIGN.md §1.4 */
   --space-1: 4px;
