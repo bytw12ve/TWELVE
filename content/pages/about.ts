@@ -48,7 +48,6 @@ export const aboutPage = {
   before: {
     title: 'Before twelve.',
     line: 'Some of what I was making growing up.',
-    hint: 'Hover to pause',
     listLabel: "Things I've made",
     /** [plain, emphasised] — rendered "Minecraft **servers**". */
     chips: [

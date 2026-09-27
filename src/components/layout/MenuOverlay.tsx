@@ -24,7 +24,7 @@ import styles from './MenuOverlay.module.css'
  * into CLOSE in place, so the control never appears to move.
  */
 /** Display names for src/lib/site.ts's social keys. */
-const SOCIAL_LABELS = { github: 'GitHub' } as const
+const SOCIAL_LABELS = { github: 'GitHub', youtube: 'YouTube' } as const
 
 /** Reverse-wipe duration, docs/DESIGN.md §7.2. Mirrors CSS; see CLOSE_MS use. */
 const CLOSE_MS = 380

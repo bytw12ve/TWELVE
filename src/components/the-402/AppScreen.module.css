@@ -1,0 +1,9 @@
+/*
+ * The phone's own corner, in proportion: an iPhone screen's radius is about
+ * 13% of its width, and the capture is 900 × 1956, so the vertical radius is
+ * 13% × 900 / 1956 ≈ 6% of its height. The drop shadows around the screens
+ * are filters, so they follow this shape.
+ */
+.screen {
+  border-radius: 13% / 6%;
+}

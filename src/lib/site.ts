@@ -21,6 +21,7 @@ export const site = {
     // A social without a URL renders as plain text, never as a link to
     // nowhere — the "non-interactive by design" state in docs/DESIGN.md §7.1.
     github: 'https://github.com/bytw12ve/TWELVE',
+    youtube: 'https://www.youtube.com/@bytw12ve',
   },
 } as const
 

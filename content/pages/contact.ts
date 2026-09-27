@@ -27,8 +27,11 @@ export const contactPage = {
     online: {
       label: 'Elsewhere',
       heading: 'Find me online',
-      links: [{ label: 'GitHub', href: site.socials.github }],
-      handle: `@${site.handle} on GitHub`,
+      links: [
+        { label: 'GitHub', href: site.socials.github },
+        { label: 'YouTube', href: site.socials.youtube },
+      ],
+      handle: `@${site.handle} on GitHub and YouTube`,
     },
   },
 } as const

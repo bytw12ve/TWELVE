@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react'
+
 import { generateWorld, toLayers } from '@/lib/pixelWorld'
 
 import styles from './BeforeTwelve.module.css'
@@ -6,20 +8,32 @@ type Chip = readonly [string, string]
 
 /**
  * About's "Before twelve." band — docs/DESIGN.md §5.2. The site's own pixel
- * world (server-rendered, seed 402) with a ticker of what Jaycee made growing
- * up. The ticker is a real list; its repeat, which makes the loop seamless,
- * is aria-hidden. It pauses while hovered or focused (§7.5).
+ * world (server-rendered, seed 402) with what Jaycee made growing up pinned
+ * across it. A real list; each pin is placed from the table below, tilted a
+ * little, and bobs gently (§7.5). Below 860px the pins fall into a wrapped
+ * flow instead, so nothing overlaps on a phone.
  */
+
+/** Pin centres as a share of the band, and a tilt. Tuned by eye, deterministic. */
+const PINS = [
+  { x: 62, y: 16, r: -3 },
+  { x: 84, y: 32, r: 3 },
+  { x: 16, y: 48, r: 2 },
+  { x: 41, y: 40, r: -2 },
+  { x: 66, y: 52, r: 4 },
+  { x: 21, y: 76, r: -4 },
+  { x: 47, y: 70, r: 3 },
+  { x: 77, y: 80, r: -2 },
+] as const
+
 export function BeforeTwelve({
   title,
   line,
-  hint,
   listLabel,
   chips,
 }: {
   title: string
   line: string
-  hint: string
   listLabel: string
   chips: readonly Chip[]
 }) {
@@ -50,32 +64,32 @@ export function BeforeTwelve({
         </g>
       </svg>
       <div className={styles.cap}>
-        <div>
-          <h2 id="before-twelve" className={styles.title}>
-            {title}
-          </h2>
-          <p className={styles.line}>{line}</p>
-        </div>
-        <span className={styles.hint}>{hint}</span>
+        <h2 id="before-twelve" className={styles.title}>
+          {title}
+        </h2>
+        <p className={styles.line}>{line}</p>
       </div>
-      <div className={styles.ticker} tabIndex={0} aria-label={listLabel}>
-        <div className={styles.row}>
-          <ul className={styles.list}>
-            {chips.map((c) => (
-              <li key={c.join(' ')} className={styles.chip}>
-                {chip(c)}
-              </li>
-            ))}
-          </ul>
-          <ul className={styles.list} aria-hidden="true">
-            {chips.map((c) => (
-              <li key={c.join(' ')} className={styles.chip}>
-                {chip(c)}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      <ul className={styles.pins} aria-label={listLabel}>
+        {chips.map((c, i) => {
+          const pin = PINS[i % PINS.length] ?? PINS[0]
+          return (
+            <li
+              key={c.join(' ')}
+              className={styles.chip}
+              style={
+                {
+                  '--x': `${pin.x}%`,
+                  '--y': `${pin.y}%`,
+                  '--tilt': `${pin.r}deg`,
+                  '--i': i,
+                } as CSSProperties
+              }
+            >
+              {chip(c)}
+            </li>
+          )
+        })}
+      </ul>
     </section>
   )
 }
