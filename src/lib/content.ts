@@ -104,7 +104,9 @@ export function validateContent() {
   for (const section of termsPage.sections)
     for (const p of section.paragraphs) checkRich(`terms/${section.id}`, isPending(p) ? p.value : p)
   supportPage.faq.forEach((f, i) => checkRich(`support/faq/${i}`, f.a))
-  deleteAccountPage.inApp.steps.forEach((s, i) => checkRich(`delete-account/step/${i}`, s))
+  checkUnique('delete-account', deleteAccountPage.sections.map((s) => s.id))
+  for (const section of deleteAccountPage.sections)
+    section.paragraphs?.forEach((p, i) => checkRich(`delete-account/${section.id}/${i}`, p))
   for (const link of helpCommon.links) checkHref('help/links', link.href)
   for (const link of contactPage.columns.online.links) checkHref('contact/online', link.href)
 }

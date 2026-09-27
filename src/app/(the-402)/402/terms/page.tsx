@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <HelpPage page="terms" title={termsPage.title} lead={termsPage.lead} version={termsPage.version}>
+      <p>{termsPage.intro}</p>
       <nav aria-label={termsPage.jumpLabel}>
         <ol className={styles.jump}>
           {termsPage.sections.map((section, i) => (

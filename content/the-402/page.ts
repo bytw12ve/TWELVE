@@ -23,7 +23,7 @@ export const screens = {
   ),
   event: screen(
     'event',
-    'The 402 event details for The 70’s Band at Stinson Park, with where, when, cover, ages and an Event details button',
+    'The 402 event details for The 70’s Band at Stinson Park, with where, when, cover, ages, directions and an Event details button',
   ),
   nearby: screen(
     'nearby',
@@ -46,7 +46,7 @@ export const the402Page = {
   hero: {
     line: "What's on in",
     logoLabel: 'The 402',
-    sub: "An app for finding things to do around Omaha, from live music and markets to food and whatever's happening tonight.",
+    sub: 'The 402 shows you what’s happening around Omaha tonight, this weekend and near you. Live music, markets, food, and everything in between, whether you grew up here or you’re just visiting.',
     countdown: 'Beta opens Oct 31',
     days: { today: 'today', one: 'day', many: 'days' },
     cta: 'Join the beta →',
@@ -55,10 +55,10 @@ export const the402Page = {
   why: {
     label: 'Why I made it',
     quote: [
-      'I grew up here. I made the 402 so people in Omaha ',
-      { text: 'get out more', mark: true },
-      ', try new things, and ',
-      { text: 'meet each other', mark: true },
+      'I’ve lived in Omaha my whole life, and finding something to do here always meant digging. By the time you heard about it, it was over. I made the 402 so it’s easy to ',
+      { text: 'get out', mark: true },
+      ', try something new, and ',
+      { text: 'meet people', mark: true },
       '.',
     ] satisfies RichText,
     signature: 'Jaycee',
@@ -67,7 +67,7 @@ export const the402Page = {
     {
       step: 'Home',
       heading: 'Tonight in the 402',
-      body: "Open the app and see what's happening right now and over the next few hours. Search for anything, or filter by tonight, today, or cheap and free.",
+      body: 'Open the app and see what’s on right now and over the next few hours. Search for something specific, or narrow it down to tonight, today, or cheap and free.',
       screen: screens.today,
       notes: [
         ["What's on ", { text: 'right now', strong: true }],
@@ -77,7 +77,7 @@ export const the402Page = {
     {
       step: 'Discover',
       heading: 'Pick your vibe',
-      body: 'Not sure what you want to do? Pick a mood and see what fits, from date night and live music to something the whole family can do.',
+      body: 'Not sure what you’re in the mood for? Choose a mood, like date night, live music or something the whole family can do, and see what fits.',
       screen: screens.discover,
       notes: [
         ['Now · Tonight · ', { text: 'Weekend', strong: true }],
@@ -87,17 +87,17 @@ export const the402Page = {
     {
       step: 'Event details',
       heading: 'Know before you go',
-      body: "Every event shows where it is, when it starts, what it costs, who can go, and where to park. You'll even see the forecast for when it starts.",
+      body: 'Every event shows where it is, when it starts, what it costs, who can go and where to park, with directions one tap away.',
       screen: screens.event,
       notes: [
-        ['Weather at ', { text: 'start time', strong: true }],
-        ['Tickets in ', { text: 'one tap', strong: true }],
+        ['Where to ', { text: 'park', strong: true }],
+        ['Directions in ', { text: 'one tap', strong: true }],
       ],
     },
     {
       step: 'Nearby',
       heading: "See what's around you",
-      body: "Open the map to see what's happening near you tonight, or switch to a list. Rather not share your location? Pick the neighborhoods you usually go to, and the app will show you what's happening there.",
+      body: 'Open the map to see what’s happening near you, or switch to a list. If you’d rather not share your location, pick the neighborhoods you usually go to and the app shows you what’s happening there instead.',
       screen: screens.nearby,
       notes: [
         ['Map or ', { text: 'list', strong: true }],
@@ -116,15 +116,15 @@ export const the402Page = {
     heading: 'Go from scrolling to making plans.',
     screen: screens.account,
     features: [
-      { title: 'Save it for later', body: "Save events you're thinking about so you can find them again." },
-      { title: 'Make lists', body: 'Group events and places into your own collections.' },
+      { title: 'Save it for later', body: 'Save events you’re thinking about so they’re easy to find again.' },
+      { title: 'Make lists', body: 'Group events and places into your own lists, like date ideas or things to do this summer.' },
       {
         title: 'Interested or going',
-        body: "Mark what you're going to and see how many other people are going too.",
+        body: 'Mark what you’re going to, and see how many other people are going too.',
       },
       {
         title: 'Notifications',
-        body: "Get a heads-up before an event you saved starts, so you don't miss it.",
+        body: 'Get a reminder before an event you saved starts, so you don’t miss it.',
         /** The app does not send any yet (Jaycee, 2026-09-27). Remove when it does. */
         tag: 'Coming soon',
       },
@@ -142,7 +142,7 @@ export const the402Page = {
   beta: {
     label: 'Beta · Oct 31',
     heading: 'Try it before everyone else.',
-    body: "The beta opens October 31. Leave your email, tell me which phone you have, and I'll send you an invite when it's ready.",
+    body: 'The beta opens October 31. Leave your email and tell me which phone you have, and I’ll send you an invite as soon as it’s ready.',
     form: {
       email: 'Email',
       placeholder: 'you@example.com',
@@ -152,7 +152,7 @@ export const the402Page = {
       submit: 'Join the beta',
       /** New copy — not in the prototype. Needs Jaycee's OK. */
       sending: 'Sending…',
-      fine: 'One email when your invite is ready. Nothing else.',
+      fine: 'I’ll only email you about the beta.',
       invalid: "That email doesn't look right. Check it and try again.",
       /** New copy — not in the prototype. Needs Jaycee's OK. */
       failed: "That didn't go through. Try again in a minute, or email me at {email}.",
