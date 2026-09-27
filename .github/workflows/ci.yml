@@ -25,6 +25,8 @@ jobs:
           # Stage 10C's reviewed source/evidence head. Keep this immutable.
           ref: 3f2fc05ffbace318d389b79310e43fdbe985e7be
           path: the-402
+          ssh-key: ${{ secrets.THE402_POLICY_PARITY_SSH_KEY }}
+          persist-credentials: false
 
       # pnpm version comes from the "packageManager" field in package.json,
       # so local, CI and Vercel all resolve the same one.
