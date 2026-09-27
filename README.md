@@ -1,8 +1,6 @@
 <p align="center">
-  <a href="https://bytw12ve.com"><img src="src/app/icon.svg" width="96" height="96" alt="twelve."></a>
+  <a href="https://bytw12ve.com"><img src=".github/readme-banner.svg" width="100%" alt="twelve. — creative studio"></a>
 </p>
-
-<h1 align="center">twelve.</h1>
 
 <p align="center">
   Creative studio · Omaha, Nebraska<br>
