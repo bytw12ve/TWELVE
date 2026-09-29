@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.bytw12ve.the402",
+      "sha256_cert_fingerprints": [
+        "BE:E7:B5:75:2F:05:CC:FE:4C:0E:E4:3C:91:93:11:00:97:73:83:C0:9E:7A:41:A7:85:08:B2:07:D3:88:43:14"
+      ]
+    }
+  }
+]
