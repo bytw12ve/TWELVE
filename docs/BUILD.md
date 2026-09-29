@@ -82,6 +82,10 @@ This is reversible if it turns out to hurt; nothing else depends on it.
 /402/terms             The 402 — terms of service
 /402/support           The 402 — support
 /402/delete-account    The 402 — delete your account
+/402                   → /work/the-402 (temporary redirect)
+/402/events/*          The 402 — public event pages, forwarded to The 402's own web app
+/402/_next/*           — the assets those pages load, forwarded with them
+/.well-known/assetlinks.json   Android App Links verification for The 402
 /api/beta              POST only — the beta signup (§Contact)
 not-found.tsx          404
 ```
@@ -91,6 +95,23 @@ not-found.tsx          404
 - **`/work/the-402` is a static route, not an instance of `/work/[project]`** (Jaycee's decision, 2026-09-26). The 402 has its own design, and its layout does not fit the case-study template. A static segment wins over the dynamic one, so both can coexist when the template is built.
 - **The 402's routes live in a route group, `src/app/(the-402)/`**, whose layout loads the 402's three font families and nothing else does (§Fonts). The group does not appear in URLs.
 - **The help pages sit under `/402/`**, on `bytw12ve.com`, not a separate domain — Jaycee's choice. The paths are printed on the pages and submitted to both app stores, so **they are permanent**: never rename them.
+- **The 402's event pages are not built here** (Jaycee, 2026-09-28). They are data-backed, and
+  this site has no data layer. The 402's own repository serves them from its Vercel project
+  `the-402-web` under `basePath: '/402'`, and `next.config.ts` forwards exactly two prefixes to
+  it with `rewrites()`: `/402/events/*` (the pages) and `/402/_next/*` (their scripts, styles and
+  fonts). Everything else under `/402/` stays Twelve's. A rewrite is not a redirect: the address
+  bar keeps `bytw12ve.com`, which is the address the app shares, and the one each page names as
+  its canonical. **`/402/events/*` is permanent** for the same reason the help pages are - shared
+  links point at it.
+- **`/402` on its own redirects to `/work/the-402`**, temporarily, so it can become a real page
+  later without breaking anyone's history. It had been a 404.
+- **`public/.well-known/assetlinks.json` lets Android open those links in the app.** It names the
+  package `com.bytw12ve.the402` and the SHA-256 fingerprint of The 402's release signing
+  certificate - both public by design; the key itself never leaves Jaycee's Mac. Android fetches
+  the file from the apex over HTTPS with no redirect, so it must stay at exactly this path. The
+  Apple equivalent, `apple-app-site-association`, waits for a paid Apple developer team; a free
+  team cannot use it. When Google Play's app-signing key exists, its fingerprint is added
+  beside this one.
 - **When each route is built:** see §Build Stages. `/work/[project]` is **deferred** until a second finished project exists; the designed 404 is Stage 6.
 - Project slugs come from the content directory; `generateStaticParams` enumerates them at build.
 - Trailing slashes off. Unknown `/work/*` slugs render the 404.
