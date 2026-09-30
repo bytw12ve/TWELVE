@@ -212,7 +212,6 @@ export const deleteAccountPage = {
     {
       id: 'change-your-mind',
       heading: 'Can I change my mind?',
-      pending: 'the 14-day grace period working in the app',
       paragraphs: [
         [
           'Your account becomes unavailable immediately. You have 14 days to restore it by signing back in. Otherwise permanent deletion occurs after 14 days.',
