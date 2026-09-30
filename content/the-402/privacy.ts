@@ -12,10 +12,10 @@
  * address, and a verbatim copy cannot swap it for a constant.
  */
 
-export const POLICY_VERSION = 'v1.2'
+export const POLICY_VERSION = 'v1.3'
 
 /** The date the words take effect, not the date of the build. */
-export const POLICY_UPDATED = 'September 27, 2026'
+export const POLICY_UPDATED = 'September 30, 2026'
 
 export const POLICY_INTRO =
   'The 402 is an Omaha events-discovery app made by twelve. You can browse without an account. We collect only the information needed to provide the features you choose to use.'
@@ -98,7 +98,7 @@ export const POLICY_SECTIONS: PolicySection[] = [
     question: 'How do I export, correct, or delete my information?',
     paragraphs: [
       'Settings → Export my data lets you obtain a portable copy. Supported account details can be corrected in the app.',
-      'To delete your account, go to You → Settings → Delete account. Your account is deleted right away.',
+      'To delete your account, go to You → Settings → Delete account. Your account is disabled right away and permanently deleted after 14 days. Signing back in within those 14 days cancels the deletion and keeps your account as it was.',
       'If you no longer have the app, email contact@bytw12ve.com from the account email with the subject "Delete my account." We will process the request and respond within 7 days.',
       'To delete a website beta signup before the normal removal date, email contact@bytw12ve.com from the address you submitted with the subject "Remove my beta signup."',
       'Account deletion covers account data under our control, including email, name, username, saves, Interested and Going marks, followed organizers, preferences, and stored starting location. We use available provider controls to delete associated account data held on our behalf where applicable.',
